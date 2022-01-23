@@ -1,5 +1,8 @@
 const { BrowserView } = require("electron");
-const { OMNIBOX_HEIGHT, HIDDEN_BOTTOM_HEIGHT } = require("../data/constants");
+const {
+  WINDOW_HEADER_HEIGHT,
+  HIDDEN_BOTTOM_HEIGHT,
+} = require("../data/constants");
 
 const createDefaultView = (window) => {
   const view = new BrowserView();
@@ -14,7 +17,7 @@ const createDefaultView = (window) => {
 const setViewSize = (view, windowWidth, windowHeight) => {
   view.setBounds({
     x: 0,
-    y: OMNIBOX_HEIGHT,
+    y: WINDOW_HEADER_HEIGHT,
     width: windowWidth,
     height: windowHeight - HIDDEN_BOTTOM_HEIGHT,
   });
