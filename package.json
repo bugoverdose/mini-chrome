@@ -1,0 +1,22 @@
+{
+  "name": "mini-chrome",
+  "version": "1.0.0",
+  "description": "light-weight web browser with Chromium",
+  "main": "index.js",
+  "author": "Jeong Jinwoo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bugoverdose/mini-chrome/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bugoverdose/mini-chrome.git"
+  },
+  "homepage": "https://github.com/bugoverdose/mini-chrome#readme",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^16.0.7"
+  }
+}
