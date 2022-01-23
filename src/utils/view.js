@@ -7,13 +7,17 @@ const createDefaultView = (window) => {
 
   window.addBrowserView(view);
 
-  view.setBounds({
-    x: 0,
-    y: OMNIBOX_HEIGHT,
-    width: curWidth,
-    height: curHeight - HIDDEN_BOTTOM_HEIGHT,
-  });
+  setViewSize(view, curWidth, curHeight);
   view.webContents.loadURL("https://github.com");
 };
 
-module.exports = { createDefaultView };
+const setViewSize = (view, windowWidth, windowHeight) => {
+  view.setBounds({
+    x: 0,
+    y: OMNIBOX_HEIGHT,
+    width: windowWidth,
+    height: windowHeight - HIDDEN_BOTTOM_HEIGHT,
+  });
+};
+
+module.exports = { createDefaultView, setViewSize };
