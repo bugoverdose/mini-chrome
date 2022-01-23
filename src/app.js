@@ -14,6 +14,6 @@ app.on("activate", () => {
 
 app.on("add-window", createWindow);
 
-app.on("window-all-closed", function () {
+app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
 });

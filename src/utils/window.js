@@ -1,6 +1,7 @@
 const { BrowserWindow } = require("electron");
-const { INIT_WIDTH, INIT_HEIGHT } = require("./constants");
-const { windows } = require("./state");
+const { INIT_WIDTH, INIT_HEIGHT } = require("../data/constants");
+const { windows } = require("../data/state");
+const { createDefaultView } = require("./view");
 
 const createWindow = () => {
   window = new BrowserWindow({
@@ -8,8 +9,9 @@ const createWindow = () => {
     height: INIT_HEIGHT,
   });
 
+  createDefaultView(window);
+
   windows.add(window);
-  window.webContents.loadURL("https://github.com");
 
   window.on("closed", () => {
     windows.delete(window);
