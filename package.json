@@ -1,5 +1,6 @@
 {
   "name": "mini-chrome",
+  "productName": "Jeong Krome",
   "version": "1.0.0",
   "description": "light-weight web browser with Chromium",
   "main": "src",
@@ -14,9 +15,11 @@
   },
   "homepage": "https://github.com/bugoverdose/mini-chrome#readme",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "npx electron-packager . --out=out --platform=all --arch=all"
   },
   "devDependencies": {
-    "electron": "^16.0.7"
+    "electron": "^16.0.7",
+    "electron-packager": "^15.4.0"
   }
 }
