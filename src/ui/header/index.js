@@ -1,5 +1,5 @@
 const { BrowserView } = require("electron");
-const { WINDOW_HEADER_HEIGHT } = require("../data/constants");
+const { WINDOW_HEADER_HEIGHT } = require("../../data/constants");
 const path = require("path");
 
 const setHeader = (window) => {

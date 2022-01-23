@@ -1,8 +1,5 @@
 const { BrowserView } = require("electron");
-const {
-  WINDOW_HEADER_HEIGHT,
-  HIDDEN_BOTTOM_HEIGHT,
-} = require("../data/constants");
+const { WINDOW_HEADER_HEIGHT } = require("../data/constants");
 
 const createDefaultView = (window) => {
   const view = new BrowserView();
@@ -19,7 +16,7 @@ const setViewSize = (view, windowWidth, windowHeight) => {
     x: 0,
     y: WINDOW_HEADER_HEIGHT,
     width: windowWidth,
-    height: windowHeight - HIDDEN_BOTTOM_HEIGHT,
+    height: windowHeight - WINDOW_HEADER_HEIGHT,
   });
 };
 

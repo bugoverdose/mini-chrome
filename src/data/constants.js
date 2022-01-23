@@ -1,10 +1,7 @@
-const WINDOW_HEADER_HEIGHT = 70;
-
 const constants = {
   INIT_WIDTH: 800,
   INIT_HEIGHT: 600,
-  WINDOW_HEADER_HEIGHT,
-  HIDDEN_BOTTOM_HEIGHT: WINDOW_HEADER_HEIGHT,
+  WINDOW_HEADER_HEIGHT: 70,
 };
 
 module.exports = constants;
