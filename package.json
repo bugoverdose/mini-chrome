@@ -2,7 +2,7 @@
   "name": "mini-chrome",
   "version": "1.0.0",
   "description": "light-weight web browser with Chromium",
-  "main": "index.js",
+  "main": "src",
   "author": "Jeong Jinwoo",
   "license": "ISC",
   "bugs": {
