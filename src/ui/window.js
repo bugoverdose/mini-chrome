@@ -1,33 +1,34 @@
 const { BrowserWindow } = require("electron");
-const { INIT_WIDTH, INIT_HEIGHT } = require("../data/constants");
-const { windows } = require("../data/state");
+const { INIT_WIDTH, INIT_HEIGHT } = require("../constants");
+const { windows, Window } = require("../data");
 const { setHeader, setHeaderSize } = require("./header");
 const { createDefaultView, setViewSize } = require("./view");
 
 const createWindow = () => {
-  window = new BrowserWindow({
+  let browserWindow = new BrowserWindow({
     width: INIT_WIDTH,
     height: INIT_HEIGHT,
     frame: false,
   });
 
-  setHeader(window);
-  createDefaultView(window);
+  setHeader(browserWindow);
+  createDefaultView(browserWindow);
+
+  let window = new Window(browserWindow);
 
   windows.add(window);
 
-  window.on("resize", () => {
-    const views = window.getBrowserViews();
-    const [curWidth, curHeight] = window.getSize();
+  browserWindow.on("resize", () => {
+    const views = browserWindow.getBrowserViews();
+    const [curWidth, curHeight] = browserWindow.getSize();
 
     setHeaderSize(views[0], curWidth);
-
-    // TODO: 하나의 창에 복수의 view가 존재 가능해지면 수정 필수
     setViewSize(views[1], curWidth, curHeight);
   });
 
-  window.on("closed", () => {
+  browserWindow.on("closed", () => {
     windows.delete(window);
+    browserWindow = null;
     window = null;
   });
 };
