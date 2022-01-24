@@ -19,11 +19,11 @@ const createWindow = () => {
   windows.add(window);
 
   browserWindow.on("resize", () => {
-    const views = browserWindow.getBrowserViews();
+    const [headerView, activeView] = window.getVisibleAreas();
     const [curWidth, curHeight] = browserWindow.getSize();
 
-    setHeaderSize(views[0], curWidth);
-    setViewSize(views[1], curWidth, curHeight);
+    setHeaderSize(headerView, curWidth);
+    setViewSize(activeView, curWidth, curHeight);
   });
 
   browserWindow.on("closed", () => {
