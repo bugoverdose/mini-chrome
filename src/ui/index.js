@@ -1,7 +1,7 @@
 const ui = {
   ...require("./header"),
-  ...require("../ui/view"),
-  ...require("../ui/window"),
+  ...require("./view"),
+  ...require("./window"),
 };
 
 module.exports = ui;
