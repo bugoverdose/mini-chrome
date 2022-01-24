@@ -8,7 +8,7 @@ const createWindow = () => {
   window = new BrowserWindow({
     width: INIT_WIDTH,
     height: INIT_HEIGHT,
-    titleBarStyle: "hidden",
+    frame: false,
   });
 
   setHeader(window);
