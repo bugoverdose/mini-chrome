@@ -3,14 +3,8 @@ const { HEADER_HEIGHT } = require("../../constants");
 const path = require("path");
 
 const setHeader = (window) => {
-  const view = new BrowserView({
-    webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
-    },
-  });
+  const view = new BrowserView();
   const [curWidth] = window.getSize();
-
-  view.webContents.openDevTools();
 
   window.addBrowserView(view);
 

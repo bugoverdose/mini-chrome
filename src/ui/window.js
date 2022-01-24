@@ -1,5 +1,10 @@
 const { BrowserWindow } = require("electron");
-const { INIT_WIDTH, INIT_HEIGHT } = require("../constants");
+const {
+  INIT_WIDTH,
+  INIT_HEIGHT,
+  MIN_WIDTH,
+  MIN_HEIGHT,
+} = require("../constants");
 const { windows, Window } = require("../data");
 const { setHeader, setHeaderSize } = require("./header");
 const { createDefaultView, setViewSize } = require("./view");
@@ -8,6 +13,8 @@ const createWindow = () => {
   let browserWindow = new BrowserWindow({
     width: INIT_WIDTH,
     height: INIT_HEIGHT,
+    minWidth: MIN_WIDTH,
+    minHeight: MIN_HEIGHT,
     frame: false,
   });
 

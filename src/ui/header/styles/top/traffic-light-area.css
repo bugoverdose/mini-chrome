@@ -1,0 +1,26 @@
+#traffic-light-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 90px;
+}
+
+#traffic-light-area .control-circle {
+  border-radius: 50%;
+  height: 12px;
+  width: 12px;
+}
+
+#red {
+  background-color: var(--close-red);
+}
+
+#yellow {
+  background-color: var(--minimize-yellow);
+  margin: 0 7px;
+}
+
+#green {
+  background-color: var(--maximize-green);
+}

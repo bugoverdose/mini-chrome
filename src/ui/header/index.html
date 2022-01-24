@@ -10,9 +10,26 @@
       http-equiv="X-Content-Security-Policy"
       content="default-src 'self'; script-src 'self'"
     />
+    <link rel="stylesheet" type="text/css" href="./styles/index.css" />
   </head>
   <body>
-    <h1>Hi!</h1>
-    <!-- <script src="./renderer.js"></script> -->
+    <div id="wrapper">
+      <div id="top-container" class="container">
+        <div id="traffic-light-area">
+          <div id="red" class="control-circle"></div>
+          <div id="yellow" class="control-circle"></div>
+          <div id="green" class="control-circle"></div>
+        </div>
+        <div id="tab-area">
+          <div id="tabs"></div>
+          <div id="tab-new">+</div>
+        </div>
+      </div>
+      <div id="bottom-container" class="container">
+        <div id="omnibox">naver.com</div>
+      </div>
+    </div>
+
+    <script src="./renderer.js"></script>
   </body>
 </html>

@@ -1,0 +1,13 @@
+#tab-area {
+  display: flex;
+  height: 100%;
+}
+
+#tabs {
+  display: flex;
+}
+
+#tab-new {
+  display: flex;
+  color: var(--disabled-gray);
+}

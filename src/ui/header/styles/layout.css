@@ -1,0 +1,25 @@
+body {
+  padding: 0px;
+  margin: 0px;
+  border: none;
+}
+
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 79px;
+}
+
+#top-container {
+  display: flex;
+  height: 41px;
+
+  background-color: var(--main-black);
+}
+
+#bottom-container {
+  display: flex;
+  height: 38px;
+
+  background-color: var(--main-dark-grey);
+}
