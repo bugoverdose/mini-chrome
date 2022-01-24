@@ -12,10 +12,10 @@
   --minimize-yellow-icon: #995700;
   --minimize-yellow-icon-active: #592800;
 
-  --maximize-green: #28c941;
-  --maximize-green-active: #1d9730;
-  --maximize-green-icon: #006500;
-  --maximize-green-icon-active: #003200;
+  --toggle-fullscreen-green: #28c941;
+  --toggle-fullscreen-green-active: #1d9730;
+  --toggle-fullscreen-green-icon: #006500;
+  --toggle-fullscreen-green-icon-active: #003200;
 
   --disabled-gray: #ddd;
 }

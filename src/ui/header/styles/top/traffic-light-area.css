@@ -6,7 +6,12 @@
   width: 90px;
 }
 
-#traffic-light-area .control-circle {
+#traffic-light-area-container {
+  display: flex;
+  -webkit-app-region: no-drag;
+}
+
+#traffic-light-area-container .control-circle {
   border-radius: 50%;
   height: 12px;
   width: 12px;
@@ -16,7 +21,7 @@
   background-color: var(--close-red);
 }
 
-#red:focus {
+#red:active {
   background-color: var(--close-red-active);
 }
 
@@ -26,13 +31,13 @@
 }
 
 #yellow:active {
-  background-color: var(--close-yellow-active);
+  background-color: var(--minimize-yellow-active);
 }
 
 #green {
-  background-color: var(--maximize-green);
+  background-color: var(--toggle-fullscreen-green);
 }
 
-#green:hover {
-  background-color: var(--close-green-active);
+#green:active {
+  background-color: var(--toggle-fullscreen-green-active);
 }
