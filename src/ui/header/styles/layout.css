@@ -12,8 +12,11 @@
 }
 
 #bottom-container {
-  display: flex;
-  height: 38px;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 111px 1fr;
 
+  height: 38px;
+  width: 100%;
   background-color: var(--main-dark-grey);
 }

@@ -1,4 +1,12 @@
 #omnibox {
+  height: auto;
+  width: auto;
+
+  margin: 5px 15px 5px 0px;
+  padding: 4.5px 15px;
+
+  border-radius: 30px;
+
   color: white;
   background-color: var(--main-black);
 }
