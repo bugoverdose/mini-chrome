@@ -16,12 +16,24 @@
   width: 33px;
 }
 
-.view-util > svg {
+.view-util-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+
+  -webkit-app-region: no-drag;
+}
+
+.view-util-area:hover {
+  background-color: #535252;
+}
+
+.view-util-area > svg {
   width: 18px;
   height: 18px;
   color: white;
-}
-
-.view-util > svg:hover {
-  background-color: #5e5d5d;
 }

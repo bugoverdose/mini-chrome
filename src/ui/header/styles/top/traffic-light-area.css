@@ -8,13 +8,14 @@
 
 #traffic-light-area-container {
   display: flex;
-  -webkit-app-region: no-drag;
 }
 
 #traffic-light-area-container .control-circle {
   border-radius: 50%;
   height: 12px;
   width: 12px;
+
+  -webkit-app-region: no-drag;
 }
 
 #red {
