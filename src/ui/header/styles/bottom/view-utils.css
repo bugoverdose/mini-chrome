@@ -1,0 +1,27 @@
+#view-utils-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  width: 111px;
+}
+
+.view-util {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 33px;
+  width: 33px;
+}
+
+.view-util > svg {
+  width: 18px;
+  height: 18px;
+  color: white;
+}
+
+.view-util > svg:hover {
+  background-color: #5e5d5d;
+}
