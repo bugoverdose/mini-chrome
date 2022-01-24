@@ -16,11 +16,23 @@
   background-color: var(--close-red);
 }
 
+#red:focus {
+  background-color: var(--close-red-active);
+}
+
 #yellow {
   background-color: var(--minimize-yellow);
   margin: 0 7px;
 }
 
+#yellow:active {
+  background-color: var(--close-yellow-active);
+}
+
 #green {
   background-color: var(--maximize-green);
+}
+
+#green:hover {
+  background-color: var(--close-green-active);
 }

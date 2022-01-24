@@ -1,4 +1,4 @@
-const { BrowserWindow } = require("electron");
+const { BrowserWindow, ipcMain } = require("electron");
 const {
   INIT_WIDTH,
   INIT_HEIGHT,
@@ -25,6 +25,8 @@ const createWindow = () => {
 
   windows.add(window);
 
+  browserWindow.setFullScreenable(true);
+
   browserWindow.on("resize", () => {
     const [headerView, activeView] = window.getVisibleAreas();
     const [curWidth, curHeight] = browserWindow.getSize();
@@ -37,6 +39,18 @@ const createWindow = () => {
     windows.delete(window);
     browserWindow = null;
     window = null;
+  });
+
+  ipcMain.handle("clicked:red", () => {
+    browserWindow.close();
+  });
+
+  ipcMain.handle("clicked:yellow", () => {
+    browserWindow.minimize();
+  });
+
+  ipcMain.handle("clicked:green", () => {
+    browserWindow.fullScreen = !browserWindow.fullScreen;
   });
 };
 

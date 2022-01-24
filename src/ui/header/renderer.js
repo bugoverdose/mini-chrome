@@ -1,24 +1,11 @@
-const { BrowserView } = require("electron");
-const { HEADER_HEIGHT } = require("../../constants");
-const path = require("path");
+document.getElementById("red").addEventListener("click", async (e) => {
+  await window.custom_events.red();
+});
 
-const setHeader = (window) => {
-  const view = new BrowserView();
-  const [curWidth] = window.getSize();
+document.getElementById("yellow").addEventListener("click", async (e) => {
+  await window.custom_events.yellow();
+});
 
-  window.addBrowserView(view);
-
-  setHeaderSize(view, curWidth);
-  view.webContents.loadFile(path.join(__dirname, "index.html"));
-};
-
-const setHeaderSize = (view, windowWidth) => {
-  view.setBounds({
-    x: 0,
-    y: 0,
-    width: windowWidth,
-    height: HEADER_HEIGHT,
-  });
-};
-
-module.exports = { setHeader, setHeaderSize };
+document.getElementById("green").addEventListener("click", async (e) => {
+  await window.custom_events.green();
+});

@@ -1,10 +1,13 @@
-window.addEventListener("DOMContentLoaded", () => {
-  // [example code]
-  // const replaceText = (selector, text) => {
-  //   const element = document.getElementById(selector);
-  //   if (element) element.innerText = text;
-  // };
-  // for (const dependency of ["chrome", "node", "electron"]) {
-  //   replaceText(`${dependency}-version`, process.versions[dependency]);
-  // }
+const { contextBridge, ipcRenderer } = require("electron");
+
+contextBridge.exposeInMainWorld("custom_events", {
+  red: () => ipcRenderer.invoke("clicked:red"),
+  yellow: () => ipcRenderer.invoke("clicked:yellow"),
+  green: () => ipcRenderer.invoke("clicked:green"),
 });
+// available at renderer via window.custom_events object
+// each custom events invokes a custom ipcMain event handler
+
+// preload code format if content from DOM is also needed
+// window.addEventListener("DOMContentLoaded", () => {
+// });

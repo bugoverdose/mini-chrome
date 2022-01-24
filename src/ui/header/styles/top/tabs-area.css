@@ -5,7 +5,12 @@
 
 #tabs {
   display: flex;
+  /* -webkit-app-region: no-drag; */
 }
+/* 
+.tab {
+  -webkit-app-region: drag;
+} */
 
 #tab-new {
   display: flex;
