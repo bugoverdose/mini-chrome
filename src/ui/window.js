@@ -7,6 +7,7 @@ const {
 } = require("../constants");
 const { windows, Window } = require("../data");
 const { inputToValidUrl } = require("../utils/url");
+const { setFailedToLoadPage } = require("./fail");
 const { setHeader, setHeaderSize } = require("./header");
 const { createDefaultView, setViewSize } = require("./view");
 
@@ -54,12 +55,29 @@ const createWindow = () => {
     browserWindow.fullScreen = !browserWindow.fullScreen;
   });
 
-  ipcMain.on("omnibox:submit", (e, inputValue) => {
+  ipcMain.on("omnibox:submit", async (e, inputValue) => {
     const validUrl = inputToValidUrl(inputValue);
 
-    window.setCurrentViewURL(validUrl);
+    const [_, targetView] = window.getVisibleAreas();
+    try {
+      await targetView.webContents.loadURL(validUrl);
+      // console.log(targetView.webContents.getTitle());
+      // actuallyUsedValidURL = targetView.webContents.getURL());
+      // console.log(targetView.webContents.canGoBack());
+      // console.log(targetView.webContents.canGoForward());
+      // e.reply("omnibox:submit:success", validUrl, data, data2);
+    } catch (error) {
+      // inputValue, error.code
+      setFailedToLoadPage(targetView);
+      // e.reply("omnibox:submit:fail", validUrl);
+    }
 
-    // e.reply("omnibox:submit:reply", "validURL");
+    // if (error.code === "ERR_ABORTED") return;
+
+    // Error: ERR_NAME_NOT_RESOLVED (-105) loading 'https://.com/'
+    // errno: -105,
+    // code: 'ERR_NAME_NOT_RESOLVED',
+    // url: 'https://.com/'
   });
 };
 
