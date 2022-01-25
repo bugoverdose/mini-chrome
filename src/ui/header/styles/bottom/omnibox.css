@@ -1,5 +1,5 @@
 #omnibox {
-  height: auto;
+  height: var(--bottom-height);
   width: auto;
 
   margin: 5px 15px 5px 0px;

@@ -1,13 +1,16 @@
 #wrapper {
   display: flex;
   flex-direction: column;
-  height: 79px;
+  height: var(--total-header-height);
 }
 
 #top-container {
-  display: flex;
-  height: 41px;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 90px 1fr;
 
+  height: var(--top-height);
+  width: 100%;
   background-color: var(--main-black);
 }
 
@@ -16,7 +19,7 @@
   grid-template-rows: 1fr;
   grid-template-columns: 111px 1fr;
 
-  height: 38px;
+  height: var(--bottom-height);
   width: 100%;
   background-color: var(--main-dark-grey);
 }

@@ -2,8 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  width: 90px;
+
+  height: var(--top-height);
 }
 
 #traffic-light-area-container {
