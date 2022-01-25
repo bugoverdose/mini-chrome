@@ -1,6 +1,6 @@
 const { app } = require("electron");
 const { windows } = require("./data");
-const { createWindow } = require("./ui");
+const { createWindow } = require("./logic");
 
 app.on("ready", () => {
   createWindow();

@@ -7,8 +7,7 @@ const {
 } = require("../constants");
 const { windows, Window } = require("../data");
 const { inputToValidUrl } = require("../utils/url");
-const { setFailedToLoadPage } = require("./fail");
-const { setHeader, setHeaderSize } = require("./header");
+const { setHeader, setHeaderSize, setFailedToLoadPage } = require("../page");
 const { createDefaultView, setViewSize } = require("./view");
 
 const createWindow = () => {

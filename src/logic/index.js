@@ -1,5 +1,4 @@
 const ui = {
-  ...require("./header"),
   ...require("./view"),
   ...require("./window"),
 };
