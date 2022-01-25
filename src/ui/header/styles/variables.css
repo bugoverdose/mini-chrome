@@ -12,19 +12,16 @@
   --bottom-height: 38px;
 
   --close-red: #ff6159;
+  --close-red-hover: #fd2121;
   --close-red-active: #bf4942;
-  --close-red-icon: #4d0000;
-  --close-red-icon-active: #190000;
 
   --minimize-yellow: #ffbd2e;
-  --minimize-yellow-active: #bf8e22;
-  --minimize-yellow-icon: #995700;
-  --minimize-yellow-icon-active: #592800;
+  --minimize-yellow-hover: #ffe240;
+  --minimize-yellow-active: #d19b26;
 
   --toggle-fullscreen-green: #28c941;
+  --toggle-fullscreen-green-hover: #3dff5a;
   --toggle-fullscreen-green-active: #1d9730;
-  --toggle-fullscreen-green-icon: #006500;
-  --toggle-fullscreen-green-icon-active: #003200;
 
   --disabled-gray: #dddddd;
 }

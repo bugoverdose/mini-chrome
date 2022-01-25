@@ -22,6 +22,10 @@
   background-color: var(--close-red);
 }
 
+#red:hover {
+  background-color: var(--close-red-hover);
+}
+
 #red:active {
   background-color: var(--close-red-active);
 }
@@ -31,12 +35,20 @@
   margin: 0 7px;
 }
 
+#yellow:hover {
+  background-color: var(--minimize-yellow-hover);
+}
+
 #yellow:active {
   background-color: var(--minimize-yellow-active);
 }
 
 #green {
   background-color: var(--toggle-fullscreen-green);
+}
+
+#green:hover {
+  background-color: var(--toggle-fullscreen-green-hover);
 }
 
 #green:active {
