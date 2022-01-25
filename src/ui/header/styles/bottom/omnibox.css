@@ -1,5 +1,4 @@
 #omnibox {
-  height: var(--bottom-height);
   width: auto;
 
   margin: 5px 15px 5px 0px;
@@ -9,4 +8,11 @@
 
   color: white;
   background-color: var(--main-black);
+  user-select: text;
+
+  border: none;
+}
+
+#omnibox:focus {
+  outline: 2px solid var(--omnibox-focus-blue);
 }

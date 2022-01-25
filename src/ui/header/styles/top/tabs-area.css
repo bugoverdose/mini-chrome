@@ -30,7 +30,7 @@
 
 .tab-border-right {
   height: 15px;
-  border-right: 1px solid var(--main-dark-grey);
+  border-right: 2px solid var(--main-dark-grey);
 }
 
 .focused-tab {
