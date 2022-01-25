@@ -67,8 +67,7 @@ const createWindow = () => {
       // console.log(targetView.webContents.canGoForward());
       // e.reply("omnibox:submit:success", validUrl, data, data2);
     } catch (error) {
-      // inputValue, error.code
-      setFailedToLoadPage(targetView);
+      setFailedToLoadPage(targetView, inputValue, error.code);
       // e.reply("omnibox:submit:fail", validUrl);
     }
 

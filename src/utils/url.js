@@ -28,7 +28,7 @@ const isGoogleSearch = (url) => {
 };
 
 const toValidURL = (url) => {
-  return `https://${url}`;
+  return `http://${url}`;
 };
 
 const toGoogleSearchURL = (searchKeyword) => {

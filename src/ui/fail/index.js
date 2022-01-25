@@ -1,7 +1,10 @@
 const path = require("path");
 
-const setFailedToLoadPage = (view) => {
-  view.webContents.loadFile(path.join(__dirname, "index.html"));
+const setFailedToLoadPage = (view, inputValue, errCode) => {
+  view.webContents.loadFile(path.join(__dirname, "index.html"), {
+    search: inputValue,
+    hash: errCode,
+  });
 
   view.webContents.openDevTools();
 };
