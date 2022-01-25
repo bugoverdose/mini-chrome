@@ -74,15 +74,20 @@
 .tab-close-btn {
   height: 20px;
   width: 20px;
-  padding-top: 2px;
 
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .tab-close-btn:hover {
   border-radius: 50%;
   background-color: var(--main-grey);
-  cursor: default;
+}
+
+.tab-close-btn > svg {
+  width: 15px;
+  height: 15px;
 }
 
 #tab-new {
@@ -103,16 +108,11 @@
 
   -webkit-app-region: no-drag;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
+
+  font-size: larger;
 }
 
 #tab-create-btn:hover {
   background-color: var(--main-grey);
-}
-
-#tab-create-btn > svg {
-  width: 15px;
-  height: 15px;
 }
