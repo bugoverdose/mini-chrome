@@ -6,6 +6,15 @@ class Tab {
       throw new Error("Tab needs a BrowserView to be initialized.");
     }
     this.browserView = browserView;
+    this.omniboxUrl = "";
+  }
+
+  getOmniboxURl() {
+    return this.omniboxUrl;
+  }
+
+  setOmniboxURl(url) {
+    this.omniboxUrl = url;
   }
 
   getBrowserView() {

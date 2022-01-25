@@ -22,6 +22,11 @@ class Window {
     return [headerView, activeView];
   }
 
+  setCurrentViewURL(validURL) {
+    const [_, activeView] = this.getVisibleAreas();
+    activeView.webContents.loadURL(validURL);
+  }
+
   getBrowserWindow() {
     return this.browserWindow;
   }
