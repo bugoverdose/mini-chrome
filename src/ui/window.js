@@ -52,6 +52,10 @@ const createWindow = () => {
   ipcMain.handle("clicked:green", () => {
     browserWindow.fullScreen = !browserWindow.fullScreen;
   });
+
+  ipcMain.on("omnibox:submit", (e, inputValue) => {
+    window.setCurrentViewURL(inputValue);
+  });
 };
 
 module.exports = { createWindow };
