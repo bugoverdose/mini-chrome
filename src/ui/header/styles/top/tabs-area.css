@@ -71,16 +71,18 @@
   font-size: small;
 }
 
-.tab-close-icon {
+.tab-close-btn {
   height: 20px;
   width: 20px;
+  padding-top: 2px;
 
   text-align: center;
 }
 
-.tab-close-icon:hover {
+.tab-close-btn:hover {
   border-radius: 50%;
   background-color: var(--main-grey);
+  cursor: default;
 }
 
 #tab-new {
