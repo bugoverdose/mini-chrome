@@ -1,7 +1,15 @@
 #tab-area {
   display: flex;
+  align-items: flex-end;
+
   height: var(--top-height);
   padding-right: 20px;
+}
+
+#tab-area-container {
+  width: 100%;
+  height: 30px;
+  display: flex;
 }
 
 #tabs {
@@ -11,7 +19,7 @@
 
 .tab {
   width: 160px;
-  height: 30px;
+  height: 100%;
   padding: 5px 0;
 
   display: flex;
@@ -71,6 +79,33 @@
 }
 
 #tab-new {
-  display: flex;
+  width: 30px;
+  height: 30px;
   color: var(--main-light-white);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#tab-create-btn {
+  width: 20px;
+  height: 20px;
+
+  border-radius: 50%;
+
+  -webkit-app-region: no-drag;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#tab-create-btn:hover {
+  background-color: var(--main-dark-grey);
+}
+
+#tab-create-btn > svg {
+  width: 15px;
+  height: 15px;
 }
