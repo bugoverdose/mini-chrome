@@ -5,6 +5,8 @@
 }
 
 #top-container {
+  -webkit-app-region: drag;
+
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 90px 1fr;
