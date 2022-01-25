@@ -6,6 +6,7 @@ const {
   MIN_HEIGHT,
 } = require("../constants");
 const { windows, Window } = require("../data");
+const { inputToValidUrl } = require("../utils/url");
 const { setHeader, setHeaderSize } = require("./header");
 const { createDefaultView, setViewSize } = require("./view");
 
@@ -54,7 +55,11 @@ const createWindow = () => {
   });
 
   ipcMain.on("omnibox:submit", (e, inputValue) => {
-    window.setCurrentViewURL(inputValue);
+    const validUrl = inputToValidUrl(inputValue);
+
+    window.setCurrentViewURL(validUrl);
+
+    // e.reply("omnibox:submit:reply", "validURL");
   });
 };
 
