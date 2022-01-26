@@ -1,4 +1,4 @@
-const { topDomainList } = require("../data");
+const { topDomainList } = require("./tdl");
 
 const inputToValidUrl = (inputValue) => {
   const input = inputValue.toLowerCase();

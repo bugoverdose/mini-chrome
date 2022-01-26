@@ -7,8 +7,8 @@ const {
 } = require("../constants");
 const { windows, Window } = require("../data");
 const { inputToValidUrl } = require("../utils/url");
-const { setHeader, setHeaderSize, setFailedToLoadPage } = require("../page");
-const { createDefaultView, setViewSize } = require("./view");
+const { setFailedToLoadPage } = require("../page");
+const { createDefaultView } = require("./view");
 
 const createWindow = () => {
   let browserWindow = new BrowserWindow({
@@ -19,29 +19,26 @@ const createWindow = () => {
     frame: false,
   });
 
-  setHeader(browserWindow);
-  createDefaultView(browserWindow);
-
   let window = new Window(browserWindow);
+
+  createDefaultView(browserWindow);
 
   windows.add(window);
 
-  browserWindow.setFullScreenable(true);
+  setWindowCloseEventHandler(browserWindow);
+  setTrafficLightControls(browserWindow);
+  setOmniboxControls(window);
+};
 
-  browserWindow.on("resize", () => {
-    const [headerView, activeView] = window.getVisibleAreas();
-    const [curWidth, curHeight] = browserWindow.getSize();
-
-    setHeaderSize(headerView, curWidth);
-    setViewSize(activeView, curWidth, curHeight);
-  });
-
+const setWindowCloseEventHandler = (browserWindow) => {
   browserWindow.on("closed", () => {
     windows.delete(window);
     browserWindow = null;
     window = null;
   });
+};
 
+const setTrafficLightControls = (browserWindow) => {
   ipcMain.handle("clicked:red", () => {
     browserWindow.close();
   });
@@ -53,7 +50,9 @@ const createWindow = () => {
   ipcMain.handle("clicked:green", () => {
     browserWindow.fullScreen = !browserWindow.fullScreen;
   });
+};
 
+const setOmniboxControls = (window) => {
   ipcMain.on("omnibox:submit", async (e, inputValue) => {
     const validUrl = inputToValidUrl(inputValue);
 
