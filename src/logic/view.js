@@ -1,5 +1,6 @@
 const { BrowserView } = require("electron");
 const { HEADER_HEIGHT } = require("../constants");
+const { setNewTabPage } = require("../page");
 
 const createDefaultView = (window) => {
   const view = new BrowserView();
@@ -8,7 +9,7 @@ const createDefaultView = (window) => {
   window.addBrowserView(view);
 
   setViewSize(view, curWidth, curHeight);
-  view.webContents.loadURL("https://github.com");
+  setNewTabPage(view);
 };
 
 const setViewSize = (view, windowWidth, windowHeight) => {

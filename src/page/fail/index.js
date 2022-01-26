@@ -6,7 +6,7 @@ const setFailedToLoadPage = (view, inputValue, errCode) => {
     hash: errCode,
   });
 
-  view.webContents.openDevTools();
+  // view.webContents.openDevTools();
 };
 
 module.exports = { setFailedToLoadPage };
