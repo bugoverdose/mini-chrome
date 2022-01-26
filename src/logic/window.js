@@ -8,7 +8,7 @@ const {
 const { windows, Window } = require("../data");
 const { inputToValidUrl } = require("../utils/url");
 const { setFailedToLoadPage } = require("../page");
-const { createDefaultView } = require("./view");
+const { createNewTab } = require("./tab");
 
 const createWindow = () => {
   let browserWindow = new BrowserWindow({
@@ -21,16 +21,15 @@ const createWindow = () => {
 
   let window = new Window(browserWindow);
 
-  createDefaultView(browserWindow);
-
+  createNewTab(window);
   windows.add(window);
 
-  setWindowCloseEventHandler(browserWindow);
+  setWindowCloseEventHandler(window, browserWindow);
   setTrafficLightControls(browserWindow);
   setOmniboxControls(window);
 };
 
-const setWindowCloseEventHandler = (browserWindow) => {
+const setWindowCloseEventHandler = (window, browserWindow) => {
   browserWindow.on("closed", () => {
     windows.delete(window);
     browserWindow = null;

@@ -23,10 +23,6 @@ class Window {
 
     this.browserWindow = browserWindow;
     this.tabs = [];
-
-    // const browserViews = browserWindow.getBrowserViews();
-    // this.addNewTabWithView(browserViews[1]);
-    // this.setActiveTabIdx(0);
   }
 
   getVisibleAreas() {
@@ -40,9 +36,18 @@ class Window {
     return this.browserWindow;
   }
 
-  addNewTabWithView(browserView) {
-    const newTab = new Tab(browserView);
+  getBrowserWindowSize() {
+    return this.browserWindow.getSize();
+  }
+
+  createNewTabWithView(browserView) {
+    const newTabIndex = this.tabs.length;
+    const newTab = new Tab(browserView, newTabIndex);
+
     this.tabs.push(newTab);
+    this.setActiveTabIdx(newTabIndex);
+
+    return newTab;
   }
 
   getActiveTab() {

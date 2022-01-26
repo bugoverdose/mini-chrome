@@ -1,9 +1,9 @@
 const path = require("path");
 
-const setNewTabPage = (view) => {
+const loadNewTabPage = (view) => {
   view.webContents.loadFile(path.join(__dirname, "index.html"));
 
   // view.webContents.openDevTools();
 };
 
-module.exports = { setNewTabPage };
+module.exports = { loadNewTabPage };

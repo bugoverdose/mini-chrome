@@ -1,15 +1,15 @@
-const { BrowserView } = require("electron");
 const { HEADER_HEIGHT } = require("../constants");
-const { setNewTabPage } = require("../page");
+const { loadNewTabPage } = require("../page");
 
-const createDefaultView = (window) => {
-  const view = new BrowserView();
-  const [curWidth, curHeight] = window.getSize();
+const addNewPageViewOnWindow = (window, newTab) => {
+  const browserWindow = window.getBrowserWindow();
+  const browserView = newTab.getBrowserView();
+  const [curWidth, curHeight] = browserWindow.getSize();
 
-  window.addBrowserView(view);
+  browserWindow.addBrowserView(browserView);
 
-  setViewSize(view, curWidth, curHeight);
-  setNewTabPage(view);
+  setViewSize(browserView, curWidth, curHeight);
+  loadNewTabPage(browserView);
 };
 
 const setViewSize = (view, windowWidth, windowHeight) => {
@@ -21,4 +21,4 @@ const setViewSize = (view, windowWidth, windowHeight) => {
   });
 };
 
-module.exports = { createDefaultView, setViewSize };
+module.exports = { addNewPageViewOnWindow, setViewSize };
