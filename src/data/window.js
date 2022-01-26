@@ -40,6 +40,10 @@ class Window {
     return this.tabs.map((tab) => tab.toString());
   }
 
+  deleteTabByTabId(tabId) {
+    this.tabs.filter((tab) => tab.getId() !== tabId);
+  }
+
   getActiveTabIdx() {
     return this.activeTabIdx;
   }

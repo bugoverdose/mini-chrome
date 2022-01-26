@@ -2,10 +2,22 @@ const initTabs = async () => {
   await window.request_main.getCurrentTabs();
 };
 
-window.listen_on.response_allTabs((_, { tabs, activeIdx }) => {
+window.on_header.responseAllTabs((_, { tabs, activeIdx }) => {
   tabs = tabs.map((tab) => JSON.parse(tab));
   resetAllTabs(tabs, activeIdx);
 });
+
+// event delegation
+document
+  .getElementById("tab-area-container")
+  .addEventListener("click", async (e) => {
+    console.log(e.target);
+    if (e.target.className === "tab-close-btn") {
+      const tab = e.target.parentElement.parentElement.parentElement;
+      await window.request_main.deleteTabById(tab.id);
+      tab.remove();
+    }
+  });
 
 initTabs();
 
@@ -13,13 +25,12 @@ initTabs();
 const resetAllTabs = (tabsData, activeTabIdx) => {
   const tabs = document.getElementById("tabs");
 
-  tabsData.forEach((tabData, idx) => {
-    const tab = createNewTab(tabData, idx === activeTabIdx);
-    tabs.appendChild(tab);
-  });
+  tabsData.forEach((tabData, idx) =>
+    createNewTab(tabData, idx === activeTabIdx, tabs)
+  );
 };
 
-const createNewTab = ({ id, title }, isActive) => {
+const createNewTab = ({ id, title }, isActive, tabs) => {
   const tab = createElement("div", "tab", id);
   const _tabContainer = createElement("div", "tab-container");
   const __tabFavicon = createNewTabSVG();
@@ -38,7 +49,7 @@ const createNewTab = ({ id, title }, isActive) => {
   tab.appendChild(_tabContainer);
   tab.appendChild(_tabBorderRight);
 
-  return tab;
+  tabs.appendChild(tab);
 };
 
 const createElement = (elementType, className, id) => {

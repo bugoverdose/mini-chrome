@@ -51,6 +51,10 @@ const setTabEventHandlers = (window) => {
 
     e.reply("response:allTabs", { tabs, activeIdx });
   });
+
+  ipcMain.on("request:deleteTab", (e, tabId) => {
+    window.deleteTabByTabId(tabId);
+  });
 };
 
 const setOmniboxControls = (window) => {
