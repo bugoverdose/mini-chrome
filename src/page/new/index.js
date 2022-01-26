@@ -1,9 +1,7 @@
 const path = require("path");
 
-const newPageHTMLfileRoute = path.join(__dirname, "index.html");
-
 const loadNewTabPage = (view) => {
-  view.webContents.loadFile(newPageHTMLfileRoute);
+  view.webContents.loadFile(path.join(__dirname, "index.html"));
   // view.webContents.openDevTools();
 };
 

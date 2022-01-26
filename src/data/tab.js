@@ -1,9 +1,9 @@
 const { BrowserView } = require("electron");
-
-const newPageHTMLfileRoute =
-  "file:///Users/jeong/mini-chrome/src/page/new/index.html";
-const failedPageHTMLfileRoute =
-  "file:///Users/jeong/mini-chrome/src/page/fail/index.html";
+const {
+  newPageHTMLfileRoute,
+  failedPageHTMLfileRoute,
+} = require("../utils/file");
+const state = require("./state");
 
 class Tab {
   constructor(browserView, idx) {
@@ -13,6 +13,8 @@ class Tab {
     if (!browserView || !(browserView instanceof BrowserView)) {
       throw new Error("Tab needs tab index data to be initialized.");
     }
+
+    this.id = ++state.tabId;
     this.browserView = browserView;
     this.idx = idx;
   }
@@ -21,12 +23,18 @@ class Tab {
     return this.browserView;
   }
 
+  getId() {
+    return this.id;
+  }
+
   getIdx() {
     return this.idx;
   }
 
   toString() {
+    console.log(this.getId());
     return JSON.stringify({
+      id: this.getId(),
       idx: this.getIdx(),
       url: this.getUrl(),
       title: this.getTitle(),
