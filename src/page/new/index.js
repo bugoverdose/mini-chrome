@@ -3,7 +3,7 @@ const path = require("path");
 const setNewTabPage = (view) => {
   view.webContents.loadFile(path.join(__dirname, "index.html"));
 
-  view.webContents.openDevTools();
+  // view.webContents.openDevTools();
 };
 
 module.exports = { setNewTabPage };

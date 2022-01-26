@@ -1,6 +1,6 @@
 {
   "name": "mini-chrome",
-  "productName": "Jeong Krome",
+  "productName": "Mini Chrome",
   "version": "1.0.0",
   "description": "light-weight web browser with Chromium",
   "main": "src",
