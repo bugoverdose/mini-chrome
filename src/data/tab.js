@@ -32,7 +32,6 @@ class Tab {
   }
 
   toString() {
-    console.log(this.getId());
     return JSON.stringify({
       id: this.getId(),
       idx: this.getIdx(),

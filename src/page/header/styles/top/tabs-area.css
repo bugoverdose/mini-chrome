@@ -58,10 +58,9 @@
   align-items: center;
 }
 
-.tab-favicon svg {
+.tab-favicon object {
   width: 15px;
   height: 15px;
-  color: var(--main-light-grey);
 }
 
 .tab-title {
@@ -85,7 +84,7 @@
   background-color: var(--main-grey);
 }
 
-.tab-close-btn > svg {
+.tab-close-btn > object {
   width: 15px;
   height: 15px;
 }
