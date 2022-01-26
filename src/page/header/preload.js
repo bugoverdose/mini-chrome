@@ -6,7 +6,16 @@ contextBridge.exposeInMainWorld("custom_events", {
   red: () => ipcRenderer.invoke("clicked:red"),
   yellow: () => ipcRenderer.invoke("clicked:yellow"),
   green: () => ipcRenderer.invoke("clicked:green"),
-  loadURL: (inputValue) => ipcRenderer.send("omnibox:submit", inputValue),
+  loadURL: (inputValue) => ipcRenderer.send("submitted:omnibox", inputValue),
+});
+
+contextBridge.exposeInMainWorld("request_main", {
+  getCurrentTabs: () => ipcRenderer.send("request:allTabs"),
+  // getCurrentTabs: () => ipcRenderer.sendSync("request:allTabs"),
+});
+
+contextBridge.exposeInMainWorld("listen_on", {
+  response_allTabs: (callback) => ipcRenderer.on("response:allTabs", callback),
 });
 
 // contextBridge.exposeInMainWorld("state", []);

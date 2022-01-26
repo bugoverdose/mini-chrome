@@ -36,8 +36,16 @@ class Window {
     return this.browserWindow;
   }
 
-  getBrowserWindowSize() {
-    return this.browserWindow.getSize();
+  getTabs() {
+    return this.tabs.map((tab) => tab.toString());
+  }
+
+  getActiveTabIdx() {
+    return this.activeTabIdx;
+  }
+
+  setActiveTabIdx(idx) {
+    this.activeTabIdx = idx;
   }
 
   createNewTabWithView(browserView) {
@@ -48,14 +56,6 @@ class Window {
     this.setActiveTabIdx(newTabIndex);
 
     return newTab;
-  }
-
-  getActiveTab() {
-    return this.tabs[this.activeTabIdx];
-  }
-
-  setActiveTabIdx(idx) {
-    this.activeTabIdx = idx;
   }
 }
 

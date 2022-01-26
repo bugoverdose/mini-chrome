@@ -1,7 +1,9 @@
 const path = require("path");
 
+const failedPageHTMLfileRoute = path.join(__dirname, "index.html");
+
 const setFailedToLoadPage = (view, inputValue, errCode) => {
-  view.webContents.loadFile(path.join(__dirname, "index.html"), {
+  view.webContents.loadFile(failedPageHTMLfileRoute, {
     search: inputValue,
     hash: errCode,
   });
@@ -9,4 +11,4 @@ const setFailedToLoadPage = (view, inputValue, errCode) => {
   // view.webContents.openDevTools();
 };
 
-module.exports = { setFailedToLoadPage };
+module.exports = { setFailedToLoadPage, failedPageHTMLfileRoute };

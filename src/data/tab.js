@@ -1,5 +1,10 @@
 const { BrowserView } = require("electron");
 
+const newPageHTMLfileRoute =
+  "file:///Users/jeong/mini-chrome/src/page/new/index.html";
+const failedPageHTMLfileRoute =
+  "file:///Users/jeong/mini-chrome/src/page/fail/index.html";
+
 class Tab {
   constructor(browserView, idx) {
     if (!browserView || !(browserView instanceof BrowserView)) {
@@ -20,12 +25,32 @@ class Tab {
     return this.idx;
   }
 
+  toString() {
+    return JSON.stringify({
+      idx: this.getIdx(),
+      url: this.getUrl(),
+      title: this.getTitle(),
+      canGoBack: this.getCanGoBack(),
+      canGoForward: this.getCanGoForward(),
+    });
+  }
+
   getTitle() {
+    const url = this.browserView.webContents.getURL();
+
+    if (url === newPageHTMLfileRoute) return "New Tab";
+    if (url === failedPageHTMLfileRoute) return "Connection Failed";
+
     return this.browserView.webContents.getTitle();
   }
 
   getUrl() {
-    return this.browserView.webContents.getURL();
+    const url = this.browserView.webContents.getURL();
+
+    if (url === newPageHTMLfileRoute) return "";
+    if (url === failedPageHTMLfileRoute) return "";
+
+    return url;
   }
 
   getCanGoBack() {

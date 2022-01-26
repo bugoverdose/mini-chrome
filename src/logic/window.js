@@ -24,17 +24,10 @@ const createWindow = () => {
   createNewTab(window);
   windows.add(window);
 
-  setWindowCloseEventHandler(window, browserWindow);
   setTrafficLightControls(browserWindow);
+  setTabEventHandlers(window);
   setOmniboxControls(window);
-};
-
-const setWindowCloseEventHandler = (window, browserWindow) => {
-  browserWindow.on("closed", () => {
-    windows.delete(window);
-    browserWindow = null;
-    window = null;
-  });
+  setWindowCloseEventHandler(window, browserWindow);
 };
 
 const setTrafficLightControls = (browserWindow) => {
@@ -51,8 +44,17 @@ const setTrafficLightControls = (browserWindow) => {
   });
 };
 
+const setTabEventHandlers = (window) => {
+  ipcMain.on("request:allTabs", (e) => {
+    const tabs = window.getTabs();
+    const activeIdx = window.getActiveTabIdx();
+
+    e.reply("response:allTabs", { tabs, activeIdx });
+  });
+};
+
 const setOmniboxControls = (window) => {
-  ipcMain.on("omnibox:submit", async (e, inputValue) => {
+  ipcMain.on("submitted:omnibox", async (e, inputValue) => {
     const validUrl = inputToValidUrl(inputValue);
 
     const [_, targetView] = window.getVisibleAreas();
@@ -62,10 +64,10 @@ const setOmniboxControls = (window) => {
       // actuallyUsedValidURL = targetView.webContents.getURL());
       // console.log(targetView.webContents.canGoBack());
       // console.log(targetView.webContents.canGoForward());
-      // e.reply("omnibox:submit:success", validUrl, data, data2);
+      // e.reply("submitted:omnibox:success", validUrl, data, data2);
     } catch (error) {
       setFailedToLoadPage(targetView, inputValue, error.code);
-      // e.reply("omnibox:submit:fail", validUrl);
+      // e.reply("submitted:omnibox:fail", validUrl);
     }
 
     // if (error.code === "ERR_ABORTED") return;
@@ -74,6 +76,14 @@ const setOmniboxControls = (window) => {
     // errno: -105,
     // code: 'ERR_NAME_NOT_RESOLVED',
     // url: 'https://.com/'
+  });
+};
+
+const setWindowCloseEventHandler = (window, browserWindow) => {
+  browserWindow.on("closed", () => {
+    windows.delete(window);
+    browserWindow = null;
+    window = null;
   });
 };
 
