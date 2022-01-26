@@ -1,9 +1,9 @@
 const { BrowserView } = require("electron");
+const state = require("./state");
 const {
   newPageHTMLfileRoute,
   failedPageHTMLfileRoute,
-} = require("../utils/file");
-const state = require("./state");
+} = require("../constants");
 
 class Tab {
   constructor(browserView, idx) {
