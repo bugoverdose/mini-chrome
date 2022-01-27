@@ -11,7 +11,7 @@ window.listen_on.renderNewTab((_, { tab, focusIdx }) => {
   tab = JSON.parse(tab);
   const tabs = document.getElementById("tabs");
   createNewTab(tab, tab.idx === focusIdx, tabs);
-  toggleFocusTab(focusIdx);
+  cleanseTabFocus(focusIdx);
 });
 
 // event delegation
@@ -19,9 +19,21 @@ document.getElementById("tab-area-container").addEventListener("click", (e) => {
   const { target } = e;
   console.log(target);
 
-  if (target.className === "tab-close-btn") triggerTabClose(target);
   if (target.id === "tab-create-btn") triggerCreateNewTab();
+  if (target.className === "tab-container") triggerFocusTabToggle(target);
+  if (target.className === "tab-close-btn") triggerTabClose(target);
 });
+
+const triggerCreateNewTab = () => {
+  window.request_main.createNewTab();
+};
+
+const triggerFocusTabToggle = (target) => {
+  const tabId = target.parentElement.id;
+
+  window.request_main.toggleFocusTabById(tabId);
+  setFocusTabByTabId(tabId);
+};
 
 const triggerTabClose = async (target) => {
   const tab = target.parentElement.parentElement.parentElement;
@@ -32,18 +44,24 @@ const triggerTabClose = async (target) => {
   tab.remove();
 };
 
-const triggerCreateNewTab = () => {
-  window.request_main.createNewTab();
-};
-
 initTabs();
 
 // utils
-const toggleFocusTab = (focusTabIdx) => {
+const cleanseTabFocus = (focusTabIdx) => {
   const tabList = document.querySelectorAll(".tab");
 
   tabList.forEach((tab, idx) =>
     idx === focusTabIdx
+      ? tab.classList.add("focused-tab")
+      : tab.classList.remove("focused-tab")
+  );
+};
+
+const setFocusTabByTabId = (tabId) => {
+  const tabList = document.querySelectorAll(".tab");
+
+  tabList.forEach((tab) =>
+    tab.id === tabId
       ? tab.classList.add("focused-tab")
       : tab.classList.remove("focused-tab")
   );

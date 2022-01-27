@@ -12,6 +12,7 @@ contextBridge.exposeInMainWorld("custom_events", {
 contextBridge.exposeInMainWorld("request_main", {
   getCurrentTabs: () => ipcRenderer.send("request:allTabs"),
   createNewTab: (url) => ipcRenderer.send("request:createNewTab", url || null),
+  toggleFocusTabById: (tabId) => ipcRenderer.send("request:toggleTab", tabId),
   deleteTabById: (tabId) => ipcRenderer.send("request:deleteTab", tabId),
 });
 

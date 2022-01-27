@@ -64,6 +64,14 @@ class Window {
     return this.tabs.map((tab) => tab.toString());
   }
 
+  getTabById(tabId) {
+    for (let idx = 0; idx < this.tabs.length; idx++) {
+      const tab = this.tabs[idx];
+      if (tab.getId() === tabId) return tab;
+    }
+    throw new Error("Failed To find a tab by the given tabId on the window.");
+  }
+
   deleteTabByTabId(tabId) {
     this.tabs.filter((tab) => tab.getId() !== tabId);
   }

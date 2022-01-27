@@ -52,10 +52,6 @@ const setTabEventHandlers = (window) => {
     e.reply("response:allTabs", { tabs, focusIdx });
   });
 
-  ipcMain.on("request:deleteTab", (_, tabId) => {
-    window.deleteTabByTabId(tabId);
-  });
-
   ipcMain.on("request:createNewTab", async (e, url) => {
     const newTab = await createNewTab(window);
     const focusIdx = window.getFocusTabIdx();
@@ -63,6 +59,15 @@ const setTabEventHandlers = (window) => {
     e.reply("response:newTab", { tab: newTab.toString(), focusIdx });
 
     // TODO: url 받아서 탭 및 뷰 생성
+  });
+
+  ipcMain.on("request:toggleTab", (_, tabId) => {
+    const tab = window.getTabById(parseInt(tabId));
+    window.toggleFocusTab(tab);
+  });
+
+  ipcMain.on("request:deleteTab", (_, tabId) => {
+    window.deleteTabByTabId(tabId);
   });
 };
 

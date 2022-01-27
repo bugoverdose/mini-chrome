@@ -32,6 +32,12 @@
   -webkit-app-region: no-drag;
 }
 
+.tab-favicon,
+.tab-title,
+.tab-border-right {
+  pointer-events: none;
+}
+
 .tab-border-right {
   height: 15px;
   border-right: 2px solid var(--main-dark-grey);
