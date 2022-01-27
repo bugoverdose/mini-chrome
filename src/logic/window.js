@@ -26,6 +26,7 @@ const createWindow = () => {
 
   setTrafficLightControls(browserWindow);
   setTabEventHandlers(window);
+  setViewUtilsControls(window);
   setOmniboxControls(window);
   setWindowCloseEventHandler(window, browserWindow);
 };
@@ -68,6 +69,19 @@ const setTabEventHandlers = (window) => {
 
   ipcMain.on("request:deleteTab", (_, tabId) => {
     window.deleteTabByTabId(tabId);
+  });
+};
+
+const setViewUtilsControls = (window) => {
+  ipcMain.handle("clicked:goBack", (_, tabId) => {
+    const tab = window.getTabById(tabId);
+    console.log(tab);
+    tab.goBack();
+    console.log(tab);
+  });
+
+  ipcMain.handle("clicked:goForward", (_, tabId) => {
+    window.getTabById(tabId).goForward();
   });
 };
 

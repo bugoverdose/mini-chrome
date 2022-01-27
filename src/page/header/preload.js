@@ -6,6 +6,8 @@ contextBridge.exposeInMainWorld("custom_events", {
   red: () => ipcRenderer.invoke("clicked:red"),
   yellow: () => ipcRenderer.invoke("clicked:yellow"),
   green: () => ipcRenderer.invoke("clicked:green"),
+  initGoBack: (tabId) => ipcRenderer.invoke("clicked:goBack", tabId),
+  initGoForward: (tabId) => ipcRenderer.invoke("clicked:goForward", tabId),
 });
 
 contextBridge.exposeInMainWorld("request_main", {
@@ -23,6 +25,9 @@ contextBridge.exposeInMainWorld("listen_on", {
   updateTabInfo: (cb) => ipcRenderer.on("response:updateTab", cb),
 });
 
+// 아래는 영어지만 복붙이 아니라 전부 내가 쓴 내용. 참고자료.
+
+// cache format if needed
 // contextBridge.exposeInMainWorld("state", []);
 
 // available at renderer via window.custom_events object

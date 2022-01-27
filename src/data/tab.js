@@ -58,8 +58,16 @@ class Tab {
     return this.browserView.webContents.canGoBack();
   }
 
+  goBack() {
+    return this.browserView.webContents.goBack();
+  }
+
   getCanGoForward() {
     return this.browserView.webContents.canGoForward();
+  }
+
+  goForward() {
+    return this.browserView.webContents.goForward();
   }
 
   toString() {
