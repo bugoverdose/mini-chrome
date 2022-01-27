@@ -5,7 +5,7 @@ const createNewTab = (window) => {
   const browserView = new BrowserView();
   const newTab = window.createNewTabWithView(browserView);
 
-  addNewPageViewOnWindow(window, newTab);
+  return addNewPageViewOnWindow(window, newTab);
 };
 
 module.exports = { createNewTab };

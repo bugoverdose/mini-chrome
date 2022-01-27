@@ -11,11 +11,13 @@ contextBridge.exposeInMainWorld("custom_events", {
 
 contextBridge.exposeInMainWorld("request_main", {
   getCurrentTabs: () => ipcRenderer.send("request:allTabs"),
+  createNewTab: (url) => ipcRenderer.send("request:createNewTab", url || null),
   deleteTabById: (tabId) => ipcRenderer.send("request:deleteTab", tabId),
 });
 
-contextBridge.exposeInMainWorld("on_header", {
-  responseAllTabs: (cb) => ipcRenderer.on("response:allTabs", cb),
+contextBridge.exposeInMainWorld("listen_on", {
+  renderAllTabs: (cb) => ipcRenderer.on("response:allTabs", cb),
+  renderNewTab: (cb) => ipcRenderer.on("response:newTab", cb),
 });
 
 // contextBridge.exposeInMainWorld("state", []);

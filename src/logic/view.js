@@ -1,7 +1,7 @@
 const { HEADER_HEIGHT } = require("../constants");
 const { loadNewTabPage } = require("../page");
 
-const addNewPageViewOnWindow = (window, newTab) => {
+const addNewPageViewOnWindow = async (window, newTab) => {
   const browserWindow = window.getBrowserWindow();
   const browserView = newTab.getBrowserView();
   const [curWidth, curHeight] = browserWindow.getSize();
@@ -9,7 +9,9 @@ const addNewPageViewOnWindow = (window, newTab) => {
   browserWindow.addBrowserView(browserView);
 
   setViewSize(browserView, curWidth, curHeight);
-  loadNewTabPage(browserView);
+  await loadNewTabPage(browserView);
+
+  return newTab;
 };
 
 const setViewSize = (view, windowWidth, windowHeight) => {

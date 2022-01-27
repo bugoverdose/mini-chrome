@@ -52,8 +52,17 @@ const setTabEventHandlers = (window) => {
     e.reply("response:allTabs", { tabs, activeIdx });
   });
 
-  ipcMain.on("request:deleteTab", (e, tabId) => {
+  ipcMain.on("request:deleteTab", (_, tabId) => {
     window.deleteTabByTabId(tabId);
+  });
+
+  ipcMain.on("request:createNewTab", async (e, url) => {
+    const newTab = await createNewTab(window);
+    const activeIdx = window.getActiveTabIdx();
+
+    e.reply("response:newTab", { tab: newTab.toString(), activeIdx });
+
+    // TODO: url 받아서 탭 및 뷰 생성
   });
 };
 

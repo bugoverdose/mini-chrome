@@ -2,22 +2,39 @@ const initTabs = async () => {
   await window.request_main.getCurrentTabs();
 };
 
-window.on_header.responseAllTabs((_, { tabs, activeIdx }) => {
+window.listen_on.renderAllTabs((_, { tabs, activeIdx }) => {
   tabs = tabs.map((tab) => JSON.parse(tab));
   resetAllTabs(tabs, activeIdx);
 });
 
+window.listen_on.renderNewTab((_, { tab, activeIdx }) => {
+  console.log(tab);
+  tab = JSON.parse(tab);
+  const tabs = document.getElementById("tabs");
+  createNewTab(tab, tab.idx === activeIdx, tabs);
+});
+
 // event delegation
-document
-  .getElementById("tab-area-container")
-  .addEventListener("click", async (e) => {
-    console.log(e.target);
-    if (e.target.className === "tab-close-btn") {
-      const tab = e.target.parentElement.parentElement.parentElement;
-      await window.request_main.deleteTabById(tab.id);
-      tab.remove();
-    }
-  });
+document.getElementById("tab-area-container").addEventListener("click", (e) => {
+  const { target } = e;
+  console.log(target);
+
+  if (target.className === "tab-close-btn") triggerTabClose(target);
+  if (target.id === "tab-create-btn") triggerCreateNewTab();
+});
+
+const triggerTabClose = async (target) => {
+  const tab = target.parentElement.parentElement.parentElement;
+  if (!tab.classList.contains("tab")) {
+    throw new Error("document structure exception on tab-close-btn div");
+  }
+  await window.request_main.deleteTabById(tab.id);
+  tab.remove();
+};
+
+const triggerCreateNewTab = () => {
+  window.request_main.createNewTab();
+};
 
 initTabs();
 
