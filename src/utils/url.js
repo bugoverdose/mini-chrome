@@ -17,11 +17,13 @@ const isValidUrl = (url) => {
 
 const isGoogleSearch = (url) => {
   if (!url.includes(".")) return true;
+  if (url.startsWith(".")) return true;
 
   for (let idx = 0; idx < topDomainList.length; idx++) {
     if (url.endsWith(`.${topDomainList[idx]}`)) return false;
     if (url.includes(`.${topDomainList[idx]}/`)) return false;
     if (url.includes(`.${topDomainList[idx]}?`)) return false;
+    if (url.includes(`.${topDomainList[idx]}#`)) return false;
   }
 
   return true;

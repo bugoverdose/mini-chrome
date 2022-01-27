@@ -38,10 +38,12 @@ class Tab {
   getTitle() {
     const url = this.browserView.webContents.getURL();
 
-    // if (url === "" || url === newPageHTMLfileRoute) return "New Tab";
-    if (url === newPageHTMLfileRoute) return "New Tab";
-    if (url.startsWith(failedPageHTMLfileRoute)) return "Connection Failed";
-    // 실제로 연결을 시도한 이후에 실패한 경우, index.html 대신 검색을 시도했던 url을 지님. 다만, 혹시 모르는 경우를 위해 추가.
+    if (url === "" || url === newPageHTMLfileRoute) return "New Tab";
+    if (url.startsWith(failedPageHTMLfileRoute)) {
+      const connectionFailData = url.replace(`${failedPageHTMLfileRoute}?`, "");
+      return connectionFailData.split("#")[0];
+      // 연결 실패한 직후에는 시도했던 검색어를 그대로 url로 지님. 다만, 업데이트되는 경우 다음과 같은 구조를 지니게 됨: file:///Users/jeong/mini-chrome/src/page/fail/index.html?asd.asd.com#ERR_NAME_NOT_RESOLVED
+    }
 
     return this.browserView.webContents.getTitle();
   }
