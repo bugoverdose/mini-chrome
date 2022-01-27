@@ -14,7 +14,7 @@ class Window {
     browserWindow.setFullScreenable(true);
 
     browserWindow.on("resize", () => {
-      const [headerView, pageView] = this.getVisibleAreas();
+      const [headerView, pageView] = this.browserWindow.getBrowserViews();
       const [curWidth, curHeight] = browserWindow.getSize();
 
       setHeaderSize(headerView, curWidth);
@@ -23,13 +23,6 @@ class Window {
 
     this.browserWindow = browserWindow;
     this.tabs = [];
-  }
-
-  getVisibleAreas() {
-    const views = this.browserWindow.getBrowserViews();
-    const headerView = views[0];
-    const pageView = views[1];
-    return [headerView, pageView];
   }
 
   createNewTabWithView(browserView) {

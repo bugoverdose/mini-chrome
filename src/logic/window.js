@@ -72,19 +72,19 @@ const setTabEventHandlers = (window) => {
 };
 
 const setOmniboxControls = (window) => {
-  ipcMain.on("submitted:omnibox", async (e, inputValue) => {
+  ipcMain.on("submitted:omnibox", async (_, { inputValue, focusTabId }) => {
     const validUrl = inputToValidUrl(inputValue);
-
-    const [_, curPageView] = window.getVisibleAreas();
+    const targetTab = window.getTabById(focusTabId);
+    const targetPageView = targetTab.getBrowserView();
     try {
-      await curPageView.webContents.loadURL(validUrl);
-      // console.log(curPageView.webContents.getTitle());
-      // actuallyUsedValidURL = curPageView.webContents.getURL());
-      // console.log(curPageView.webContents.canGoBack());
-      // console.log(curPageView.webContents.canGoForward());
+      await targetPageView.webContents.loadURL(validUrl);
+      // console.log(targetPageView.webContents.getTitle());
+      // actuallyUsedValidURL = targetPageView.webContents.getURL());
+      // console.log(targetPageView.webContents.canGoBack());
+      // console.log(targetPageView.webContents.canGoForward());
       // e.reply("submitted:omnibox:success", validUrl, data, data2);
     } catch (error) {
-      setFailedToLoadPage(curPageView, inputValue, error.code);
+      setFailedToLoadPage(targetPageView, inputValue, error.code);
       // e.reply("submitted:omnibox:fail", validUrl);
     }
 

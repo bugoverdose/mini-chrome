@@ -6,7 +6,8 @@ contextBridge.exposeInMainWorld("custom_events", {
   red: () => ipcRenderer.invoke("clicked:red"),
   yellow: () => ipcRenderer.invoke("clicked:yellow"),
   green: () => ipcRenderer.invoke("clicked:green"),
-  loadURL: (inputValue) => ipcRenderer.send("submitted:omnibox", inputValue),
+  loadURL: (inputValue, focusTabId) =>
+    ipcRenderer.send("submitted:omnibox", { inputValue, focusTabId }),
 });
 
 contextBridge.exposeInMainWorld("request_main", {

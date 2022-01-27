@@ -1,6 +1,8 @@
 document.getElementById("omnibox").addEventListener("keydown", async (e) => {
-  if (e.key === "Enter") {
-    await window.custom_events.loadURL(e.target.value);
+  const { target, key } = e;
+  if (key === "Enter") {
+    const focusedTab = document.getElementsByClassName("focused-tab")[0];
+    await window.custom_events.loadURL(target.value, focusedTab.id);
   }
 });
 
