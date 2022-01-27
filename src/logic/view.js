@@ -17,8 +17,9 @@ const addNewPageViewOnWindow = async (window, newTab) => {
 
 const setCurrentView = (browserWindow, browserView) => {
   const views = browserWindow.getBrowserViews();
-  if (views.length >= 2) {
-    browserWindow.removeBrowserView(views[views.length - 1]);
+  while (views.length >= 2) {
+    browserWindow.removeBrowserView(views.pop());
+    // views에서 pop해도 browserWindow 내에는 그대로 존재하므로 별도로 remove 필요
   }
   browserWindow.addBrowserView(browserView);
 };

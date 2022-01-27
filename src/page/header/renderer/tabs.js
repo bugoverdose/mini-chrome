@@ -11,6 +11,7 @@ window.listen_on.renderNewTab((_, { tab, activeIdx }) => {
   tab = JSON.parse(tab);
   const tabs = document.getElementById("tabs");
   createNewTab(tab, tab.idx === activeIdx, tabs);
+  toggleFocusTab(activeIdx);
 });
 
 // event delegation
@@ -38,6 +39,16 @@ const triggerCreateNewTab = () => {
 initTabs();
 
 // utils
+const toggleFocusTab = (activeTabIdx) => {
+  const tabList = document.querySelectorAll(".tab");
+
+  tabList.forEach((tab, idx) =>
+    idx === activeTabIdx
+      ? tab.classList.add("focused-tab")
+      : tab.classList.remove("focused-tab")
+  );
+};
+
 const resetAllTabs = (tabsData, activeTabIdx) => {
   const tabs = document.getElementById("tabs");
 
