@@ -24,6 +24,8 @@ window.listen_on.updateTabInfo((_, tabData) => {
     canGoForward,
   } = JSON.parse(tabData);
   const tab = document.getElementById(tabId);
+  if (!tab) return; // 아직 생성되지 않은 탭을 업데이트하려는 경우 (탭 생성시에도 트리거되기 때문)
+
   tab.getElementsByClassName("tab-title")[0].innerText = title;
 
   if (tab.classList.contains("focused-tab")) {

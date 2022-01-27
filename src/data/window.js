@@ -14,15 +14,20 @@ class Window {
     browserWindow.setFullScreenable(true);
 
     browserWindow.on("resize", () => {
-      const [headerView, pageView] = this.browserWindow.getBrowserViews();
+      const [headerView, curPageView] = this.browserWindow.getBrowserViews();
       const [curWidth, curHeight] = browserWindow.getSize();
 
       setHeaderSize(headerView, curWidth);
-      setViewSize(pageView, curWidth, curHeight);
+      setViewSize(curPageView, curWidth, curHeight);
     });
 
     this.browserWindow = browserWindow;
     this.tabs = [];
+  }
+
+  getHeaderView() {
+    const [headerView, _] = this.browserWindow.getBrowserViews();
+    return headerView;
   }
 
   createNewTabWithView(browserView) {

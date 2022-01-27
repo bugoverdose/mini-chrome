@@ -58,7 +58,6 @@ const setTabEventHandlers = (window) => {
     const focusIdx = window.getFocusTabIdx();
 
     e.reply("response:newTab", { tab: newTab.toString(), focusIdx });
-
     // TODO: url 받아서 탭 및 뷰 생성
   });
 
@@ -74,10 +73,7 @@ const setTabEventHandlers = (window) => {
 
 const setViewUtilsControls = (window) => {
   ipcMain.handle("clicked:goBack", (_, tabId) => {
-    const tab = window.getTabById(tabId);
-    console.log(tab);
-    tab.goBack();
-    console.log(tab);
+    window.getTabById(tabId).goBack();
   });
 
   ipcMain.handle("clicked:goForward", (_, tabId) => {
@@ -98,7 +94,6 @@ const setOmniboxControls = (window) => {
         error.code
       );
     }
-    e.reply("response:updateTab", targetTab.toString());
   });
 };
 

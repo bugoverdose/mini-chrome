@@ -13,6 +13,7 @@ contextBridge.exposeInMainWorld("custom_events", {
   red: () => ipcRenderer.invoke("clicked:red"),
   yellow: () => ipcRenderer.invoke("clicked:yellow"),
   green: () => ipcRenderer.invoke("clicked:green"),
+
   initGoBack: (tabId) => ipcRenderer.invoke("clicked:goBack", tabId),
   initGoForward: (tabId) => ipcRenderer.invoke("clicked:goForward", tabId),
 });
@@ -22,6 +23,7 @@ contextBridge.exposeInMainWorld("request_main", {
   createNewTab: (url) => ipcRenderer.send("request:createNewTab", url || null),
   toggleFocusTabById: (tabId) => ipcRenderer.send("request:toggleTab", tabId),
   deleteTabById: (tabId) => ipcRenderer.send("request:deleteTab", tabId),
+
   loadURL: (inputValue, focusTabId) =>
     ipcRenderer.send("submitted:omnibox", { inputValue, focusTabId }),
 });
@@ -29,7 +31,7 @@ contextBridge.exposeInMainWorld("request_main", {
 contextBridge.exposeInMainWorld("listen_on", {
   renderAllTabs: (cb) => ipcRenderer.on("response:allTabs", cb),
   renderNewTab: (cb) => ipcRenderer.on("response:newTab", cb),
-  updateTabInfo: (cb) => ipcRenderer.on("response:updateTab", cb),
+  updateTabInfo: (cb) => ipcRenderer.on("updateTab", cb),
 });
 
 contextBridge.exposeInMainWorld("custom_utils", {

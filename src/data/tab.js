@@ -38,6 +38,7 @@ class Tab {
   getTitle() {
     const url = this.browserView.webContents.getURL();
 
+    // if (url === "" || url === newPageHTMLfileRoute) return "New Tab";
     if (url === newPageHTMLfileRoute) return "New Tab";
     if (url.startsWith(failedPageHTMLfileRoute)) return "Connection Failed";
     // 실제로 연결을 시도한 이후에 실패한 경우, index.html 대신 검색을 시도했던 url을 지님. 다만, 혹시 모르는 경우를 위해 추가.
