@@ -1,4 +1,11 @@
 const { contextBridge, ipcRenderer } = require("electron");
+const {
+  updateViewUtils,
+  cleanseTabFocus,
+  setFocusTabByTabId,
+  resetAllTabs,
+  createNewTab,
+} = require("./utils");
 
 // preload에서 main 프로세스의 기능들 사용하고,
 // contextBridge를 통해 renderer로 데이터 전송 (프로세스 간 통신)
@@ -23,6 +30,14 @@ contextBridge.exposeInMainWorld("listen_on", {
   renderAllTabs: (cb) => ipcRenderer.on("response:allTabs", cb),
   renderNewTab: (cb) => ipcRenderer.on("response:newTab", cb),
   updateTabInfo: (cb) => ipcRenderer.on("response:updateTab", cb),
+});
+
+contextBridge.exposeInMainWorld("custom_utils", {
+  updateViewUtils: updateViewUtils,
+  cleanseTabFocus: cleanseTabFocus,
+  setFocusTabByTabId: setFocusTabByTabId,
+  resetAllTabs: resetAllTabs,
+  createNewTab: createNewTab,
 });
 
 // 아래는 영어지만 복붙이 아니라 전부 내가 쓴 내용. 참고자료.
