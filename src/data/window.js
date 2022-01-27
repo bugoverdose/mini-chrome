@@ -32,14 +32,29 @@ class Window {
     return [headerView, pageView];
   }
 
-  // toggleFocusTab(tab) {
-  //   const views = this.browserWindow.getBrowserViews();
-  //   while (views.length >= 2) {
-  //     this.browserWindow.removeBrowserView(views.pop());
-  //     // views에서 pop해도 browserWindow 내에는 그대로 존재하므로 별도로 remove 필요
-  //   }
-  //   this.browserWindow.addBrowserView(tab.getBrowserView());
-  // }
+  createNewTabWithView(browserView) {
+    const newTabIndex = this.tabs.length;
+    const newTab = new Tab(browserView, newTabIndex);
+
+    this.tabs.push(newTab);
+    this.setFocusTabIdx(newTab);
+
+    return newTab;
+  }
+
+  setPageViewByTab(tab) {
+    const views = this.browserWindow.getBrowserViews();
+    while (views.length >= 2) {
+      this.browserWindow.removeBrowserView(views.pop());
+      // views에서 pop해도 browserWindow 내에는 그대로 존재하므로 별도로 remove 필요
+    }
+    this.browserWindow.addBrowserView(tab.getBrowserView());
+  }
+
+  toggleFocusTab(tab) {
+    this.setPageViewByTab(tab);
+    this.setFocusTabIdx(tab);
+  }
 
   getBrowserWindow() {
     return this.browserWindow;
@@ -57,18 +72,8 @@ class Window {
     return this.focusTabIdx;
   }
 
-  setFocusTabIdx(idx) {
-    this.focusTabIdx = idx;
-  }
-
-  createNewTabWithView(browserView) {
-    const newTabIndex = this.tabs.length;
-    const newTab = new Tab(browserView, newTabIndex);
-
-    this.tabs.push(newTab);
-    this.setFocusTabIdx(newTabIndex);
-
-    return newTab;
+  setFocusTabIdx(tab) {
+    this.focusTabIdx = tab.getIdx();
   }
 }
 
