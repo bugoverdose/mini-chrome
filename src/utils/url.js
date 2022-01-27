@@ -20,10 +20,12 @@ const isGoogleSearch = (url) => {
   if (url.startsWith(".")) return true;
 
   for (let idx = 0; idx < topDomainList.length; idx++) {
-    if (url.endsWith(`.${topDomainList[idx]}`)) return false;
-    if (url.includes(`.${topDomainList[idx]}/`)) return false;
-    if (url.includes(`.${topDomainList[idx]}?`)) return false;
-    if (url.includes(`.${topDomainList[idx]}#`)) return false;
+    if (url.includes(topDomainList[idx])) {
+      if (url.endsWith(`.${topDomainList[idx]}`)) return false;
+      if (url.includes(`.${topDomainList[idx]}/`)) return false;
+      if (url.includes(`.${topDomainList[idx]}?`)) return false;
+      if (url.includes(`.${topDomainList[idx]}#`)) return false;
+    }
   }
 
   return true;
