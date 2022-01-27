@@ -2,16 +2,16 @@ const initTabs = async () => {
   await window.request_main.getCurrentTabs();
 };
 
-window.listen_on.renderAllTabs((_, { tabs, activeIdx }) => {
+window.listen_on.renderAllTabs((_, { tabs, focusIdx }) => {
   tabs = tabs.map((tab) => JSON.parse(tab));
-  resetAllTabs(tabs, activeIdx);
+  resetAllTabs(tabs, focusIdx);
 });
 
-window.listen_on.renderNewTab((_, { tab, activeIdx }) => {
+window.listen_on.renderNewTab((_, { tab, focusIdx }) => {
   tab = JSON.parse(tab);
   const tabs = document.getElementById("tabs");
-  createNewTab(tab, tab.idx === activeIdx, tabs);
-  toggleFocusTab(activeIdx);
+  createNewTab(tab, tab.idx === focusIdx, tabs);
+  toggleFocusTab(focusIdx);
 });
 
 // event delegation
@@ -39,25 +39,25 @@ const triggerCreateNewTab = () => {
 initTabs();
 
 // utils
-const toggleFocusTab = (activeTabIdx) => {
+const toggleFocusTab = (focusTabIdx) => {
   const tabList = document.querySelectorAll(".tab");
 
   tabList.forEach((tab, idx) =>
-    idx === activeTabIdx
+    idx === focusTabIdx
       ? tab.classList.add("focused-tab")
       : tab.classList.remove("focused-tab")
   );
 };
 
-const resetAllTabs = (tabsData, activeTabIdx) => {
+const resetAllTabs = (tabsData, focusTabIdx) => {
   const tabs = document.getElementById("tabs");
 
   tabsData.forEach((tabData, idx) =>
-    createNewTab(tabData, idx === activeTabIdx, tabs)
+    createNewTab(tabData, idx === focusTabIdx, tabs)
   );
 };
 
-const createNewTab = ({ id, title }, isActive, tabs) => {
+const createNewTab = ({ id, title }, isFocus, tabs) => {
   const tab = createElement("div", "tab", id);
   const _tabContainer = createElement("div", "tab-container");
   const __tabFavicon = createNewTabSVG();
@@ -65,7 +65,7 @@ const createNewTab = ({ id, title }, isActive, tabs) => {
   const __tabClose = createCloseTabBtn();
   const _tabBorderRight = createElement("div", "tab-border-right");
 
-  if (isActive) tab.classList.add("focused-tab");
+  if (isFocus) tab.classList.add("focused-tab");
 
   __tabTitle.innerHTML = title;
 

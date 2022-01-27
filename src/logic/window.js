@@ -47,9 +47,9 @@ const setTrafficLightControls = (browserWindow) => {
 const setTabEventHandlers = (window) => {
   ipcMain.on("request:allTabs", (e) => {
     const tabs = window.getTabs();
-    const activeIdx = window.getActiveTabIdx();
+    const focusIdx = window.getFocusTabIdx();
 
-    e.reply("response:allTabs", { tabs, activeIdx });
+    e.reply("response:allTabs", { tabs, focusIdx });
   });
 
   ipcMain.on("request:deleteTab", (_, tabId) => {
@@ -58,9 +58,9 @@ const setTabEventHandlers = (window) => {
 
   ipcMain.on("request:createNewTab", async (e, url) => {
     const newTab = await createNewTab(window);
-    const activeIdx = window.getActiveTabIdx();
+    const focusIdx = window.getFocusTabIdx();
 
-    e.reply("response:newTab", { tab: newTab.toString(), activeIdx });
+    e.reply("response:newTab", { tab: newTab.toString(), focusIdx });
 
     // TODO: url 받아서 탭 및 뷰 생성
   });
@@ -70,16 +70,16 @@ const setOmniboxControls = (window) => {
   ipcMain.on("submitted:omnibox", async (e, inputValue) => {
     const validUrl = inputToValidUrl(inputValue);
 
-    const [_, targetView] = window.getVisibleAreas();
+    const [_, curPageView] = window.getVisibleAreas();
     try {
-      await targetView.webContents.loadURL(validUrl);
-      // console.log(targetView.webContents.getTitle());
-      // actuallyUsedValidURL = targetView.webContents.getURL());
-      // console.log(targetView.webContents.canGoBack());
-      // console.log(targetView.webContents.canGoForward());
+      await curPageView.webContents.loadURL(validUrl);
+      // console.log(curPageView.webContents.getTitle());
+      // actuallyUsedValidURL = curPageView.webContents.getURL());
+      // console.log(curPageView.webContents.canGoBack());
+      // console.log(curPageView.webContents.canGoForward());
       // e.reply("submitted:omnibox:success", validUrl, data, data2);
     } catch (error) {
-      setFailedToLoadPage(targetView, inputValue, error.code);
+      setFailedToLoadPage(curPageView, inputValue, error.code);
       // e.reply("submitted:omnibox:fail", validUrl);
     }
 

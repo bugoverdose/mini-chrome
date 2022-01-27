@@ -14,11 +14,11 @@ class Window {
     browserWindow.setFullScreenable(true);
 
     browserWindow.on("resize", () => {
-      const [headerView, activeView] = this.getVisibleAreas();
+      const [headerView, pageView] = this.getVisibleAreas();
       const [curWidth, curHeight] = browserWindow.getSize();
 
       setHeaderSize(headerView, curWidth);
-      setViewSize(activeView, curWidth, curHeight);
+      setViewSize(pageView, curWidth, curHeight);
     });
 
     this.browserWindow = browserWindow;
@@ -28,9 +28,18 @@ class Window {
   getVisibleAreas() {
     const views = this.browserWindow.getBrowserViews();
     const headerView = views[0];
-    const activeView = views[1];
-    return [headerView, activeView];
+    const pageView = views[1];
+    return [headerView, pageView];
   }
+
+  // toggleFocusTab(tab) {
+  //   const views = this.browserWindow.getBrowserViews();
+  //   while (views.length >= 2) {
+  //     this.browserWindow.removeBrowserView(views.pop());
+  //     // views에서 pop해도 browserWindow 내에는 그대로 존재하므로 별도로 remove 필요
+  //   }
+  //   this.browserWindow.addBrowserView(tab.getBrowserView());
+  // }
 
   getBrowserWindow() {
     return this.browserWindow;
@@ -44,12 +53,12 @@ class Window {
     this.tabs.filter((tab) => tab.getId() !== tabId);
   }
 
-  getActiveTabIdx() {
-    return this.activeTabIdx;
+  getFocusTabIdx() {
+    return this.focusTabIdx;
   }
 
-  setActiveTabIdx(idx) {
-    this.activeTabIdx = idx;
+  setFocusTabIdx(idx) {
+    this.focusTabIdx = idx;
   }
 
   createNewTabWithView(browserView) {
@@ -57,7 +66,7 @@ class Window {
     const newTab = new Tab(browserView, newTabIndex);
 
     this.tabs.push(newTab);
-    this.setActiveTabIdx(newTabIndex);
+    this.setFocusTabIdx(newTabIndex);
 
     return newTab;
   }
