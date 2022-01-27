@@ -16,6 +16,14 @@
   width: 33px;
 }
 
+.view-util-deactivate * {
+  color: var(--main-light-grey);
+}
+
+.view-util-deactivate {
+  pointer-events: none;
+}
+
 .view-util-area {
   display: flex;
   justify-content: center;

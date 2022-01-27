@@ -25,6 +25,10 @@ window.listen_on.updateTabInfo((_, tabData) => {
   } = JSON.parse(tabData);
   const tab = document.getElementById(tabId);
   tab.getElementsByClassName("tab-title")[0].innerText = title;
+
+  if (tab.classList.contains("focused-tab")) {
+    updateViewUtils(canGoBack, canGoForward);
+  }
 });
 
 // event delegation
@@ -60,6 +64,19 @@ const triggerTabClose = async (target) => {
 initTabs();
 
 // utils
+const updateViewUtils = (canGoBack, canGoForward) => {
+  const goBack = document.getElementById("go-back");
+  const goForward = document.getElementById("go-forward");
+
+  canGoBack
+    ? goBack.classList.remove("view-util-deactivate")
+    : goBack.classList.add("view-util-deactivate");
+
+  canGoForward
+    ? goForward.classList.remove("view-util-deactivate")
+    : goForward.classList.add("view-util-deactivate");
+};
+
 const cleanseTabFocus = (focusTabIdx) => {
   const tabList = document.querySelectorAll(".tab");
 
@@ -100,7 +117,10 @@ const createNewTab = (
   const __tabClose = createCloseTabBtn();
   const _tabBorderRight = createElement("div", "tab-border-right");
 
-  if (isFocus) tab.classList.add("focused-tab");
+  if (isFocus) {
+    tab.classList.add("focused-tab");
+    updateViewUtils(canGoBack, canGoForward);
+  }
 
   __tabTitle.innerHTML = title;
 
