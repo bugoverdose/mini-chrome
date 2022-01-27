@@ -8,7 +8,6 @@ window.listen_on.renderAllTabs((_, { tabs, activeIdx }) => {
 });
 
 window.listen_on.renderNewTab((_, { tab, activeIdx }) => {
-  console.log(tab);
   tab = JSON.parse(tab);
   const tabs = document.getElementById("tabs");
   createNewTab(tab, tab.idx === activeIdx, tabs);

@@ -3,15 +3,24 @@ const { loadNewTabPage } = require("../page");
 
 const addNewPageViewOnWindow = async (window, newTab) => {
   const browserWindow = window.getBrowserWindow();
-  const browserView = newTab.getBrowserView();
   const [curWidth, curHeight] = browserWindow.getSize();
 
-  browserWindow.addBrowserView(browserView);
+  const browserView = newTab.getBrowserView();
+
+  setCurrentView(browserWindow, browserView);
 
   setViewSize(browserView, curWidth, curHeight);
   await loadNewTabPage(browserView);
 
   return newTab;
+};
+
+const setCurrentView = (browserWindow, browserView) => {
+  const views = browserWindow.getBrowserViews();
+  if (views.length >= 2) {
+    browserWindow.removeBrowserView(views[views.length - 1]);
+  }
+  browserWindow.addBrowserView(browserView);
 };
 
 const setViewSize = (view, windowWidth, windowHeight) => {
