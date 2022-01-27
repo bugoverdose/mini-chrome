@@ -62,7 +62,7 @@ const setTabEventHandlers = (window) => {
   });
 
   ipcMain.on("request:toggleTab", (_, tabId) => {
-    const tab = window.getTabById(parseInt(tabId));
+    const tab = window.getTabById(tabId);
     window.toggleFocusTab(tab);
   });
 
@@ -72,28 +72,19 @@ const setTabEventHandlers = (window) => {
 };
 
 const setOmniboxControls = (window) => {
-  ipcMain.on("submitted:omnibox", async (_, { inputValue, focusTabId }) => {
+  ipcMain.on("submitted:omnibox", async (e, { inputValue, focusTabId }) => {
     const validUrl = inputToValidUrl(inputValue);
     const targetTab = window.getTabById(focusTabId);
-    const targetPageView = targetTab.getBrowserView();
     try {
-      await targetPageView.webContents.loadURL(validUrl);
-      // console.log(targetPageView.webContents.getTitle());
-      // actuallyUsedValidURL = targetPageView.webContents.getURL());
-      // console.log(targetPageView.webContents.canGoBack());
-      // console.log(targetPageView.webContents.canGoForward());
-      // e.reply("submitted:omnibox:success", validUrl, data, data2);
+      await targetTab.getWebContents().loadURL(validUrl);
     } catch (error) {
-      setFailedToLoadPage(targetPageView, inputValue, error.code);
-      // e.reply("submitted:omnibox:fail", validUrl);
+      await setFailedToLoadPage(
+        targetTab.getBrowserView(),
+        inputValue,
+        error.code
+      );
     }
-
-    // if (error.code === "ERR_ABORTED") return;
-
-    // Error: ERR_NAME_NOT_RESOLVED (-105) loading 'https://.com/'
-    // errno: -105,
-    // code: 'ERR_NAME_NOT_RESOLVED',
-    // url: 'https://.com/'
+    e.reply("response:updateTab", targetTab.toString());
   });
 };
 

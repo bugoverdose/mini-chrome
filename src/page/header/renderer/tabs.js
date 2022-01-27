@@ -14,6 +14,19 @@ window.listen_on.renderNewTab((_, { tab, focusIdx }) => {
   cleanseTabFocus(focusIdx);
 });
 
+window.listen_on.updateTabInfo((_, tabData) => {
+  const {
+    id: tabId,
+    title,
+    idx,
+    url,
+    canGoBack,
+    canGoForward,
+  } = JSON.parse(tabData);
+  const tab = document.getElementById(tabId);
+  tab.getElementsByClassName("tab-title")[0].innerText = title;
+});
+
 // event delegation
 document.getElementById("tab-area-container").addEventListener("click", (e) => {
   const { target } = e;
@@ -75,7 +88,11 @@ const resetAllTabs = (tabsData, focusTabIdx) => {
   );
 };
 
-const createNewTab = ({ id, title }, isFocus, tabs) => {
+const createNewTab = (
+  { id, title, idx, url, canGoBack, canGoForward },
+  isFocus,
+  tabs
+) => {
   const tab = createElement("div", "tab", id);
   const _tabContainer = createElement("div", "tab-container");
   const __tabFavicon = createNewTabSVG();

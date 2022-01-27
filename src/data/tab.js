@@ -23,12 +23,43 @@ class Tab {
     return this.browserView;
   }
 
+  getWebContents() {
+    return this.browserView.webContents;
+  }
+
   getId() {
     return this.id;
   }
 
   getIdx() {
     return this.idx;
+  }
+
+  getTitle() {
+    const url = this.browserView.webContents.getURL();
+
+    if (url === newPageHTMLfileRoute) return "New Tab";
+    if (url.startsWith(failedPageHTMLfileRoute)) return "Connection Failed";
+    // 실제로 연결을 시도한 이후에 실패한 경우, index.html 대신 검색을 시도했던 url을 지님. 다만, 혹시 모르는 경우를 위해 추가.
+
+    return this.browserView.webContents.getTitle();
+  }
+
+  getUrl() {
+    const url = this.browserView.webContents.getURL();
+
+    if (url === newPageHTMLfileRoute) return "";
+    if (url.startsWith(failedPageHTMLfileRoute)) return "";
+
+    return url;
+  }
+
+  getCanGoBack() {
+    return this.browserView.webContents.canGoBack();
+  }
+
+  getCanGoForward() {
+    return this.browserView.webContents.canGoForward();
   }
 
   toString() {
@@ -40,32 +71,6 @@ class Tab {
       canGoBack: this.getCanGoBack(),
       canGoForward: this.getCanGoForward(),
     });
-  }
-
-  getTitle() {
-    const url = this.browserView.webContents.getURL();
-
-    if (url === newPageHTMLfileRoute) return "New Tab";
-    if (url === failedPageHTMLfileRoute) return "Connection Failed";
-
-    return this.browserView.webContents.getTitle();
-  }
-
-  getUrl() {
-    const url = this.browserView.webContents.getURL();
-
-    if (url === newPageHTMLfileRoute) return "";
-    if (url === failedPageHTMLfileRoute) return "";
-
-    return url;
-  }
-
-  getCanGoBack() {
-    return this.browserView.webContents.canGoBack();
-  }
-
-  getCanGoForward() {
-    return this.browserView.webContents.canGoForward();
   }
 }
 
