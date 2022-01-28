@@ -15,8 +15,6 @@ const {
   listen_on: { renderAllTabs, renderNewTab, updateTabInfo },
 } = window;
 
-const refreshOrStopIcon3 = document.querySelector("#refresh-or-stop object");
-
 const initTabs = async () => {
   await getCurrentTabs();
 };
@@ -97,8 +95,7 @@ updateTabInfo((_, tabData) => {
   tab.getElementsByClassName("tab-title")[0].innerText = title;
 
   if (tab.classList.contains("focused-tab")) {
-    updateViewUtils(canGoBack, canGoForward);
-    // updateViewUtils(canGoBack, canGoForward, pageLoading, refreshOrStopIcon3);
+    updateViewUtils(canGoBack, canGoForward, pageLoading);
   }
 });
 

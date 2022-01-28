@@ -13,14 +13,10 @@ const setPageStopLoadingIcon = (icon) => {
   icon.data = pageStopLoadIcon;
 };
 
-const updateViewUtils = (
-  canGoBack,
-  canGoForward
-  // pageLoading,
-  // reloadOrStopElement
-) => {
+const updateViewUtils = (canGoBack, canGoForward, pageLoading) => {
   const goBack = document.getElementById("go-back");
   const goForward = document.getElementById("go-forward");
+  const refreshOrStop = document.querySelector("#refresh-or-stop object");
 
   canGoBack
     ? goBack.classList.remove("view-util-deactivate")
@@ -30,9 +26,9 @@ const updateViewUtils = (
     ? goForward.classList.remove("view-util-deactivate")
     : goForward.classList.add("view-util-deactivate");
 
-  // pageLoading
-  //   ? setPageStopLoadingIcon(reloadOrStopElement)
-  //   : setRefreshIcon(reloadOrStopElement);
+  pageLoading
+    ? setPageStopLoadingIcon(refreshOrStop)
+    : setRefreshIcon(refreshOrStop);
 };
 
 const cleanseTabFocus = (focusTabIdx) => {

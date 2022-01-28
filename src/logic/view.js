@@ -17,10 +17,13 @@ const addNewPageViewOnWindow = async (window, newTab) => {
 const configNewView = (window, browserView, tabId) => {
   const headerView = window.getHeaderView();
 
-  browserView.webContents.on("did-finish-load", () => {
+  // browserView.webContents.on("did-finish-load", () => {
+  browserView.webContents.on("did-stop-loading", () => {
     const tabData = window.getTabById(tabId).toString();
     headerView.webContents.send("updateTab", tabData);
   });
+
+  //page-favicon-updated
 };
 
 const setViewSize = (view, windowWidth, windowHeight) => {
