@@ -17,7 +17,7 @@
 }
 
 .view-util-deactivate * {
-  color: var(--main-light-grey);
+  color: var(--main-grey);
 }
 
 .view-util-deactivate {
@@ -40,7 +40,8 @@
   background-color: #535252;
 }
 
-.view-util-area > svg {
+.view-util-area svg,
+.view-util-area object {
   width: 18px;
   height: 18px;
   color: white;

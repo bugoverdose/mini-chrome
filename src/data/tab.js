@@ -74,6 +74,18 @@ class Tab {
     return this.browserView.webContents.goForward();
   }
 
+  getPageLoading() {
+    return this.browserView.webContents.isLoading();
+  }
+
+  reload() {
+    return this.browserView.webContents.reload();
+  }
+
+  stopLoad() {
+    return this.browserView.webContents.stop();
+  }
+
   toString() {
     return JSON.stringify({
       id: this.getId(),
@@ -82,6 +94,7 @@ class Tab {
       title: this.getTitle(),
       canGoBack: this.getCanGoBack(),
       canGoForward: this.getCanGoForward(),
+      pageLoading: this.getPageLoading(),
     });
   }
 }

@@ -10,7 +10,8 @@ body {
   user-select: none;
 }
 
-.loading,
-object {
+svg,
+object,
+.loading {
   pointer-events: none;
 }

@@ -16,7 +16,8 @@ contextBridge.exposeInMainWorld("custom_events", {
 
   initGoBack: (tabId) => ipcRenderer.invoke("clicked:goBack", tabId),
   initGoForward: (tabId) => ipcRenderer.invoke("clicked:goForward", tabId),
-  // initReload: (tabId) => ipcRenderer.invoke("clicked:reload", tabId),
+  initReload: (tabId) => ipcRenderer.invoke("clicked:reload", tabId),
+  initStopLoad: (tabId) => ipcRenderer.invoke("clicked:stopLoad", tabId),
 });
 
 contextBridge.exposeInMainWorld("request_main", {
@@ -35,12 +36,25 @@ contextBridge.exposeInMainWorld("listen_on", {
   updateTabInfo: (cb) => ipcRenderer.on("updateTab", cb),
 });
 
+const pageRefreshIcon = "icons/refresh-btn.svg";
+const pageStopLoadIcon = "icons/stop-load-btn.svg";
+
 contextBridge.exposeInMainWorld("custom_utils", {
   updateViewUtils: updateViewUtils,
   cleanseTabFocus: cleanseTabFocus,
   setFocusTabByTabId: setFocusTabByTabId,
   resetAllTabs: resetAllTabs,
   createNewTab: createNewTab,
+
+  checkPageLoading: (icon) => {
+    return icon.data.endsWith(pageStopLoadIcon);
+  },
+  setPageLoadingIcon: (icon) => {
+    icon.data = pageRefreshIcon;
+  },
+  setPageStopLoadingIcon: (icon) => {
+    icon.data = pageStopLoadIcon;
+  },
 });
 
 // 아래는 영어지만 복붙이 아니라 전부 내가 쓴 내용. 참고자료.

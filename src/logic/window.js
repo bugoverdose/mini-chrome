@@ -79,6 +79,14 @@ const setViewUtilsControls = (window) => {
   ipcMain.handle("clicked:goForward", (_, tabId) => {
     window.getTabById(tabId).goForward();
   });
+
+  ipcMain.handle("clicked:reload", (_, tabId) => {
+    window.getTabById(tabId).reload();
+  });
+
+  ipcMain.handle("clicked:stopLoad", (_, tabId) => {
+    window.getTabById(tabId).stopLoad();
+  });
 };
 
 const setOmniboxControls = (window) => {
