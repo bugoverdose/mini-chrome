@@ -1,11 +1,15 @@
+const {
+  custom_events: { red, yellow, green },
+} = window;
+
 document.getElementById("red").addEventListener("click", async (e) => {
-  await window.custom_events.red();
+  await red();
 });
 
 document.getElementById("yellow").addEventListener("click", async (e) => {
-  await window.custom_events.yellow();
+  await yellow();
 });
 
 document.getElementById("green").addEventListener("click", async (e) => {
-  await window.custom_events.green();
+  await green();
 });

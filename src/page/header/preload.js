@@ -1,10 +1,13 @@
 const { contextBridge, ipcRenderer } = require("electron");
 const {
+  checkPageLoading,
+  setRefreshIcon,
+  setPageStopLoadingIcon,
   updateViewUtils,
   cleanseTabFocus,
   setFocusTabByTabId,
   resetAllTabs,
-  createNewTab,
+  createNewTabElement,
 } = require("./utils");
 
 // preload에서 main 프로세스의 기능들 사용하고,
@@ -36,25 +39,16 @@ contextBridge.exposeInMainWorld("listen_on", {
   updateTabInfo: (cb) => ipcRenderer.on("updateTab", cb),
 });
 
-const pageRefreshIcon = "icons/refresh-btn.svg";
-const pageStopLoadIcon = "icons/stop-load-btn.svg";
-
 contextBridge.exposeInMainWorld("custom_utils", {
   updateViewUtils: updateViewUtils,
   cleanseTabFocus: cleanseTabFocus,
   setFocusTabByTabId: setFocusTabByTabId,
   resetAllTabs: resetAllTabs,
-  createNewTab: createNewTab,
+  createNewTabElement: createNewTabElement,
 
-  checkPageLoading: (icon) => {
-    return icon.data.endsWith(pageStopLoadIcon);
-  },
-  setPageLoadingIcon: (icon) => {
-    icon.data = pageRefreshIcon;
-  },
-  setPageStopLoadingIcon: (icon) => {
-    icon.data = pageStopLoadIcon;
-  },
+  checkPageLoading: checkPageLoading,
+  setRefreshIcon: setRefreshIcon,
+  setPageStopLoadingIcon: setPageStopLoadingIcon,
 });
 
 // 아래는 영어지만 복붙이 아니라 전부 내가 쓴 내용. 참고자료.

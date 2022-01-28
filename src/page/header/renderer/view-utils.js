@@ -4,11 +4,7 @@ const refreshOrStopIcon = document.querySelector("#refresh-or-stop object");
 
 const {
   custom_events: { initGoBack, initGoForward, initReload, initStopLoad },
-  custom_utils: {
-    checkPageLoading,
-    setPageStopLoadingIcon,
-    setPageLoadingIcon,
-  },
+  custom_utils: { checkPageLoading, setPageStopLoadingIcon, setRefreshIcon },
 } = window;
 
 viewUtils.addEventListener("click", (e) => {
@@ -30,8 +26,6 @@ const triggerGoForward = async (tabId) => {
 };
 
 const triggerRefreshOrStop = (tabId) => {
-  console.log(refreshOrStopIcon);
-  console.log(checkPageLoading(refreshOrStopIcon));
   if (checkPageLoading(refreshOrStopIcon)) {
     triggerStopLoad(tabId);
     return;
@@ -48,5 +42,5 @@ const triggerRefresh = (tabId) => {
 const triggerStopLoad = async (tabId) => {
   await initStopLoad(tabId);
 
-  setPageLoadingIcon(refreshOrStopIcon);
+  setRefreshIcon(refreshOrStopIcon);
 };

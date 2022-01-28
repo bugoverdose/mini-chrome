@@ -1,4 +1,24 @@
-const updateViewUtils = (canGoBack, canGoForward) => {
+const pageRefreshIcon = "icons/refresh-btn.svg";
+const pageStopLoadIcon = "icons/stop-load-btn.svg";
+
+const checkPageLoading = (icon) => {
+  return icon.data.endsWith(pageStopLoadIcon); // 직접 읽으면 file://~ 형식
+};
+
+const setRefreshIcon = (icon) => {
+  icon.data = pageRefreshIcon;
+};
+
+const setPageStopLoadingIcon = (icon) => {
+  icon.data = pageStopLoadIcon;
+};
+
+const updateViewUtils = (
+  canGoBack,
+  canGoForward
+  // pageLoading,
+  // reloadOrStopElement
+) => {
   const goBack = document.getElementById("go-back");
   const goForward = document.getElementById("go-forward");
 
@@ -9,6 +29,10 @@ const updateViewUtils = (canGoBack, canGoForward) => {
   canGoForward
     ? goForward.classList.remove("view-util-deactivate")
     : goForward.classList.add("view-util-deactivate");
+
+  // pageLoading
+  //   ? setPageStopLoadingIcon(reloadOrStopElement)
+  //   : setRefreshIcon(reloadOrStopElement);
 };
 
 const cleanseTabFocus = (focusTabIdx) => {
@@ -33,13 +57,12 @@ const setFocusTabByTabId = (tabId) => {
 
 const resetAllTabs = (tabsData, focusTabIdx) => {
   const tabs = document.getElementById("tabs");
-
   tabsData.forEach((tabData, idx) =>
-    createNewTab(tabData, idx === focusTabIdx, tabs)
+    createNewTabElement(tabData, idx === focusTabIdx, tabs)
   );
 };
 
-const createNewTab = (
+const createNewTabElement = (
   { id, title, idx, url, canGoBack, canGoForward },
   isFocus,
   tabs
@@ -100,9 +123,12 @@ const createCloseTabBtn = () => {
 };
 
 module.exports = {
+  checkPageLoading,
+  setRefreshIcon,
+  setPageStopLoadingIcon,
   updateViewUtils,
   cleanseTabFocus,
   setFocusTabByTabId,
   resetAllTabs,
-  createNewTab,
+  createNewTabElement,
 };

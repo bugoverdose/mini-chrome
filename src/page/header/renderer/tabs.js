@@ -1,5 +1,24 @@
+const {
+  custom_utils: {
+    setFocusTabByTabId,
+    resetAllTabs,
+    createNewTabElement,
+    cleanseTabFocus,
+    updateViewUtils,
+  },
+  request_main: {
+    getCurrentTabs,
+    createNewTab,
+    toggleFocusTabById,
+    deleteTabById,
+  },
+  listen_on: { renderAllTabs, renderNewTab, updateTabInfo },
+} = window;
+
+const refreshOrStopIcon3 = document.querySelector("#refresh-or-stop object");
+
 const initTabs = async () => {
-  await window.request_main.getCurrentTabs();
+  await getCurrentTabs();
 };
 
 const tabArea = document.getElementById("tab-area-container");
@@ -24,14 +43,14 @@ tabArea.addEventListener("click", (e) => {
 
 const triggerCreateNewTab = () => {
   setIsLoading(true);
-  window.request_main.createNewTab();
+  createNewTab();
 };
 
 const triggerFocusTabToggle = (target) => {
   const tabId = target.parentElement.id;
 
-  window.request_main.toggleFocusTabById(tabId);
-  window.custom_utils.setFocusTabByTabId(tabId);
+  toggleFocusTabById(tabId);
+  setFocusTabByTabId(tabId);
 };
 
 const triggerTabClose = async (target) => {
@@ -40,28 +59,28 @@ const triggerTabClose = async (target) => {
     throw new Error("document structure exception on tab-close-btn div");
   }
 
-  await window.request_main.deleteTabById(tab.id);
+  await deleteTabById(tab.id);
   tab.remove();
 };
 
 // listen on requests from main process
-window.listen_on.renderAllTabs((_, { tabs, focusIdx }) => {
+renderAllTabs((_, { tabs, focusIdx }) => {
   tabs = tabs.map((tab) => JSON.parse(tab));
-  window.custom_utils.resetAllTabs(tabs, focusIdx);
+  resetAllTabs(tabs, focusIdx);
 
   setIsLoading(false);
 });
 
-window.listen_on.renderNewTab((_, { tab, focusIdx }) => {
+renderNewTab((_, { tab, focusIdx }) => {
   tab = JSON.parse(tab);
   const tabs = document.getElementById("tabs");
-  window.custom_utils.createNewTab(tab, tab.idx === focusIdx, tabs);
-  window.custom_utils.cleanseTabFocus(focusIdx);
+  createNewTabElement(tab, tab.idx === focusIdx, tabs);
+  cleanseTabFocus(focusIdx);
 
   setIsLoading(false);
 });
 
-window.listen_on.updateTabInfo((_, tabData) => {
+updateTabInfo((_, tabData) => {
   const {
     id: tabId,
     title,
@@ -69,14 +88,17 @@ window.listen_on.updateTabInfo((_, tabData) => {
     url,
     canGoBack,
     canGoForward,
+    pageLoading,
   } = JSON.parse(tabData);
   const tab = document.getElementById(tabId);
+
   if (!tab) return; // 아직 생성되지 않은 탭을 업데이트하려는 경우 (탭 생성시에도 트리거되기 때문)
 
   tab.getElementsByClassName("tab-title")[0].innerText = title;
 
   if (tab.classList.contains("focused-tab")) {
-    window.custom_utils.updateViewUtils(canGoBack, canGoForward);
+    updateViewUtils(canGoBack, canGoForward);
+    // updateViewUtils(canGoBack, canGoForward, pageLoading, refreshOrStopIcon3);
   }
 });
 

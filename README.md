@@ -99,7 +99,7 @@
 
 - [x] 로드된 페이지의 title로 해당 탭 업데이트
 
-- [ ] 엔터 누르면 곧바로 omnibox에서 unfocus되어 동일한 url 반복 입력 방지
+- [x] 엔터 누르면 곧바로 omnibox에서 unfocus되어 동일한 url 반복 입력 방지 - blur()
 
 - [ ] 현재 view에 표시되는 주소가 변한 경우 omnibox에 해당 url 출력
 
