@@ -41,6 +41,7 @@ tabArea.addEventListener("click", (e) => {
 
   if (target.id === "tab-create-btn") triggerCreateNewTab();
   if (target.classList.contains("tab-container")) {
+    if (target.parentElement.classList.contains("focused-tab")) return;
     triggerFocusTabToggle(target.parentElement.id);
   }
   if (target.classList.contains("tab-close-btn")) triggerTabClose(target);
