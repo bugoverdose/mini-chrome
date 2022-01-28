@@ -50,16 +50,13 @@ const setTabEventHandlers = (window) => {
     const tabs = window.getTabs();
     const focusTabId = window.getFocusTabId();
 
-    e.reply("response:allTabs", { tabs, focusTabId: focusTabId + "" });
+    e.reply("response:allTabs", { tabs, focusTabId });
   });
 
   ipcMain.on("request:createNewTab", async (e, url) => {
     const newTab = await createNewTab(window);
     const focusTabId = window.getFocusTabId();
-    e.reply("response:newTab", {
-      tab: newTab.toString(),
-      focusTabId: focusTabId + "",
-    });
+    e.reply("response:newTab", { tab: newTab.toString(), focusTabId });
     // TODO: url 받아서 탭 및 뷰 생성
   });
 

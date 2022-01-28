@@ -61,10 +61,6 @@ class Window {
   }
 
   getTabById(tabId) {
-    if (typeof tabId === "string") {
-      tabId = parseInt(tabId);
-    }
-
     for (let idx = 0; idx < this.tabs.length; idx++) {
       const tab = this.tabs[idx];
       if (tab.getId() === tabId) return tab;

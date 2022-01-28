@@ -12,7 +12,7 @@ class Tab {
       throw new Error("Tab needs a BrowserView to be initialized.");
     }
 
-    this.id = ++state.tabId;
+    this.id = `${++state.tabId}`;
     this.browserView = browserView;
   }
 
