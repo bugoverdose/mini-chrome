@@ -20,7 +20,7 @@
 
 ## 디버그
 
-- windowId 필요 : 2번째 창을 여는 경우 ipcRenderer 중복 등록 문제 발생
+- [ ] windowId 필요 : 2번째 창을 여는 경우 ipcRenderer 중복 등록 문제 발생
 
   - 혹은 복수의 창 생성 자체를 막는 것도 고려
 
@@ -31,6 +31,8 @@
 - [ ] 처음 윈도우 생성 시점에 omnibox에 focus되지 않음
 
 - [x] 이미 focus된 탭 클릭하는 경우 토글하는 것으로 간주하지 말기. 무의미한 재렌더링으로 인한 성능 저하.
+
+- [x] cover up ugly border left of focus tab
 
 ## 구현할 기능 목록 (우테코 스타일)
 

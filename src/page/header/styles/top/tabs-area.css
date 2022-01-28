@@ -46,6 +46,10 @@
 .focused-tab {
   background-color: var(--main-dark-grey);
   border-radius: 10px 10px 0 0;
+
+  margin-left: -2px;
+  padding-left: 2px;
+  width: 162px;
 }
 
 .tab-container {
