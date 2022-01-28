@@ -78,6 +78,9 @@
   padding-top: 8px;
 
   font-size: small;
+
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .tab-close-btn {
