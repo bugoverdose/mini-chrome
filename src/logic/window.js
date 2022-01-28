@@ -62,8 +62,11 @@ const setTabEventHandlers = (window) => {
   });
 
   ipcMain.on("request:toggleTab", (_, tabId) => {
+    const headerView = window.getHeaderView();
     const tab = window.getTabById(tabId);
+
     window.toggleFocusTab(tab);
+    headerView.webContents.send("updateTab", tab.toString());
   });
 
   ipcMain.on("request:deleteTab", (_, tabId) => {

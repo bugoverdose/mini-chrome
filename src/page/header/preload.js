@@ -3,7 +3,7 @@ const {
   checkPageLoading,
   setRefreshIcon,
   setPageStopLoadingIcon,
-  updateViewUtils,
+  updateTabState,
   cleanseTabFocus,
   setFocusTabByTabId,
   resetAllTabs,
@@ -40,7 +40,7 @@ contextBridge.exposeInMainWorld("listen_on", {
 });
 
 contextBridge.exposeInMainWorld("custom_utils", {
-  updateViewUtils: updateViewUtils,
+  updateTabState: updateTabState,
   cleanseTabFocus: cleanseTabFocus,
   setFocusTabByTabId: setFocusTabByTabId,
   resetAllTabs: resetAllTabs,

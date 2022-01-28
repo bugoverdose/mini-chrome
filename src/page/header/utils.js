@@ -13,10 +13,11 @@ const setPageStopLoadingIcon = (icon) => {
   icon.data = pageStopLoadIcon;
 };
 
-const updateViewUtils = (canGoBack, canGoForward, pageLoading) => {
+const updateTabState = (canGoBack, canGoForward, pageLoading, url) => {
   const goBack = document.getElementById("go-back");
   const goForward = document.getElementById("go-forward");
   const refreshOrStop = document.querySelector("#refresh-or-stop object");
+  const omnibox = document.getElementById("omnibox");
 
   canGoBack
     ? goBack.classList.remove("view-util-deactivate")
@@ -29,6 +30,8 @@ const updateViewUtils = (canGoBack, canGoForward, pageLoading) => {
   pageLoading
     ? setPageStopLoadingIcon(refreshOrStop)
     : setRefreshIcon(refreshOrStop);
+
+  omnibox.value = url;
 };
 
 const cleanseTabFocus = (focusTabIdx) => {
@@ -59,7 +62,7 @@ const resetAllTabs = (tabsData, focusTabIdx) => {
 };
 
 const createNewTabElement = (
-  { id, title, idx, url, canGoBack, canGoForward },
+  { id, title, idx, url, canGoBack, canGoForward, pageLoading },
   isFocus,
   tabs
 ) => {
@@ -72,7 +75,7 @@ const createNewTabElement = (
 
   if (isFocus) {
     tab.classList.add("focused-tab");
-    updateViewUtils(canGoBack, canGoForward);
+    updateTabState(canGoBack, canGoForward, pageLoading, url);
   }
 
   __tabTitle.innerHTML = title;
@@ -122,7 +125,7 @@ module.exports = {
   checkPageLoading,
   setRefreshIcon,
   setPageStopLoadingIcon,
-  updateViewUtils,
+  updateTabState,
   cleanseTabFocus,
   setFocusTabByTabId,
   resetAllTabs,

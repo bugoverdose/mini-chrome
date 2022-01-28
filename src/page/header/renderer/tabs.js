@@ -4,7 +4,7 @@ const {
     resetAllTabs,
     createNewTabElement,
     cleanseTabFocus,
-    updateViewUtils,
+    updateTabState,
   },
   request_main: {
     getCurrentTabs,
@@ -95,7 +95,7 @@ updateTabInfo((_, tabData) => {
   tab.getElementsByClassName("tab-title")[0].innerText = title;
 
   if (tab.classList.contains("focused-tab")) {
-    updateViewUtils(canGoBack, canGoForward, pageLoading);
+    updateTabState(canGoBack, canGoForward, pageLoading, url);
   }
 });
 
