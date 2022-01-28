@@ -68,14 +68,9 @@ const setTabEventHandlers = (window) => {
     headerView.webContents.send("updateTab", tab.toString());
   });
 
-  ipcMain.on("request:deleteTab", (_, { deleteTabId, wasFocusTab }) => {
+  ipcMain.on("request:deleteTab", (_, { deleteTabId, updatedFocusTabId }) => {
+    window.setFocusTabId(updatedFocusTabId);
     window.deleteTabByTabId(deleteTabId);
-
-    if (wasFocusTab) {
-      //
-    } else {
-      //
-    }
   });
 };
 

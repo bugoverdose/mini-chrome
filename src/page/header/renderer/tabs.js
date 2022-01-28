@@ -59,36 +59,38 @@ const triggerTabClose = async (target) => {
     throw new Error("document structure exception on tab-close-btn div");
   }
   const isFocusTab = tab.classList.contains("focused-tab");
+  let focusTabId = tab.id;
 
-  // if (isFocusTab) {
-  //   const allTabs = document.querySelectorAll(".tab");
+  if (isFocusTab) {
+    const allTabs = document.querySelectorAll(".tab");
 
-  //   if (allTabs.length === 1) return closeWindow();
+    if (allTabs.length <= 1) return closeWindow();
 
-  //   const nextFocusTabData = findNextFocusTabData(allTabs, tab);
-  //   triggerFocusTabToggle(nextFocusTabData.id);
-  // }
+    focusTabId = findNextFocusTabId(allTabs, tab);
+    triggerFocusTabToggle(focusTabId);
+  }
 
   tab.remove();
 
-  await deleteTabById(tab.id, isFocusTab);
+  await deleteTabById(tab.id, focusTabId);
 };
 
-// const findNextFocusTabData = (allTabs, closeTargetTab) => {
-//   let focusTabIdx = -1;
+const findNextFocusTabId = (allTabs, curFocusTab) => {
+  let focusTabIdx = -1;
 
-//   allTabs.forEach((tab, idx) => {
-//     if (tab === closeTargetTab) {
-//       focusTabIdx = idx;
-//     }
-//   });
+  for (let tabIdx = 0; tabIdx < allTabs.length; tabIdx++) {
+    if (allTabs[tabIdx] === curFocusTab) {
+      focusTabIdx = tabIdx;
+      break;
+    }
+  }
 
-//   if (focusTabIdx === allTabs.length - 1) {
-//     focusTabIdx--;
-//   } // 마지막 탭은 곧 제거될테니 한 칸 빼기
+  if (focusTabIdx === allTabs.length - 1) {
+    focusTabIdx--;
+  } // 마지막 탭은 곧 제거됨. 해당 index의 탭에 focus 불가.
 
-//   return { id: allTabs[focusTabIdx].id, idx: focusTabIdx };
-// };
+  return allTabs[focusTabIdx].id;
+};
 
 // listen on requests from main process
 renderAllTabs((_, { tabs, focusTabId }) => {

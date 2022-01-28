@@ -33,7 +33,7 @@ class Window {
     const newTab = new Tab(browserView);
 
     this.tabs.push(newTab);
-    this.setFocusTabId(newTab);
+    this.setFocusTabIdByTab(newTab);
 
     return newTab;
   }
@@ -49,7 +49,7 @@ class Window {
 
   toggleFocusTab(tab) {
     this.setPageViewByTab(tab);
-    this.setFocusTabId(tab);
+    this.setFocusTabIdByTab(tab);
   }
 
   getBrowserWindow() {
@@ -70,15 +70,18 @@ class Window {
 
   deleteTabByTabId(tabId) {
     this.tabs.filter((tab) => tab.getId() !== tabId);
-    //
   }
 
   getFocusTabId() {
     return this.focusTabId;
   }
 
-  setFocusTabId(tab) {
+  setFocusTabIdByTab(tab) {
     this.focusTabId = tab.getId();
+  }
+
+  setFocusTabId(tabId) {
+    this.focusTabId = tabId;
   }
 }
 

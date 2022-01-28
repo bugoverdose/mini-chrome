@@ -27,8 +27,8 @@ contextBridge.exposeInMainWorld("request_main", {
   getCurrentTabs: () => ipcRenderer.send("request:allTabs"),
   createNewTab: (url) => ipcRenderer.send("request:createNewTab", url || null),
   toggleFocusTabById: (tabId) => ipcRenderer.send("request:toggleTab", tabId),
-  deleteTabById: (deleteTabId, wasFocusTab) =>
-    ipcRenderer.send("request:deleteTab", { deleteTabId, wasFocusTab }),
+  deleteTabById: (deleteTabId, updatedFocusTabId) =>
+    ipcRenderer.send("request:deleteTab", { deleteTabId, updatedFocusTabId }),
 
   loadURL: (inputValue, focusTabId) =>
     ipcRenderer.send("submitted:omnibox", { inputValue, focusTabId }),
