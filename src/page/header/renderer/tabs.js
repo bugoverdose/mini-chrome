@@ -16,12 +16,16 @@ const {
   listen_on: { renderAllTabs, renderNewTab, updateTabInfo },
 } = window;
 
-const initTabs = async () => {
-  await getCurrentTabs();
+const omnibox2 = document.getElementById("omnibox");
+const focusOnOmniboxIfNewTab = () => {
+  if (!omnibox2.value || omnibox2.value === "") {
+    omnibox2.focus(); // omnibox2.select();
+  } else {
+    omnibox2.blur();
+  }
 };
 
 const tabArea = document.getElementById("tab-area-container");
-
 const isLoading = () => tabArea.classList.contains("loading");
 const setIsLoading = (isLoading) => {
   isLoading
@@ -127,6 +131,13 @@ updateTabInfo((_, tabData) => {
   if (tab.classList.contains("focused-tab")) {
     updateTabState(canGoBack, canGoForward, pageLoading, url);
   }
+
+  focusOnOmniboxIfNewTab();
 });
+
+// init
+const initTabs = async () => {
+  await getCurrentTabs();
+};
 
 initTabs();
