@@ -48,16 +48,18 @@ const setTrafficLightControls = (browserWindow) => {
 const setTabEventHandlers = (window) => {
   ipcMain.on("request:allTabs", (e) => {
     const tabs = window.getTabs();
-    const focusIdx = window.getFocusTabIdx();
+    const focusTabId = window.getFocusTabId();
 
-    e.reply("response:allTabs", { tabs, focusIdx });
+    e.reply("response:allTabs", { tabs, focusTabId: focusTabId + "" });
   });
 
   ipcMain.on("request:createNewTab", async (e, url) => {
     const newTab = await createNewTab(window);
-    const focusIdx = window.getFocusTabIdx();
-
-    e.reply("response:newTab", { tab: newTab.toString(), focusIdx });
+    const focusTabId = window.getFocusTabId();
+    e.reply("response:newTab", {
+      tab: newTab.toString(),
+      focusTabId: focusTabId + "",
+    });
     // TODO: url 받아서 탭 및 뷰 생성
   });
 
@@ -69,8 +71,14 @@ const setTabEventHandlers = (window) => {
     headerView.webContents.send("updateTab", tab.toString());
   });
 
-  ipcMain.on("request:deleteTab", (_, tabId) => {
-    window.deleteTabByTabId(tabId);
+  ipcMain.on("request:deleteTab", (_, { deleteTabId, wasFocusTab }) => {
+    window.deleteTabByTabId(deleteTabId);
+
+    if (wasFocusTab) {
+      //
+    } else {
+      //
+    }
   });
 };
 

@@ -7,17 +7,13 @@ const {
 const { decodeOmniboxInput } = require("../utils/url");
 
 class Tab {
-  constructor(browserView, idx) {
+  constructor(browserView) {
     if (!browserView || !(browserView instanceof BrowserView)) {
       throw new Error("Tab needs a BrowserView to be initialized.");
-    }
-    if (!browserView || !(browserView instanceof BrowserView)) {
-      throw new Error("Tab needs tab index data to be initialized.");
     }
 
     this.id = ++state.tabId;
     this.browserView = browserView;
-    this.idx = idx;
   }
 
   getBrowserView() {
@@ -30,10 +26,6 @@ class Tab {
 
   getId() {
     return this.id;
-  }
-
-  getIdx() {
-    return this.idx;
   }
 
   getTitle() {
@@ -85,7 +77,6 @@ class Tab {
   toString() {
     return JSON.stringify({
       id: this.getId(),
-      idx: this.getIdx(),
       url: this.getUrl(),
       title: this.getTitle(),
       canGoBack: this.getCanGoBack(),

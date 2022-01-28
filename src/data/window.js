@@ -8,7 +8,6 @@ class Window {
     if (!browserWindow || !(browserWindow instanceof BrowserWindow)) {
       throw new Error("Window needs a BrowserWindow to be initialized.");
     }
-
     setHeader(browserWindow);
 
     browserWindow.setFullScreenable(true);
@@ -31,11 +30,10 @@ class Window {
   }
 
   createNewTabWithView(browserView) {
-    const newTabIndex = this.tabs.length;
-    const newTab = new Tab(browserView, newTabIndex);
+    const newTab = new Tab(browserView);
 
     this.tabs.push(newTab);
-    this.setFocusTabIdx(newTab);
+    this.setFocusTabId(newTab);
 
     return newTab;
   }
@@ -51,7 +49,7 @@ class Window {
 
   toggleFocusTab(tab) {
     this.setPageViewByTab(tab);
-    this.setFocusTabIdx(tab);
+    this.setFocusTabId(tab);
   }
 
   getBrowserWindow() {
@@ -76,14 +74,15 @@ class Window {
 
   deleteTabByTabId(tabId) {
     this.tabs.filter((tab) => tab.getId() !== tabId);
+    //
   }
 
-  getFocusTabIdx() {
-    return this.focusTabIdx;
+  getFocusTabId() {
+    return this.focusTabId;
   }
 
-  setFocusTabIdx(tab) {
-    this.focusTabIdx = tab.getIdx();
+  setFocusTabId(tab) {
+    this.focusTabId = tab.getId();
   }
 }
 

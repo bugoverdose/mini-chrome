@@ -1,4 +1,5 @@
 const {
+  custom_events: { red: closeWindow },
   custom_utils: {
     setFocusTabByTabId,
     resetAllTabs,
@@ -35,7 +36,9 @@ tabArea.addEventListener("click", (e) => {
   if (isLoading()) return;
 
   if (target.id === "tab-create-btn") triggerCreateNewTab();
-  if (target.classList.contains("tab-container")) triggerFocusTabToggle(target);
+  if (target.classList.contains("tab-container")) {
+    triggerFocusTabToggle(target.parentElement.id);
+  }
   if (target.classList.contains("tab-close-btn")) triggerTabClose(target);
 });
 
@@ -44,36 +47,62 @@ const triggerCreateNewTab = () => {
   createNewTab();
 };
 
-const triggerFocusTabToggle = (target) => {
-  const tabId = target.parentElement.id;
-
+const triggerFocusTabToggle = (tabId) => {
   toggleFocusTabById(tabId);
   setFocusTabByTabId(tabId);
 };
 
 const triggerTabClose = async (target) => {
   const tab = target.parentElement.parentElement.parentElement;
+
   if (!tab.classList.contains("tab")) {
     throw new Error("document structure exception on tab-close-btn div");
   }
+  const isFocusTab = tab.classList.contains("focused-tab");
 
-  await deleteTabById(tab.id);
+  // if (isFocusTab) {
+  //   const allTabs = document.querySelectorAll(".tab");
+
+  //   if (allTabs.length === 1) return closeWindow();
+
+  //   const nextFocusTabData = findNextFocusTabData(allTabs, tab);
+  //   triggerFocusTabToggle(nextFocusTabData.id);
+  // }
+
   tab.remove();
+
+  await deleteTabById(tab.id, isFocusTab);
 };
 
+// const findNextFocusTabData = (allTabs, closeTargetTab) => {
+//   let focusTabIdx = -1;
+
+//   allTabs.forEach((tab, idx) => {
+//     if (tab === closeTargetTab) {
+//       focusTabIdx = idx;
+//     }
+//   });
+
+//   if (focusTabIdx === allTabs.length - 1) {
+//     focusTabIdx--;
+//   } // 마지막 탭은 곧 제거될테니 한 칸 빼기
+
+//   return { id: allTabs[focusTabIdx].id, idx: focusTabIdx };
+// };
+
 // listen on requests from main process
-renderAllTabs((_, { tabs, focusIdx }) => {
+renderAllTabs((_, { tabs, focusTabId }) => {
   tabs = tabs.map((tab) => JSON.parse(tab));
-  resetAllTabs(tabs, focusIdx);
+  resetAllTabs(tabs, focusTabId);
 
   setIsLoading(false);
 });
 
-renderNewTab((_, { tab, focusIdx }) => {
+renderNewTab(async (_, { tab, focusTabId }) => {
   tab = JSON.parse(tab);
   const tabs = document.getElementById("tabs");
-  createNewTabElement(tab, tab.idx === focusIdx, tabs);
-  cleanseTabFocus(focusIdx);
+  await createNewTabElement(tab, focusTabId, tabs);
+  cleanseTabFocus(focusTabId);
 
   setIsLoading(false);
 });
@@ -82,7 +111,6 @@ updateTabInfo((_, tabData) => {
   const {
     id: tabId,
     title,
-    idx,
     url,
     canGoBack,
     canGoForward,

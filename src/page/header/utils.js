@@ -34,14 +34,14 @@ const updateTabState = (canGoBack, canGoForward, pageLoading, url) => {
   omnibox.value = url;
 };
 
-const cleanseTabFocus = (focusTabIdx) => {
+const cleanseTabFocus = (focusTabId) => {
   const tabList = document.querySelectorAll(".tab");
 
-  tabList.forEach((tab, idx) =>
-    idx === focusTabIdx
+  tabList.forEach((tab) => {
+    tab.id === focusTabId
       ? tab.classList.add("focused-tab")
-      : tab.classList.remove("focused-tab")
-  );
+      : tab.classList.remove("focused-tab");
+  });
 };
 
 const setFocusTabByTabId = (tabId) => {
@@ -54,16 +54,14 @@ const setFocusTabByTabId = (tabId) => {
   );
 };
 
-const resetAllTabs = (tabsData, focusTabIdx) => {
+const resetAllTabs = (tabsData, focusTabId) => {
   const tabs = document.getElementById("tabs");
-  tabsData.forEach((tabData, idx) =>
-    createNewTabElement(tabData, idx === focusTabIdx, tabs)
-  );
+  tabsData.forEach((tabData) => createNewTabElement(tabData, focusTabId, tabs));
 };
 
 const createNewTabElement = (
-  { id, title, idx, url, canGoBack, canGoForward, pageLoading },
-  isFocus,
+  { id, title, url, canGoBack, canGoForward, pageLoading },
+  focusTabId,
   tabs
 ) => {
   const tab = createElement("div", "tab", id);
@@ -73,7 +71,7 @@ const createNewTabElement = (
   const __tabClose = createCloseTabBtn();
   const _tabBorderRight = createElement("div", "tab-border-right");
 
-  if (isFocus) {
+  if (id === focusTabId) {
     tab.classList.add("focused-tab");
     updateTabState(canGoBack, canGoForward, pageLoading, url);
   }
