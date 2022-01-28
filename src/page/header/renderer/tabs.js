@@ -36,11 +36,10 @@ window.listen_on.updateTabInfo((_, tabData) => {
 // event delegation
 document.getElementById("tab-area-container").addEventListener("click", (e) => {
   const { target } = e;
-  console.log(target);
 
   if (target.id === "tab-create-btn") triggerCreateNewTab();
-  if (target.className === "tab-container") triggerFocusTabToggle(target);
-  if (target.className === "tab-close-btn") triggerTabClose(target);
+  if (target.classList.contains("tab-container")) triggerFocusTabToggle(target);
+  if (target.classList.contains("tab-close-btn")) triggerTabClose(target);
 });
 
 const triggerCreateNewTab = () => {

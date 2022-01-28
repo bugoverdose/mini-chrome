@@ -3,7 +3,7 @@
 ## 우선순위
 
 - 새로고침 기능 추가
-- 탭 생성 더블 클릭 등 방지를 위해 preload에서 loading state 관리
+- FAIL : 탭 생성 더블 클릭 등 방지를 위해 preload에서 loading state 관리
 - omnibox 입력값 : 탭 토글시 갈아끼우기, http:/ 등 보여줄지 말지 등
 
 ## 상태 관리 (State Management)
@@ -44,6 +44,7 @@
 #### 헤더 배경
 
 - [x] 마우스로 텍스트 부분만 따로 선택할 수 없도록 설정
+- [x] 헤더 내 스크롤 생성 방지
 - [ ] focus되지 않은 윈도우에서는 위아래 색상 반대로 설정
 - [ ] 더블클릭시 maximize
 

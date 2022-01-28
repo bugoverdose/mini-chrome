@@ -42,6 +42,15 @@ contextBridge.exposeInMainWorld("custom_utils", {
   createNewTab: createNewTab,
 });
 
+// contextBridge.exposeInMainWorld("state", {
+//   getIsLoading: (element) => element.classList.contains("loading"),
+//   setIsLoading: (element, bool) => {
+//     bool
+//       ? element.classList.add("loading")
+//       : element.classList.remove("loading");
+//   },
+// });
+
 // 아래는 영어지만 복붙이 아니라 전부 내가 쓴 내용. 참고자료.
 
 // cache format if needed
