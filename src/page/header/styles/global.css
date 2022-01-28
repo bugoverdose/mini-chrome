@@ -10,6 +10,7 @@ body {
   user-select: none;
 }
 
+.loading,
 object {
   pointer-events: none;
 }

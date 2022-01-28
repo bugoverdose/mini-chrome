@@ -16,6 +16,7 @@ contextBridge.exposeInMainWorld("custom_events", {
 
   initGoBack: (tabId) => ipcRenderer.invoke("clicked:goBack", tabId),
   initGoForward: (tabId) => ipcRenderer.invoke("clicked:goForward", tabId),
+  // initReload: (tabId) => ipcRenderer.invoke("clicked:reload", tabId),
 });
 
 contextBridge.exposeInMainWorld("request_main", {
@@ -41,15 +42,6 @@ contextBridge.exposeInMainWorld("custom_utils", {
   resetAllTabs: resetAllTabs,
   createNewTab: createNewTab,
 });
-
-// contextBridge.exposeInMainWorld("state", {
-//   getIsLoading: (element) => element.classList.contains("loading"),
-//   setIsLoading: (element, bool) => {
-//     bool
-//       ? element.classList.add("loading")
-//       : element.classList.remove("loading");
-//   },
-// });
 
 // 아래는 영어지만 복붙이 아니라 전부 내가 쓴 내용. 참고자료.
 
