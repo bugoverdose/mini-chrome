@@ -20,12 +20,14 @@
 }
 
 #tabs {
-  display: flex;
-  align-items: flex-end;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(20px, 160px);
 }
 
 .tab {
-  width: 160px;
+  /* width: 160px; */
+  width: 100%;
   height: 100%;
 
   display: flex;
@@ -56,7 +58,11 @@
 
   margin-left: -2px;
   padding-left: 2px;
-  width: 162px;
+  /* width: 162px; */
+}
+
+.focused-tab .tab-border-right {
+  border: none;
 }
 
 .tab-container {

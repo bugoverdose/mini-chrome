@@ -27,6 +27,7 @@ const isValidUrl = (url) => {
 
 const isGoogleSearch = (url) => {
   if (!url.includes(".")) return true;
+  if (url.includes(" ")) return true;
   if (url.length <= 3) return true; // a.co == 4글자
   if (url.startsWith(".")) return true;
 
