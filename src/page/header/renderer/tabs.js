@@ -146,7 +146,6 @@ updateTabInfo((_, tabData) => {
 });
 
 const updateFavicon = (tab, curFavObject, favicon) => {
-  console.log(favicon);
   if (favicon === NEW_TAB_FAVICON) {
     curFavObject.data = NEW_TAB_FAVICON;
     return;
@@ -159,6 +158,19 @@ const updateFavicon = (tab, curFavObject, favicon) => {
 
   const newFavObject = createElement("object");
   newFavObject.data = favicon;
+
+  // exception handling
+  newFavObject.addEventListener(
+    "error",
+    (e) => {
+      const defaultFavObject = createElement("object");
+      defaultFavObject.data = NEW_TAB_FAVICON;
+
+      newFavObject.remove();
+      favContainer.appendChild(defaultFavObject);
+    },
+    { once: true }
+  );
 
   curFavObject.remove();
   favContainer.appendChild(newFavObject);
