@@ -1,6 +1,7 @@
 const { BrowserWindow } = require("electron");
 const { setViewSize } = require("../logic/view");
 const { setHeader, setHeaderSize } = require("../page");
+const state = require("./state");
 const { Tab } = require("./tab");
 
 class Window {
@@ -8,7 +9,9 @@ class Window {
     if (!browserWindow || !(browserWindow instanceof BrowserWindow)) {
       throw new Error("Window needs a BrowserWindow to be initialized.");
     }
-    setHeader(browserWindow);
+    this.id = `${++state.windowId}`;
+
+    setHeader(this.id, browserWindow);
 
     browserWindow.setFullScreenable(true);
 
@@ -22,6 +25,10 @@ class Window {
 
     this.browserWindow = browserWindow;
     this.tabs = [];
+  }
+
+  getId() {
+    return this.id;
   }
 
   getHeaderView() {

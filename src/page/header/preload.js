@@ -1,11 +1,5 @@
 const { contextBridge, ipcRenderer } = require("electron");
-const {
-  connectionFailFavicon,
-  newTabFavicon,
-  // tabCloseIcon,
-  // pageRefreshIcon,
-  // pageStopLoadIcon,
-} = require("../../constants");
+const { connectionFailFavicon, newTabFavicon } = require("../../constants");
 const {
   checkPageLoading,
   setRefreshIcon,
@@ -18,34 +12,48 @@ const {
   createNewTabElement,
 } = require("../../utils/header");
 
+const windowId = process.argv.pop(); // from webPreferences.additionalArguments option
+
 // preload에서 main 프로세스의 기능들 사용하고,
 // contextBridge를 통해 renderer로 데이터 전송 (프로세스 간 통신)
 contextBridge.exposeInMainWorld("custom_events", {
-  red: () => ipcRenderer.invoke("clicked:red"),
-  yellow: () => ipcRenderer.invoke("clicked:yellow"),
-  green: () => ipcRenderer.invoke("clicked:green"),
+  red: () => ipcRenderer.invoke(`clicked:red:${windowId}`),
+  yellow: () => ipcRenderer.invoke(`clicked:yellow:${windowId}`),
+  green: () => ipcRenderer.invoke(`clicked:green:${windowId}`),
 
-  initGoBack: (tabId) => ipcRenderer.invoke("clicked:goBack", tabId),
-  initGoForward: (tabId) => ipcRenderer.invoke("clicked:goForward", tabId),
-  initReload: (tabId) => ipcRenderer.invoke("clicked:reload", tabId),
-  initStopLoad: (tabId) => ipcRenderer.invoke("clicked:stopLoad", tabId),
+  initGoBack: (tabId) =>
+    ipcRenderer.invoke(`clicked:goBack:${windowId}`, tabId),
+  initGoForward: (tabId) =>
+    ipcRenderer.invoke(`clicked:goForward:${windowId}`, tabId),
+  initReload: (tabId) =>
+    ipcRenderer.invoke(`clicked:reload:${windowId}`, tabId),
+  initStopLoad: (tabId) =>
+    ipcRenderer.invoke(`clicked:stopLoad:${windowId}`, tabId),
 });
 
 contextBridge.exposeInMainWorld("request_main", {
-  getCurrentTabs: () => ipcRenderer.send("request:allTabs"),
-  createNewTab: (url) => ipcRenderer.send("request:createNewTab", url || null),
-  toggleFocusTabById: (tabId) => ipcRenderer.send("request:toggleTab", tabId),
+  getCurrentTabs: () => ipcRenderer.send(`request:allTabs:${windowId}`),
+  createNewTab: (url) =>
+    ipcRenderer.send(`request:createNewTab:${windowId}`, url || null),
+  toggleFocusTabById: (tabId) =>
+    ipcRenderer.send(`request:toggleTab:${windowId}`, tabId),
   deleteTabById: (deleteTabId, updatedFocusTabId) =>
-    ipcRenderer.send("request:deleteTab", { deleteTabId, updatedFocusTabId }),
+    ipcRenderer.send(`request:deleteTab:${windowId}`, {
+      deleteTabId,
+      updatedFocusTabId,
+    }),
 
   loadURL: (inputValue, focusTabId) =>
-    ipcRenderer.send("submitted:omnibox", { inputValue, focusTabId }),
+    ipcRenderer.send(`submitted:omnibox:${windowId}`, {
+      inputValue,
+      focusTabId,
+    }),
 });
 
 contextBridge.exposeInMainWorld("listen_on", {
-  renderAllTabs: (cb) => ipcRenderer.on("response:allTabs", cb),
-  renderNewTab: (cb) => ipcRenderer.on("response:newTab", cb),
-  updateTabInfo: (cb) => ipcRenderer.on("updateTab", cb),
+  renderAllTabs: (cb) => ipcRenderer.on(`response:allTabs:${windowId}`, cb),
+  renderNewTab: (cb) => ipcRenderer.on(`response:newTab:${windowId}`, cb),
+  updateTabInfo: (cb) => ipcRenderer.on(`updateTab:${windowId}`, cb),
 });
 
 contextBridge.exposeInMainWorld("custom_utils", {
@@ -64,9 +72,6 @@ contextBridge.exposeInMainWorld("custom_utils", {
 contextBridge.exposeInMainWorld("constants", {
   NEW_TAB_FAVICON: newTabFavicon,
   CONNECTION_FAIL_FAVICON: connectionFailFavicon,
-  // tabCloseIcon: tabCloseIcon,
-  // pageRefreshIcon: pageRefreshIcon,
-  // pageStopLoadIcon: pageStopLoadIcon,
 });
 
 // 아래는 영어지만 복붙이 아니라 전부 내가 쓴 내용. 참고자료.

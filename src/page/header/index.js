@@ -2,17 +2,18 @@ const { BrowserView } = require("electron");
 const { HEADER_HEIGHT } = require("../../constants");
 const path = require("path");
 
-const setHeader = (window) => {
+const setHeader = (windowId, browserWindow) => {
   const view = new BrowserView({
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
+      additionalArguments: [windowId], // A list of strings that will be appended to process.argv at preload script
     },
   });
-  const [curWidth] = window.getSize();
+  const [curWidth] = browserWindow.getSize();
 
   view.webContents.openDevTools();
 
-  window.addBrowserView(view);
+  browserWindow.addBrowserView(view);
 
   setHeaderSize(view, curWidth);
   view.webContents.loadFile(path.join(__dirname, "index.html"));

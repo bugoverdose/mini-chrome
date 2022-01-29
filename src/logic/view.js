@@ -16,13 +16,14 @@ const addNewPageViewOnWindow = async (window, newTab) => {
 
 const configNewView = (window, browserView, tabId) => {
   const headerView = window.getHeaderView();
+  const windowId = window.getId();
 
   // browserView.webContents.on("did-finish-load", () => {
   browserView.webContents.on("did-stop-loading", () => {
     const tab = window.getTabById(tabId);
     tab.setOmnibox(tab.getUrl());
 
-    headerView.webContents.send("updateTab", tab.toString());
+    headerView.webContents.send(`updateTab:${windowId}`, tab.toString());
   });
 
   browserView.webContents.on("did-fail-load", (_, __, errorDescription) => {
@@ -38,7 +39,7 @@ const configNewView = (window, browserView, tabId) => {
       tab.setFavicon(favicons[0]);
     }
 
-    headerView.webContents.send("updateTab", tab.toString());
+    headerView.webContents.send(`updateTab:${windowId}`, tab.toString());
   });
 };
 

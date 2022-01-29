@@ -102,8 +102,10 @@ const findNextFocusTabId = (allTabs, curFocusTab) => {
   }
 
   if (focusTabIdx === allTabs.length - 1) {
-    focusTabIdx--;
-  } // 마지막 탭은 곧 제거됨. 해당 index의 탭에 focus 불가.
+    focusTabIdx--; // 마지막 탭이 없어질 예정이라면 왼쪽을 타겟으로.
+  } else {
+    focusTabIdx++; // 현재 없어질 탭의 오른쪽을 타겟으로.
+  }
 
   return allTabs[focusTabIdx].id;
 };
