@@ -22,11 +22,12 @@
 #tabs {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(20px, 160px);
+  grid-auto-columns: minmax(30px, 160px);
+
+  padding-left: 3px;
 }
 
 .tab {
-  /* width: 160px; */
   width: 100%;
   height: 100%;
 
@@ -52,15 +53,6 @@
   border-right: 2px solid var(--main-dark-grey);
 }
 
-.focused-tab {
-  background-color: var(--main-dark-grey);
-  border-radius: 10px 10px 0 0;
-
-  margin-left: -2px;
-  padding-left: 2px;
-  /* width: 162px; */
-}
-
 .focused-tab .tab-border-right {
   border: none;
 }
@@ -73,10 +65,23 @@
 
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: 30px 1fr 20px;
+  grid-template-columns: minmax(20px, 30px) 1fr;
+
+  position: relative;
 }
 
-.tab-container > div {
+.focused-tab {
+  margin-left: -2px;
+}
+
+.focused-tab .tab-container {
+  background-color: var(--main-dark-grey);
+  border-radius: 10px 10px 0 0;
+
+  padding: 0 5px 0 7px;
+}
+
+.tab-favicon {
   width: 100%;
   height: 100%;
 
@@ -98,11 +103,33 @@
 
   white-space: nowrap;
   overflow: hidden;
+
+  display: block;
+}
+
+.tab-close {
+  height: 20px;
+  width: 20px;
+  margin: 0 5px;
+
+  position: absolute;
+  top: 5px;
+  right: 0px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--main-black);
+}
+
+.focused-tab .tab-close {
+  background-color: var(--main-dark-grey);
 }
 
 .tab-close-btn {
-  height: 20px;
-  width: 20px;
+  height: 100%;
+  width: 100%;
 
   display: flex;
   justify-content: center;
