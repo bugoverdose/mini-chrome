@@ -44,12 +44,15 @@ class Window {
       this.browserWindow.removeBrowserView(views.pop());
       // views에서 pop해도 browserWindow 내에는 그대로 존재하므로 별도로 remove 필요
     }
+
     this.browserWindow.addBrowserView(tab.getBrowserView());
   }
 
   toggleFocusTab(tab) {
+    const [curWidth, curHeight] = this.browserWindow.getSize();
     this.setPageViewByTab(tab);
     this.setFocusTabIdByTab(tab);
+    setViewSize(tab.getBrowserView(), curWidth, curHeight);
   }
 
   getBrowserWindow() {
