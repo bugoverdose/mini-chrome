@@ -3,6 +3,8 @@ const state = require("./state");
 const {
   newPageHTMLfileRoute,
   failedPageHTMLfileRoute,
+  newTabFavicon,
+  connectionFailFavicon,
 } = require("../constants");
 const { decodeOmniboxInput } = require("../utils/url");
 
@@ -14,6 +16,7 @@ class Tab {
 
     this.id = `${++state.tabId}`;
     this.browserView = browserView;
+    this.favicon = null;
   }
 
   getBrowserView() {
@@ -35,6 +38,22 @@ class Tab {
     if (url.startsWith(failedPageHTMLfileRoute)) return decodeOmniboxInput(url);
 
     return this.browserView.webContents.getTitle();
+  }
+
+  getFavicon() {
+    const url = this.browserView.webContents.getURL();
+
+    if (url.startsWith(failedPageHTMLfileRoute)) {
+      return connectionFailFavicon;
+    }
+
+    if (this.favicon) return this.favicon;
+
+    return newTabFavicon;
+  }
+
+  setFavicon(favicon) {
+    this.favicon = favicon;
   }
 
   getUrl() {
@@ -79,6 +98,7 @@ class Tab {
       id: this.getId(),
       url: this.getUrl(),
       title: this.getTitle(),
+      favicon: this.getFavicon(),
       canGoBack: this.getCanGoBack(),
       canGoForward: this.getCanGoForward(),
       pageLoading: this.getPageLoading(),

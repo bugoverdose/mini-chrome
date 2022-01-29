@@ -23,7 +23,14 @@ const configNewView = (window, browserView, tabId) => {
     headerView.webContents.send("updateTab", tabData);
   });
 
-  //page-favicon-updated
+  browserView.webContents.on("page-favicon-updated", (e, favicons) => {
+    const curTab = window.getTabById(tabId);
+    if (favicons.length > 0) {
+      curTab.setFavicon(favicons[0]);
+    }
+
+    headerView.webContents.send("updateTab", curTab.toString());
+  });
 };
 
 const setViewSize = (view, windowWidth, windowHeight) => {

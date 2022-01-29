@@ -1,5 +1,12 @@
 const { contextBridge, ipcRenderer } = require("electron");
 const {
+  connectionFailFavicon,
+  newTabFavicon,
+  // tabCloseIcon,
+  // pageRefreshIcon,
+  // pageStopLoadIcon,
+} = require("../../constants");
+const {
   checkPageLoading,
   setRefreshIcon,
   setPageStopLoadingIcon,
@@ -7,8 +14,9 @@ const {
   cleanseTabFocus,
   setFocusTabByTabId,
   resetAllTabs,
+  createElement,
   createNewTabElement,
-} = require("./utils");
+} = require("../../utils/header");
 
 // preload에서 main 프로세스의 기능들 사용하고,
 // contextBridge를 통해 renderer로 데이터 전송 (프로세스 간 통신)
@@ -45,11 +53,20 @@ contextBridge.exposeInMainWorld("custom_utils", {
   cleanseTabFocus: cleanseTabFocus,
   setFocusTabByTabId: setFocusTabByTabId,
   resetAllTabs: resetAllTabs,
+  createElement: createElement,
   createNewTabElement: createNewTabElement,
 
   checkPageLoading: checkPageLoading,
   setRefreshIcon: setRefreshIcon,
   setPageStopLoadingIcon: setPageStopLoadingIcon,
+});
+
+contextBridge.exposeInMainWorld("constants", {
+  NEW_TAB_FAVICON: newTabFavicon,
+  CONNECTION_FAIL_FAVICON: connectionFailFavicon,
+  // tabCloseIcon: tabCloseIcon,
+  // pageRefreshIcon: pageRefreshIcon,
+  // pageStopLoadIcon: pageStopLoadIcon,
 });
 
 // 아래는 영어지만 복붙이 아니라 전부 내가 쓴 내용. 참고자료.

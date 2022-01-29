@@ -8,6 +8,12 @@ const constants = {
     "file:///Users/jeong/mini-chrome/src/page/new/index.html",
   failedPageHTMLfileRoute:
     "file:///Users/jeong/mini-chrome/src/page/fail/index.html",
+
+  newTabFavicon: "icons/new-tab-fav.svg",
+  connectionFailFavicon: "icons/connection-fail-fav.svg",
+  tabCloseIcon: "icons/tab-close-btn.svg",
+  pageRefreshIcon: "icons/refresh-btn.svg",
+  pageStopLoadIcon: "icons/stop-load-btn.svg",
 };
 
 module.exports = constants;

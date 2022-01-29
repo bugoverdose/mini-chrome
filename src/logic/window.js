@@ -48,6 +48,8 @@ const setTrafficLightControls = (browserWindow) => {
 const setTabEventHandlers = (window) => {
   ipcMain.on("request:allTabs", (e) => {
     const tabs = window.getTabs();
+    // 드래그 앤 드롭으로 순서가 바뀐 후에 호출되는 경우, 최종 순서 변경 결과물을 받아서 업데이트한 이후에 렌더링에 사용?
+
     const focusTabId = window.getFocusTabId();
 
     e.reply("response:allTabs", { tabs, focusTabId });

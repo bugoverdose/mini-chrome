@@ -1,5 +1,10 @@
-const pageRefreshIcon = "icons/refresh-btn.svg";
-const pageStopLoadIcon = "icons/stop-load-btn.svg";
+const {
+  connectionFailFavicon,
+  newTabFavicon,
+  tabCloseIcon,
+  pageRefreshIcon,
+  pageStopLoadIcon,
+} = require("../constants");
 
 const checkPageLoading = (icon) => {
   return icon.data.endsWith(pageStopLoadIcon); // 직접 읽으면 file://~ 형식
@@ -99,7 +104,7 @@ const createNewTabSVG = () => {
   const tabFavicon = createElement("div", "tab-favicon");
   const _tabFaviconSVG = createElement("object");
 
-  _tabFaviconSVG.data = "icons/new-tab-fav.svg";
+  _tabFaviconSVG.data = newTabFavicon;
 
   tabFavicon.appendChild(_tabFaviconSVG);
 
@@ -111,7 +116,7 @@ const createCloseTabBtn = () => {
   const _tabCloseBtn = createElement("div", "tab-close-btn");
   const __tabCloseBtnSVG = createElement("object");
 
-  __tabCloseBtnSVG.data = "icons/tab-close-btn.svg";
+  __tabCloseBtnSVG.data = tabCloseIcon;
 
   _tabCloseBtn.appendChild(__tabCloseBtnSVG);
   tabClose.appendChild(_tabCloseBtn);
@@ -127,5 +132,6 @@ module.exports = {
   cleanseTabFocus,
   setFocusTabByTabId,
   resetAllTabs,
+  createElement,
   createNewTabElement,
 };

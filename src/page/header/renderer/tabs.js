@@ -3,10 +3,12 @@ const {
   custom_utils: {
     setFocusTabByTabId,
     resetAllTabs,
+    createElement,
     createNewTabElement,
     cleanseTabFocus,
     updateTabState,
   },
+  constants: { NEW_TAB_FAVICON, CONNECTION_FAIL_FAVICON },
   request_main: {
     getCurrentTabs,
     createNewTab,
@@ -118,6 +120,7 @@ updateTabInfo((_, tabData) => {
   const {
     id: tabId,
     title,
+    favicon,
     url,
     canGoBack,
     canGoForward,
@@ -129,12 +132,37 @@ updateTabInfo((_, tabData) => {
 
   tab.getElementsByClassName("tab-title")[0].innerText = title;
 
+  const curFavObject = tab.querySelector(".tab-favicon object");
+
+  if (!curFavObject.data.endsWith(favicon)) {
+    updateFavicon(tab, curFavObject, favicon);
+  }
+
   if (tab.classList.contains("focused-tab")) {
     updateTabState(canGoBack, canGoForward, pageLoading, url);
   }
 
   focusOnOmniboxIfNewTab();
 });
+
+const updateFavicon = (tab, curFavObject, favicon) => {
+  console.log(favicon);
+  if (favicon === NEW_TAB_FAVICON) {
+    curFavObject.data = NEW_TAB_FAVICON;
+    return;
+  }
+  if (favicon === CONNECTION_FAIL_FAVICON) {
+    curFavObject.data = CONNECTION_FAIL_FAVICON;
+    return;
+  }
+  const favContainer = tab.querySelector(".tab-favicon");
+
+  const newFavObject = createElement("object");
+  newFavObject.data = favicon;
+
+  curFavObject.remove();
+  favContainer.appendChild(newFavObject);
+};
 
 // init
 const initTabs = async () => {
