@@ -42,16 +42,25 @@ tabArea.addEventListener("click", (e) => {
   if (isLoading()) return;
 
   if (target.id === "tab-create-btn") triggerCreateNewTab();
+
   if (target.classList.contains("tab-container")) {
-    if (target.parentElement.classList.contains("focused-tab")) return;
-    triggerFocusTabToggle(target.parentElement.id);
+    triggerFocusTabIfUnfocused(target.parentElement);
   }
+  if (target.classList.contains("tab-favicon")) {
+    triggerFocusTabIfUnfocused(target.parentElement.parentElement);
+  }
+
   if (target.classList.contains("tab-close-btn")) triggerTabClose(target);
 });
 
 const triggerCreateNewTab = () => {
   setIsLoading(true);
   createNewTab();
+};
+
+const triggerFocusTabIfUnfocused = (targetTab) => {
+  if (targetTab.classList.contains("focused-tab")) return;
+  triggerFocusTabToggle(targetTab.id);
 };
 
 const triggerFocusTabToggle = (tabId) => {

@@ -104,7 +104,7 @@
 - [x] 반응형 디자인 구현
   - [x] 탭의 최소 width는 창 닫는 버튼 크기
   - [x] focus된 탭은 창 닫는 x 버튼을 위로
-  - [ ] focus되지 않은 탭은 favicon + title을 위로
+  - [x] z-index: focus되지 않은 탭은 favicon + title을 위로
   - [x] 탭의 개수가 너무 많으면 새 탭 생성 버튼이 위로 오도록
 
 #### omnibox
