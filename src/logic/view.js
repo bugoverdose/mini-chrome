@@ -1,5 +1,5 @@
 const { HEADER_HEIGHT } = require("../constants");
-const { loadNewTabPage } = require("../page");
+const { loadNewTabPage, setFailedToLoadPage } = require("../page");
 
 const addNewPageViewOnWindow = async (window, newTab) => {
   const browserWindow = window.getBrowserWindow();
@@ -22,6 +22,15 @@ const configNewView = (window, browserView, tabId) => {
     const tabData = window.getTabById(tabId).toString();
     headerView.webContents.send("updateTab", tabData);
   });
+
+  browserView.webContents.on(
+    "did-fail-load",
+    (_, __, errorDescription, validatedURL) => {
+      const tab = window.getTabById(tabId);
+      tab.setFaviconToConnectionFail();
+      setFailedToLoadPage(browserView, validatedURL, errorDescription);
+    }
+  );
 
   browserView.webContents.on("page-favicon-updated", (e, favicons) => {
     const curTab = window.getTabById(tabId);

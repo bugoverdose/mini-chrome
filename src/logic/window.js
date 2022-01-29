@@ -101,11 +101,12 @@ const setOmniboxControls = (window) => {
     try {
       await targetTab.getWebContents().loadURL(validUrl);
     } catch (error) {
-      await setFailedToLoadPage(
-        targetTab.getBrowserView(),
-        inputValue,
-        error.code
-      );
+      // [debug] did-fail-load 이벤트 발생 시점에 실행해야 특정 상황에서 앱 전체 다운되지 않음.
+      // await setFailedToLoadPage(
+      //   targetTab.getBrowserView(),
+      //   inputValue,
+      //   error.code
+      // );
     }
   });
 };

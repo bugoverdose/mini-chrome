@@ -56,6 +56,10 @@ class Tab {
     this.favicon = favicon;
   }
 
+  setFaviconToConnectionFail() {
+    this.favicon = connectionFailFavicon;
+  }
+
   getUrl() {
     const url = this.browserView.webContents.getURL();
 
