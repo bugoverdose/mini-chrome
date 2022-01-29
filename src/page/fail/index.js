@@ -1,9 +1,9 @@
 const path = require("path");
 
-const setFailedToLoadPage = async (view, inputValue, errCode) => {
+const setFailedToLoadPage = async (view, inputValue, errorDescription) => {
   await view.webContents.loadFile(path.join(__dirname, "index.html"), {
     search: inputValue,
-    hash: errCode,
+    hash: errorDescription,
   });
 
   // view.webContents.openDevTools();

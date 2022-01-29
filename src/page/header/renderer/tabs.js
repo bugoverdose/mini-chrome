@@ -121,6 +121,7 @@ updateTabInfo((_, tabData) => {
     id: tabId,
     title,
     favicon,
+    omnibox,
     url,
     canGoBack,
     canGoForward,
@@ -137,9 +138,10 @@ updateTabInfo((_, tabData) => {
   if (!curFavObject.data.endsWith(favicon)) {
     updateFavicon(tab, curFavObject, favicon);
   }
+  cleanseFavicons(tab);
 
   if (tab.classList.contains("focused-tab")) {
-    updateTabState(canGoBack, canGoForward, pageLoading, url);
+    updateTabState(canGoBack, canGoForward, pageLoading, omnibox);
   }
 
   focusOnOmniboxIfNewTab();
@@ -154,6 +156,7 @@ const updateFavicon = (tab, curFavObject, favicon) => {
     curFavObject.data = CONNECTION_FAIL_FAVICON;
     return;
   }
+
   const favContainer = tab.querySelector(".tab-favicon");
 
   const newFavObject = createElement("object");
@@ -174,6 +177,13 @@ const updateFavicon = (tab, curFavObject, favicon) => {
 
   curFavObject.remove();
   favContainer.appendChild(newFavObject);
+};
+
+const cleanseFavicons = (tab) => {
+  const favObjects = tab.querySelectorAll(".tab-favicon object");
+  for (let idx = 1; idx < favObjects.length; idx++) {
+    favObjects[idx].remove(); // remove(): 화면에서 제거. 코드상으로는 배열 내에 그대로 존재
+  }
 };
 
 // init

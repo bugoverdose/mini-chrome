@@ -1,11 +1,13 @@
 const { failedPageHTMLfileRoute } = require("../constants");
 const { topDomainList } = require("./tdl");
 
-const decodeOmniboxInput = (url) => {
-  return decodeURI(url)
-    .replace(`${failedPageHTMLfileRoute}?`, "")
+const decodeFailedToLoadURL = (loadedFile) => {
+  return decodeURI(loadedFile)
+    .replace(`${failedPageHTMLfileRoute}`, "")
+    .replace(`?`, "")
     .split("#")[0];
-  // 연결 실패한 직후에는 시도했던 검색어를 그대로 url로 지님. 다만, 업데이트되는 경우 다음과 같은 구조를 지니게 됨: file:///Users/jeong/mini-chrome/src/page/fail/index.html?asd.asd.com#ERR_NAME_NOT_RESOLVED
+  // 연결 실패한 직후에는 시도했던 검색어를 그대로 url로 지님.
+  // 다만, loadFile 후부터는 다음과 같은 구조를 지니게 됨. file:///Users/jeong/mini-chrome/src/page/fail/index.html?asd.asd.com#ERR_NAME_NOT_RESOLVED
 };
 
 const inputToValidUrl = (inputValue) => {
@@ -48,4 +50,4 @@ const toGoogleSearchURL = (searchKeyword) => {
   return `https://www.google.com/search?q=${searchKeyword}`;
 };
 
-module.exports = { inputToValidUrl, decodeOmniboxInput };
+module.exports = { inputToValidUrl, decodeFailedToLoadURL };

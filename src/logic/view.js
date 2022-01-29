@@ -19,26 +19,26 @@ const configNewView = (window, browserView, tabId) => {
 
   // browserView.webContents.on("did-finish-load", () => {
   browserView.webContents.on("did-stop-loading", () => {
-    const tabData = window.getTabById(tabId).toString();
-    headerView.webContents.send("updateTab", tabData);
+    const tab = window.getTabById(tabId);
+    tab.setOmnibox(tab.getUrl());
+
+    headerView.webContents.send("updateTab", tab.toString());
   });
 
-  browserView.webContents.on(
-    "did-fail-load",
-    (_, __, errorDescription, validatedURL) => {
-      const tab = window.getTabById(tabId);
-      tab.setFaviconToConnectionFail();
-      setFailedToLoadPage(browserView, validatedURL, errorDescription);
-    }
-  );
+  browserView.webContents.on("did-fail-load", (_, __, errorDescription) => {
+    const tab = window.getTabById(tabId);
+    tab.setFaviconToConnectionFail();
+    // validatedURL(4번째 매개변수): IDN로 인코딩되므로 decodeURL로 디코드 불가 (Internationalized Domain Names)
+    setFailedToLoadPage(browserView, tab.getOmnibox(), errorDescription);
+  });
 
   browserView.webContents.on("page-favicon-updated", (e, favicons) => {
-    const curTab = window.getTabById(tabId);
+    const tab = window.getTabById(tabId);
     if (favicons.length > 0) {
-      curTab.setFavicon(favicons[0]);
+      tab.setFavicon(favicons[0]);
     }
 
-    headerView.webContents.send("updateTab", curTab.toString());
+    headerView.webContents.send("updateTab", tab.toString());
   });
 };
 

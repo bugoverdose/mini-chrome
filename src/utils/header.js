@@ -18,7 +18,7 @@ const setPageStopLoadingIcon = (icon) => {
   icon.data = pageStopLoadIcon;
 };
 
-const updateTabState = (canGoBack, canGoForward, pageLoading, url) => {
+const updateTabState = (canGoBack, canGoForward, pageLoading, omniboxValue) => {
   const goBack = document.getElementById("go-back");
   const goForward = document.getElementById("go-forward");
   const refreshOrStop = document.querySelector("#refresh-or-stop object");
@@ -36,7 +36,7 @@ const updateTabState = (canGoBack, canGoForward, pageLoading, url) => {
     ? setPageStopLoadingIcon(refreshOrStop)
     : setRefreshIcon(refreshOrStop);
 
-  omnibox.value = url;
+  omnibox.value = omniboxValue;
 };
 
 const cleanseTabFocus = (focusTabId) => {
@@ -65,7 +65,7 @@ const resetAllTabs = (tabsData, focusTabId) => {
 };
 
 const createNewTabElement = (
-  { id, title, url, canGoBack, canGoForward, pageLoading },
+  { id, title, omnibox, url, canGoBack, canGoForward, pageLoading },
   focusTabId,
   tabs
 ) => {
@@ -78,7 +78,7 @@ const createNewTabElement = (
 
   if (id === focusTabId) {
     tab.classList.add("focused-tab");
-    updateTabState(canGoBack, canGoForward, pageLoading, url);
+    updateTabState(canGoBack, canGoForward, pageLoading, omnibox);
   }
 
   __tabTitle.innerHTML = title;
