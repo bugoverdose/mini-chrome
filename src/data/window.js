@@ -36,8 +36,8 @@ class Window {
     return headerView;
   }
 
-  createNewTabWithView(browserView) {
-    const newTab = new Tab(browserView);
+  generateNewTab() {
+    const newTab = new Tab();
 
     this.tabs.push(newTab);
     this.setFocusTabIdByTab(newTab);

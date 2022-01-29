@@ -7,15 +7,12 @@ const {
   connectionFailFavicon,
 } = require("../constants");
 const { decodeFailedToLoadURL } = require("../utils/url");
+const { setNewTabPageView } = require("../page");
 
 class Tab {
-  constructor(browserView) {
-    if (!browserView || !(browserView instanceof BrowserView)) {
-      throw new Error("Tab needs a BrowserView to be initialized.");
-    }
-
+  constructor() {
     this.id = `${++state.tabId}`;
-    this.browserView = browserView;
+    this.browserView = setNewTabPageView(this.id);
     this.favicon = null;
     this.omnibox = "";
   }

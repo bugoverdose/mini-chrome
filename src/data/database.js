@@ -56,6 +56,6 @@ const getDataFile = (filePath) => {
   }
 };
 
-const database = Database();
+const database = new Database();
 
 module.exports = { database };

@@ -11,7 +11,7 @@ const setHeader = (windowId, browserWindow) => {
   });
   const [curWidth] = browserWindow.getSize();
 
-  view.webContents.openDevTools();
+  // view.webContents.openDevTools();
 
   browserWindow.addBrowserView(view);
 
