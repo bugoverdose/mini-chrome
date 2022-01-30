@@ -1,9 +1,9 @@
-const { failedPageHTMLfileRoute } = require("../constants");
+const { FAILED_PAGE_HTML_FILE_ROUTE } = require("../constants");
 const { topDomainList } = require("./tdl");
 
 const decodeFailedToLoadURL = (loadedFile) => {
   return decodeURI(loadedFile)
-    .replace(`${failedPageHTMLfileRoute}`, "")
+    .replace(`${FAILED_PAGE_HTML_FILE_ROUTE}`, "")
     .replace(`?`, "")
     .split("#")[0];
   // 연결 실패한 직후에는 시도했던 검색어를 그대로 url로 지님.

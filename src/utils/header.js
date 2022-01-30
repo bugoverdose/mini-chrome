@@ -1,20 +1,20 @@
 const {
-  newTabFavicon,
-  tabCloseIcon,
-  pageRefreshIcon,
-  pageStopLoadIcon,
+  NEW_TAB_FAVICON,
+  TAB_CLOSE_ICON,
+  PAGE_REFRESH_ICON,
+  PAGE_STOP_LOAD_ICON,
 } = require("../constants");
 
 const checkPageLoading = (icon) => {
-  return icon.data.endsWith(pageStopLoadIcon); // 직접 읽으면 file://~ 형식
+  return icon.data.endsWith(PAGE_STOP_LOAD_ICON); // 직접 읽으면 file://~ 형식
 };
 
 const setRefreshIcon = (icon) => {
-  icon.data = pageRefreshIcon;
+  icon.data = PAGE_REFRESH_ICON;
 };
 
 const setPageStopLoadingIcon = (icon) => {
-  icon.data = pageStopLoadIcon;
+  icon.data = PAGE_STOP_LOAD_ICON;
 };
 
 const updateTabState = (canGoBack, canGoForward, pageLoading, omniboxValue) => {
@@ -103,7 +103,7 @@ const createNewTabSVG = () => {
   const tabFavicon = createElement("div", "tab-favicon");
   const _tabFaviconSVG = createElement("object");
 
-  _tabFaviconSVG.data = newTabFavicon;
+  _tabFaviconSVG.data = NEW_TAB_FAVICON;
 
   tabFavicon.appendChild(_tabFaviconSVG);
 
@@ -115,7 +115,7 @@ const createCloseTabBtn = () => {
   const _tabCloseBtn = createElement("div", "tab-close-btn");
   const __tabCloseBtnSVG = createElement("object");
 
-  __tabCloseBtnSVG.data = tabCloseIcon;
+  __tabCloseBtnSVG.data = TAB_CLOSE_ICON;
 
   _tabCloseBtn.appendChild(__tabCloseBtnSVG);
   tabClose.appendChild(_tabCloseBtn);

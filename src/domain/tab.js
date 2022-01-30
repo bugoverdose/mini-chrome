@@ -1,8 +1,8 @@
 const {
-  newPageHTMLfileRoute,
-  failedPageHTMLfileRoute,
-  newTabFavicon,
-  connectionFailFavicon,
+  NEW_PAGE_HTML_FILE_ROUTE,
+  FAILED_PAGE_HTML_FILE_ROUTE,
+  NEW_TAB_FAVICON,
+  CONNECTION_FAIL_FAVICON,
 } = require("../constants");
 const { decodeFailedToLoadURL } = require("../utils/url");
 const { setNewTabPageView } = require("../page");
@@ -31,9 +31,9 @@ class Tab {
   getTitle() {
     const url = this.browserView.webContents.getURL();
 
-    if (url === "" || url === newPageHTMLfileRoute) return "New Tab";
+    if (url === "" || url === NEW_PAGE_HTML_FILE_ROUTE) return "New Tab";
 
-    if (url.startsWith(failedPageHTMLfileRoute)) {
+    if (url.startsWith(FAILED_PAGE_HTML_FILE_ROUTE)) {
       return decodeFailedToLoadURL(url);
     }
 
@@ -43,7 +43,7 @@ class Tab {
   getFavicon() {
     if (this.favicon) return this.favicon;
 
-    return newTabFavicon;
+    return NEW_TAB_FAVICON;
   }
 
   setFavicon(favicon) {
@@ -51,15 +51,15 @@ class Tab {
   }
 
   setFaviconToConnectionFail() {
-    this.favicon = connectionFailFavicon;
+    this.favicon = CONNECTION_FAIL_FAVICON;
   }
 
   getUrl() {
     const url = this.browserView.webContents.getURL();
 
-    if (url === newPageHTMLfileRoute) return "";
+    if (url === NEW_PAGE_HTML_FILE_ROUTE) return "";
 
-    if (url.startsWith(failedPageHTMLfileRoute)) {
+    if (url.startsWith(FAILED_PAGE_HTML_FILE_ROUTE)) {
       return decodeFailedToLoadURL(url);
     }
 

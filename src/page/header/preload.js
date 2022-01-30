@@ -1,5 +1,5 @@
 const { contextBridge, ipcRenderer } = require("electron");
-const { connectionFailFavicon, newTabFavicon } = require("../../constants");
+const { CONNECTION_FAIL_FAVICON, NEW_TAB_FAVICON } = require("../../constants");
 const {
   checkPageLoading,
   setRefreshIcon,
@@ -70,8 +70,8 @@ contextBridge.exposeInMainWorld("custom_utils", {
 });
 
 contextBridge.exposeInMainWorld("constants", {
-  NEW_TAB_FAVICON: newTabFavicon,
-  CONNECTION_FAIL_FAVICON: connectionFailFavicon,
+  NEW_TAB_FAVICON: NEW_TAB_FAVICON,
+  CONNECTION_FAIL_FAVICON: CONNECTION_FAIL_FAVICON,
 });
 
 // 아래는 영어지만 복붙이 아니라 전부 내가 쓴 내용. 참고자료.

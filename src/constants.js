@@ -4,16 +4,17 @@ const constants = {
   MIN_WIDTH: 510,
   MIN_HEIGHT: 400,
   HEADER_HEIGHT: 79,
-  newPageHTMLfileRoute:
+  NEW_PAGE_HTML_FILE_ROUTE:
     "file:///Users/jeong/mini-chrome/src/page/new/index.html",
-  failedPageHTMLfileRoute:
+  FAILED_PAGE_HTML_FILE_ROUTE:
     "file:///Users/jeong/mini-chrome/src/page/fail/index.html",
 
-  newTabFavicon: "icons/new-tab-fav.svg",
-  connectionFailFavicon: "icons/connection-fail-fav.svg",
-  tabCloseIcon: "icons/tab-close-btn.svg",
-  pageRefreshIcon: "icons/refresh-btn.svg",
-  pageStopLoadIcon: "icons/stop-load-btn.svg",
+  NEW_TAB_FAVICON: "icons/new-tab-fav.svg",
+  DEFAULT_FAVICON: "icons/default-fav.svg",
+  CONNECTION_FAIL_FAVICON: "icons/connection-fail-fav.svg",
+  TAB_CLOSE_ICON: "icons/tab-close-btn.svg",
+  PAGE_REFRESH_ICON: "icons/refresh-btn.svg",
+  PAGE_STOP_LOAD_ICON: "icons/stop-load-btn.svg",
 };
 
 module.exports = constants;
