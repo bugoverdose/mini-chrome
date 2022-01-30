@@ -102,8 +102,8 @@ class Tab {
     return this.browserView.webContents.stop();
   }
 
-  toString() {
-    return JSON.stringify({
+  toJSON() {
+    return {
       id: this.getId(),
       url: this.getUrl(),
       title: this.getTitle(),
@@ -112,7 +112,11 @@ class Tab {
       canGoBack: this.getCanGoBack(),
       canGoForward: this.getCanGoForward(),
       pageLoading: this.getPageLoading(),
-    });
+    };
+  }
+
+  toString() {
+    return JSON.stringify(this.toJSON());
   }
 }
 

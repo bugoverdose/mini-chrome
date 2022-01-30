@@ -67,7 +67,7 @@ class Window {
   }
 
   getTabs() {
-    return this.tabs.map((tab) => tab.toString());
+    return this.tabs.map((tab) => tab.toJSON());
   }
 
   getTabById(tabId) {

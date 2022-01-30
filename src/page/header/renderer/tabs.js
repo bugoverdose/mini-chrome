@@ -111,8 +111,7 @@ const findNextFocusTabId = (allTabs, curFocusTab) => {
 
 // listen on requests from main process (window.listen_on)
 listen_on.renderAllTabs((_, { tabs, focusTabId }) => {
-  tabs = tabs.map((tab) => JSON.parse(tab));
-  resetAllTabs(tabs, focusTabId);
+  resetAllTabs(JSON.parse(tabs), focusTabId);
 
   setIsLoading(false);
 });
@@ -127,6 +126,7 @@ listen_on.renderNewTab(async (_, { tab, focusTabId }) => {
 });
 
 listen_on.updateTabInfo((_, tabData) => {
+  if (tabData.length === 0) return;
   const {
     id: tabId,
     title,
