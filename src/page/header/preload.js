@@ -52,12 +52,17 @@ contextBridge.exposeInMainWorld("request_main", {
       inputValue,
       focusTabId,
     }),
+
+  // graphQL style : url이 일종의 uid가 되도록 관리 필요
+  mutateFavorite: (favData) =>
+    ipcRenderer.send(`fav:mutate:${windowId}`, favData),
 });
 
 contextBridge.exposeInMainWorld("listen_on", {
   renderAllTabs: (cb) => ipcRenderer.on(`response:allTabs:${windowId}`, cb),
   renderNewTab: (cb) => ipcRenderer.on(`response:newTab:${windowId}`, cb),
   updateTabInfo: (cb) => ipcRenderer.on(`updateTab:${windowId}`, cb),
+  toggleIsFavorite: (cb) => ipcRenderer.on(`response:isFav:${windowId}`, cb),
 });
 
 contextBridge.exposeInMainWorld("custom_utils", {

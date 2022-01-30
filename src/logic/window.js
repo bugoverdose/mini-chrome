@@ -9,6 +9,7 @@ const { Window } = require("../domain");
 const { windows } = require("../data/state");
 const { inputToValidUrl } = require("../utils/url");
 const { createNewTab } = require("./tab");
+const { database } = require("../data/database");
 
 const createWindow = () => {
   let browserWindow = new BrowserWindow({
@@ -28,6 +29,7 @@ const createWindow = () => {
   setTabEventHandlers(window);
   setViewUtilsControls(window);
   setOmniboxControls(window);
+  setFavoriteControls(window);
   setWindowCloseEventHandler(window, browserWindow);
 };
 
@@ -129,6 +131,28 @@ const setOmniboxControls = (window) => {
       }
     }
   );
+};
+
+const setFavoriteControls = (window) => {
+  const windowId = window.getId();
+
+  ipcMain.on(`fav:mutate:${windowId}`, async (e, { focusTabId, action }) => {
+    const targetTab = window.getTabById(focusTabId);
+    const { title, url, favicon } = targetTab.toJSON();
+
+    if (action === "create") {
+      database.addFavorite(title, url, favicon);
+    }
+
+    if (action === "delete") {
+      database.deleteFavoriteByUrl(url);
+    }
+
+    e.reply(`response:isFav:${windowId}`, {
+      isFav: targetTab.getIsFavorite(),
+      focusTabId,
+    });
+  });
 };
 
 const setWindowCloseEventHandler = (window, browserWindow) => {

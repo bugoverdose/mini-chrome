@@ -40,6 +40,11 @@ label {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  background-color: var(--main-black);
+  z-index: 50;
+
+  cursor: pointer;
 }
 
 #fav-toggle:hover {

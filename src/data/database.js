@@ -32,10 +32,23 @@ class Database {
   }
 
   addFavorite(title, url, favicon) {
-    const favoritesList = this.data.favorites;
-    favoritesList.push({ title, url, favicon });
+    if (this.checkIsFavorite(url)) return; // unique url validation
 
-    set("favorites", favoritesList);
+    const favoritesData = this.data.favorites;
+
+    favoritesData.push({ title, url, favicon });
+
+    this.set("favorites", favoritesData);
+  }
+
+  deleteFavoriteByUrl(url) {
+    if (!this.checkIsFavorite(url)) return; // 이미 없는 대상
+
+    let favoritesData = this.data.favorites;
+
+    favoritesData = favoritesData.filter((favData) => favData.url !== url);
+
+    this.set("favorites", favoritesData);
   }
 
   set(key, updatedData) {

@@ -157,14 +157,15 @@ listen_on.updateTabInfo((_, tabData) => {
 
   focusOnOmniboxIfNewTab();
 
+  console.log(isFavorite);
   updateFavorite(isFavorite);
 });
 
-const favoriteIcon = document.querySelector("#fav-toggle svg");
+const isFavoriteIcon = document.querySelector("#fav-toggle svg");
 const updateFavorite = (isFavorite) => {
   isFavorite
-    ? favoriteIcon.classList.add("is-fav")
-    : favoriteIcon.classList.remove("is-fav");
+    ? isFavoriteIcon.classList.add("is-fav")
+    : isFavoriteIcon.classList.remove("is-fav");
 };
 
 const updateFavicon = (tab, curFavObject, favicon) => {

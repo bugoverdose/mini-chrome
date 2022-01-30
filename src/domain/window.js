@@ -79,7 +79,7 @@ class Window {
   }
 
   deleteTabByTabId(tabId) {
-    this.tabs.filter((tab) => tab.getId() !== tabId);
+    this.tabs = this.tabs.filter((tab) => tab.getId() !== tabId);
   }
 
   getFocusTabId() {

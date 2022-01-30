@@ -1,10 +1,9 @@
 const {
   request_main: {
     getAllFavorites,
-    navToFavorite,
-    createFavorite,
-    updateFavorite,
-    deleteFavorite,
+    // createFavorite,
+    // updateFavorite,
+    // deleteFavorite,
   },
   constants: { DEFAULT_FAVICON },
 } = window;

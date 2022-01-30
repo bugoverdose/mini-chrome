@@ -75,6 +75,10 @@ class Tab {
     this.omnibox = omnibox;
   }
 
+  getIsFavorite() {
+    return database.checkIsFavorite(this.getUrl());
+  }
+
   getCanGoBack() {
     return this.browserView.webContents.canGoBack();
   }
@@ -110,7 +114,7 @@ class Tab {
       title: this.getTitle(),
       favicon: this.getFavicon(),
       omnibox: this.getOmnibox(),
-      isFavorite: database.checkIsFavorite(this.getUrl()),
+      isFavorite: this.getIsFavorite(),
       canGoBack: this.getCanGoBack(),
       canGoForward: this.getCanGoForward(),
       pageLoading: this.getPageLoading(),
