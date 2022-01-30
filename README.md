@@ -1,5 +1,9 @@
 # 미니 크롬
 
+```
+Chromium + User Interface - Performance = Mini Chrome!
+```
+
 ## 상태 관리 (State Management)
 
 - 메인 프로세스에서 싱글톤 패턴으로 전역 상태 관리
@@ -220,6 +224,41 @@
   - [ ] 맥 환경에서 COMMAND+OPTION+I 실행시, 현재 열린 탭의 View의 개발자 도구가 열리도록 설정
   - [ ] 윈도우 환경에서 F12 실행시, 현재 열린 탭의 View의 개발자 도구가 열리도록 설정
 
-- [x] 창 닫기 단축키 (COMMAND+W / CTRL+W)
+- [x] focus된 창의 focus된 탭 닫는 단축키 (COMMAND+W / CTRL+W)
 
-- [x] TAB으로 화면 내의 조작 가능한 영역들 순회
+  - [ ] 앱 자체가 focus되지 않은 경우에도 동작.
+  - [ ] 디버깅: global shortcut는 운영체제 자체와 상호작용하므로 다른 앱들에서의 동일 단축키 사용이 불가능해지는 현상.
+
+- [x] TAB으로 focus된 화면 내의 조작 가능한 영역들 순회
+
+## 단축키: 구현 방법들과 각자의 특성
+
+- 구현 방법들
+
+  1. global shortcut : 운영체제에 단축키 등록.
+
+     - 문제점: 해당 앱이 선택되지 않은 상황에서도 실행됨. 다른 앱에 설정된 단축키를 덮어쓰게 됨.
+
+     - 응용: 운영체제에 global shortcut을 등록하고 제거하는 작업을 앱에 초점이 들어오고 나갈 때마다 반복
+
+     ```
+       app.on('focus', registerAllGlobalShortcuts())
+       app.on('blur', globalShortcut.unregisterAll())
+     ```
+
+  2. menu : 해당 앱에 초점이 맞춰진 상황에서만 실행 가능한 단축키 등록 가능. 상단의 메뉴를 클릭하여 단축키 목록 조회 및 실행 가능.
+
+  3. 로드되는 파일 자체에 renderer로 이벤트리스너 추가: 가장 구체적인 방법.
+
+  4. webcontents에 사용자 입력에 대한 이벤트리스너 등록
+
+     ```
+     app.on('web-contents-created', function (event, wc) {
+       wc.on('before-input-event', function (event, input) {
+         if (input.key === 'x' && input.ctrl && !input.alt && !input.meta && !input.shift) {
+           // Do something for Ctrl-X
+           event.preventDefault()
+         }
+       })
+     })
+     ```
