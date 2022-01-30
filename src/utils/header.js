@@ -1,5 +1,4 @@
 const {
-  connectionFailFavicon,
   newTabFavicon,
   tabCloseIcon,
   pageRefreshIcon,

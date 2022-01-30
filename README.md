@@ -28,6 +28,9 @@
 
 - [ ] 네트워크 불안정에 대한 예외처리 화면 추가
 
+- webContents.openDevTools()를 통해 개발자도구를 여는 경우
+  SyntaxError: Unexpected end of JSON input 경고문 출력
+
 - [x] favicon 로드 실패에 대한 예외처리 필요
 
   - [x] 디폴트 탭 favicon을 대신 보여주기

@@ -1,4 +1,6 @@
+const { ipcMain } = require("electron");
 const { HEADER_HEIGHT } = require("../constants");
+const { database } = require("../data/database");
 const { loadNewTabPage, setFailedToLoadPage } = require("../page");
 
 const addNewPageViewOnWindow = async (window, newTab) => {
@@ -9,6 +11,7 @@ const addNewPageViewOnWindow = async (window, newTab) => {
   window.setPageViewByTab(newTab);
   setViewSize(browserView, curWidth, curHeight);
   configNewView(window, browserView, newTab.id);
+  configNewTabView(newTab.id);
   await loadNewTabPage(browserView);
 
   browserView.webContents.openDevTools();
@@ -42,6 +45,16 @@ const configNewView = (window, browserView, tabId) => {
     }
 
     headerView.webContents.send(`updateTab:${windowId}`, tab.toString());
+  });
+};
+
+const configNewTabView = (tabId) => {
+  ipcMain.on(`fav:requestLoadAll:tab:${tabId}`, async (e) => {
+    const favorites = database.getAllFavorites();
+
+    e.reply(`fav:responseLoadedAll:tab:${tabId}`, {
+      data: JSON.stringify(favorites),
+    });
   });
 };
 
