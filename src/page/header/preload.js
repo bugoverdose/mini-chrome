@@ -63,6 +63,9 @@ contextBridge.exposeInMainWorld("listen_on", {
   renderNewTab: (cb) => ipcRenderer.on(`response:newTab:${windowId}`, cb),
   updateTabInfo: (cb) => ipcRenderer.on(`updateTab:${windowId}`, cb),
   toggleIsFavorite: (cb) => ipcRenderer.on(`response:isFav:${windowId}`, cb),
+
+  closeTabShortcutCommand: (cb) =>
+    ipcRenderer.on(`shortcut:closeTab:${windowId}`, cb),
 });
 
 contextBridge.exposeInMainWorld("custom_utils", {

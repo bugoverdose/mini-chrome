@@ -6,7 +6,8 @@ const {
   MIN_HEIGHT,
 } = require("../constants");
 const { Window } = require("../domain");
-const { windows } = require("../data/state");
+const state = require("../data/state");
+
 const { inputToValidUrl } = require("../utils/url");
 const { createNewTab } = require("./tab");
 const { database } = require("../data/database");
@@ -23,13 +24,15 @@ const createWindow = () => {
   let window = new Window(browserWindow);
 
   createNewTab(window);
-  windows.add(window);
+  state.windows.add(window);
+  state.focusedWindowId = window.getId();
 
   setTrafficLightControls(window, browserWindow);
   setTabEventHandlers(window);
   setViewUtilsControls(window);
   setOmniboxControls(window);
   setFavoriteControls(window);
+  setWindowFocusEventHandler(window, browserWindow);
   setWindowCloseEventHandler(window, browserWindow);
 };
 
@@ -76,12 +79,11 @@ const setTabEventHandlers = (window) => {
     // TODO: url 받아서 탭 및 뷰 생성
   });
 
-  ipcMain.on(`request:toggleTab:${windowId}`, (_, tabId) => {
-    const headerView = window.getHeaderView();
+  ipcMain.on(`request:toggleTab:${windowId}`, (e, tabId) => {
     const tab = window.getTabById(tabId);
 
     window.toggleFocusTab(tab);
-    headerView.webContents.send(`updateTab:${windowId}`, tab.toString());
+    e.reply(`updateTab:${windowId}`, tab.toString());
   });
 
   ipcMain.on(
@@ -155,9 +157,15 @@ const setFavoriteControls = (window) => {
   });
 };
 
+const setWindowFocusEventHandler = (window, browserWindow) => {
+  browserWindow.on("focus", () => {
+    state.windowId = window.getId();
+  });
+};
+
 const setWindowCloseEventHandler = (window, browserWindow) => {
   browserWindow.on("closed", () => {
-    windows.delete(window);
+    state.windows.delete(window);
     browserWindow = null;
     window = null;
   });

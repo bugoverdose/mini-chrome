@@ -26,6 +26,7 @@ const appendNewFavElement = (favData) => {
   const __title = document.createElement("span");
 
   _anchor.href = url;
+  _anchor.title = `click to go to ${url}`;
   __favicon.src = favicon;
   __title.innerHTML = title;
 

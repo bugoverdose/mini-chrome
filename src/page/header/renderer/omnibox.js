@@ -40,8 +40,6 @@ const toggleIsFavorite = (isFavCurrent) => {
   const toggledFav = !isFavCurrent;
   const focusTabId = document.querySelector(".focused-tab").id;
 
-  console.log(toggledFav ? "create" : "delete");
-
   mutateFavorite({
     focusTabId,
     action: toggledFav ? "create" : "delete",
@@ -49,8 +47,6 @@ const toggleIsFavorite = (isFavCurrent) => {
 };
 
 listen_on.toggleIsFavorite((_, { isFav, focusTabId }) => {
-  console.log(isFav);
-  console.log(focusTabId);
   const curFocusTab = document.querySelector(".focused-tab");
 
   // 응답이 오는 사이에 focus tab이 아니게 되는 경우 고려

@@ -125,6 +125,11 @@ listen_on.renderNewTab(async (_, { tab, focusTabId }) => {
   setIsLoading(false);
 });
 
+listen_on.closeTabShortcutCommand(() => {
+  const focusTabCloseBtn = tabArea.querySelector(".focused-tab .tab-close-btn");
+  triggerTabClose(focusTabCloseBtn);
+});
+
 listen_on.updateTabInfo((_, tabData) => {
   if (tabData.length === 0) return;
   const {
@@ -157,7 +162,6 @@ listen_on.updateTabInfo((_, tabData) => {
 
   focusOnOmniboxIfNewTab();
 
-  console.log(isFavorite);
   updateFavorite(isFavorite);
 });
 
