@@ -9,6 +9,7 @@ class Database {
 
     this.path = path.join(userDataPath, "mini-chrome-data.json");
     this.data = initializeData(this.path);
+    this.updateFavUrlCache();
   }
 
   get(key) {
@@ -19,20 +20,32 @@ class Database {
     return this.data.favorites;
   }
 
-  addFavorite(title, url) {
-    const favoritesList = this.data["favorites"];
-    favoritesList.push({ title, url });
+  updateFavUrlCache() {
+    this.favUrls = this.data.favorites.map((favData) => favData.url);
+  }
+
+  checkIsFavorite(url) {
+    for (let idx = 0; idx < this.favUrls.length; idx++) {
+      if (this.favUrls[idx] === url) return true;
+    }
+    return false;
+  }
+
+  addFavorite(title, url, favicon) {
+    const favoritesList = this.data.favorites;
+    favoritesList.push({ title, url, favicon });
 
     set("favorites", favoritesList);
   }
 
   set(key, updatedData) {
     try {
-      fs.writeFileSync(this.path, JSON.stringify(updatedData)); // update database
       this.data[key] = updatedData; // update cache
-      return { ok: true, data: this.data, error: null };
+      this.updateFavUrlCache();
+
+      fs.writeFileAsync(this.path, JSON.stringify(updatedData)); // update database (save on local machine)
     } catch (error) {
-      return { ok: false, data: null, error };
+      //
     }
   }
 }

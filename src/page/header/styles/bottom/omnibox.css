@@ -1,5 +1,15 @@
-#omnibox {
+label {
   width: auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+}
+
+#omnibox {
+  width: 100%;
 
   margin: 5px 15px 5px 0px;
   padding: 4.5px 15px;
@@ -15,4 +25,33 @@
 
 #omnibox:focus {
   outline: 2px solid var(--omnibox-focus-blue);
+}
+
+#fav-toggle {
+  width: 21px;
+  height: 21px;
+
+  position: absolute;
+  right: 19px;
+
+  margin: 5px 0px;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#fav-toggle:hover {
+  background-color: var(--main-grey);
+}
+
+#fav-toggle svg {
+  width: 17px;
+  stroke: var(--main-light-white);
+}
+
+#fav-toggle .is-fav {
+  fill: yellow;
+  stroke: none;
 }

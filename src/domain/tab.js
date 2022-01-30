@@ -7,6 +7,7 @@ const {
 const { decodeFailedToLoadURL } = require("../utils/url");
 const { setNewTabPageView } = require("../page");
 const state = require("../data/state");
+const { database } = require("../data/database");
 
 class Tab {
   constructor() {
@@ -109,6 +110,7 @@ class Tab {
       title: this.getTitle(),
       favicon: this.getFavicon(),
       omnibox: this.getOmnibox(),
+      isFavorite: database.checkIsFavorite(this.getUrl()),
       canGoBack: this.getCanGoBack(),
       canGoForward: this.getCanGoForward(),
       pageLoading: this.getPageLoading(),

@@ -14,7 +14,7 @@ const addNewPageViewOnWindow = async (window, newTab) => {
   configNewTabView(newTab.id);
   await loadNewTabPage(browserView);
 
-  browserView.webContents.openDevTools();
+  // browserView.webContents.openDevTools();
 
   return newTab;
 };

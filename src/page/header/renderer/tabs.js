@@ -129,10 +129,11 @@ listen_on.updateTabInfo((_, tabData) => {
   if (tabData.length === 0) return;
   const {
     id: tabId,
+    url,
     title,
     favicon,
     omnibox,
-    url,
+    isFavorite,
     canGoBack,
     canGoForward,
     pageLoading,
@@ -155,7 +156,16 @@ listen_on.updateTabInfo((_, tabData) => {
   }
 
   focusOnOmniboxIfNewTab();
+
+  updateFavorite(isFavorite);
 });
+
+const favoriteIcon = document.querySelector("#fav-toggle svg");
+const updateFavorite = (isFavorite) => {
+  isFavorite
+    ? favoriteIcon.classList.add("is-fav")
+    : favoriteIcon.classList.remove("is-fav");
+};
 
 const updateFavicon = (tab, curFavObject, favicon) => {
   if (favicon === NEW_TAB_FAVICON) {
