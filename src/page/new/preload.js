@@ -1,5 +1,5 @@
 const { contextBridge, ipcRenderer } = require("electron");
-
+const { DEFAULT_FAVICON } = require("../../constants");
 const tabId = process.argv.pop(); // from webPreferences.additionalArguments option
 
 contextBridge.exposeInMainWorld("request_main", {
@@ -17,4 +17,8 @@ contextBridge.exposeInMainWorld("request_main", {
 contextBridge.exposeInMainWorld("listen_on", {
   readAllFavorites: (cb) =>
     ipcRenderer.on(`fav:responseLoadedAll:tab:${tabId}`, cb),
+});
+
+contextBridge.exposeInMainWorld("constants", {
+  DEFAULT_FAVICON: DEFAULT_FAVICON,
 });
