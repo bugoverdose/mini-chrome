@@ -1,7 +1,7 @@
 const { BrowserWindow } = require("electron");
 const { setViewSize } = require("../logic/view");
 const { setHeader, setHeaderSize } = require("../page");
-const state = require("./state");
+const state = require("../data/state");
 const { Tab } = require("./tab");
 
 class Window {

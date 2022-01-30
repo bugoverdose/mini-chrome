@@ -6,7 +6,7 @@ const setFailedToLoadPage = async (view, inputValue, errorDescription) => {
     hash: errorDescription,
   });
 
-  view.webContents.openDevTools();
+  // view.webContents.openDevTools();
 };
 
 module.exports = { setFailedToLoadPage };

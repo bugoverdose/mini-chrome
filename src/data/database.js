@@ -8,18 +8,22 @@ class Database {
     // app.getPath('userData') will return a string of the user's app data directory path.
 
     this.path = path.join(userDataPath, "mini-chrome-data.json");
-    this.data = getDataFile(this.path);
+    this.data = initializeData(this.path);
   }
 
   get(key) {
     return this.data[key]; // cache
   }
 
+  getAllFavorites() {
+    return this.data.favorites;
+  }
+
   addFavorite(title, url) {
-    const favoritesList = this.data["favorite"];
+    const favoritesList = this.data["favorites"];
     favoritesList.push({ title, url });
 
-    set("favorite", favoritesList);
+    set("favorites", favoritesList);
   }
 
   set(key, updatedData) {
@@ -48,7 +52,7 @@ const initialDatabase = {
   ],
 };
 
-const getDataFile = (filePath) => {
+const initializeData = (filePath) => {
   try {
     return JSON.parse(fs.readFileSync(filePath));
   } catch (error) {

@@ -5,7 +5,8 @@ const {
   MIN_WIDTH,
   MIN_HEIGHT,
 } = require("../constants");
-const { windows, Window } = require("../data");
+const { Window } = require("../domain");
+const { windows } = require("../data/state");
 const { inputToValidUrl } = require("../utils/url");
 const { createNewTab } = require("./tab");
 

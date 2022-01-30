@@ -1,5 +1,3 @@
-const { BrowserView } = require("electron");
-const state = require("./state");
 const {
   newPageHTMLfileRoute,
   failedPageHTMLfileRoute,
@@ -8,6 +6,7 @@ const {
 } = require("../constants");
 const { decodeFailedToLoadURL } = require("../utils/url");
 const { setNewTabPageView } = require("../page");
+const state = require("../data/state");
 
 class Tab {
   constructor() {

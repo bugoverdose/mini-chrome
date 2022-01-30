@@ -15,7 +15,6 @@ const {
     toggleFocusTabById,
     deleteTabById,
   },
-  listen_on: { renderAllTabs, renderNewTab, updateTabInfo },
 } = window;
 
 const omnibox2 = document.getElementById("omnibox");
@@ -110,15 +109,15 @@ const findNextFocusTabId = (allTabs, curFocusTab) => {
   return allTabs[focusTabIdx].id;
 };
 
-// listen on requests from main process
-renderAllTabs((_, { tabs, focusTabId }) => {
+// listen on requests from main process (window.listen_on)
+listen_on.renderAllTabs((_, { tabs, focusTabId }) => {
   tabs = tabs.map((tab) => JSON.parse(tab));
   resetAllTabs(tabs, focusTabId);
 
   setIsLoading(false);
 });
 
-renderNewTab(async (_, { tab, focusTabId }) => {
+listen_on.renderNewTab(async (_, { tab, focusTabId }) => {
   tab = JSON.parse(tab);
   const tabs = document.getElementById("tabs");
   await createNewTabElement(tab, focusTabId, tabs);
@@ -127,7 +126,7 @@ renderNewTab(async (_, { tab, focusTabId }) => {
   setIsLoading(false);
 });
 
-updateTabInfo((_, tabData) => {
+listen_on.updateTabInfo((_, tabData) => {
   const {
     id: tabId,
     title,
