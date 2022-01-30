@@ -7,7 +7,7 @@ class Database {
     const userDataPath = electron.app.getPath("userData");
     // app.getPath('userData') will return a string of the user's app data directory path.
 
-    this.path = path.join(userDataPath, "mini-chrome-data.json");
+    this.path = path.join(userDataPath, "custom-database.json");
     this.data = initializeData(this.path);
     this.updateFavUrlCache();
   }
@@ -56,9 +56,9 @@ class Database {
       this.data[key] = updatedData; // update cache
       this.updateFavUrlCache();
 
-      fs.writeFileAsync(this.path, JSON.stringify(updatedData)); // update database (save on local machine)
+      fs.writeFileSync(this.path, JSON.stringify(this.data)); // update database (save on local machine)
     } catch (error) {
-      //
+      console.log(error);
     }
   }
 }
