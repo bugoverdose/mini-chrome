@@ -1,5 +1,9 @@
 const { contextBridge, ipcRenderer } = require("electron");
-const { CONNECTION_FAIL_FAVICON, NEW_TAB_FAVICON } = require("../../constants");
+const {
+  NEW_TAB_FAVICON,
+  DEFAULT_FAVICON,
+  CONNECTION_FAIL_FAVICON,
+} = require("../../constants");
 const {
   checkPageLoading,
   setRefreshIcon,
@@ -71,6 +75,7 @@ contextBridge.exposeInMainWorld("custom_utils", {
 
 contextBridge.exposeInMainWorld("constants", {
   NEW_TAB_FAVICON: NEW_TAB_FAVICON,
+  DEFAULT_FAVICON: DEFAULT_FAVICON,
   CONNECTION_FAIL_FAVICON: CONNECTION_FAIL_FAVICON,
 });
 

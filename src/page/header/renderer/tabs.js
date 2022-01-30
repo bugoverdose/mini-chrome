@@ -8,7 +8,7 @@ const {
     cleanseTabFocus,
     updateTabState,
   },
-  constants: { NEW_TAB_FAVICON, CONNECTION_FAIL_FAVICON },
+  constants: { NEW_TAB_FAVICON, DEFAULT_FAVICON, CONNECTION_FAIL_FAVICON },
   request_main: {
     getCurrentTabs,
     createNewTab,
@@ -159,9 +159,10 @@ listen_on.updateTabInfo((_, tabData) => {
 
 const updateFavicon = (tab, curFavObject, favicon) => {
   if (favicon === NEW_TAB_FAVICON) {
-    curFavObject.data = NEW_TAB_FAVICON;
+    curFavObject.data = NEW_TAB_FAVICON; // 뒤로 가기로 새 탭 창으로 되돌아가는 경우
     return;
   }
+
   if (favicon === CONNECTION_FAIL_FAVICON) {
     curFavObject.data = CONNECTION_FAIL_FAVICON;
     return;
@@ -177,7 +178,7 @@ const updateFavicon = (tab, curFavObject, favicon) => {
     "error",
     (e) => {
       const defaultFavObject = createElement("object");
-      defaultFavObject.data = NEW_TAB_FAVICON;
+      defaultFavObject.data = DEFAULT_FAVICON;
 
       newFavObject.remove();
       favContainer.appendChild(defaultFavObject);
