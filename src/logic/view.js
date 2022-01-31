@@ -1,4 +1,5 @@
 const { ipcMain } = require("electron");
+// const { createWindow } = require("./window");
 const { HEADER_HEIGHT } = require("../constants");
 const { database } = require("../data/database");
 const { loadNewTabPage, setFailedToLoadPage } = require("../page");
@@ -9,7 +10,7 @@ const {
   closeFocusTab,
 } = require("../utils/shortcut");
 
-const addNewPageViewOnWindow = async (window, newTab) => {
+const addNewPageViewOnWindow = async (window, newTab, url) => {
   const browserWindow = window.getBrowserWindow();
   const browserView = newTab.getBrowserView();
   const [curWidth, curHeight] = browserWindow.getSize();
@@ -19,7 +20,12 @@ const addNewPageViewOnWindow = async (window, newTab) => {
   configNewView(window, browserView, newTab.id);
   configNewTabView(newTab.id);
   configShortcuts(window, browserView, newTab.id);
-  await loadNewTabPage(browserView);
+
+  if (url && url !== null) {
+    await newTab.getWebContents().loadURL(url);
+  } else {
+    await loadNewTabPage(browserView);
+  }
 
   return newTab;
 };

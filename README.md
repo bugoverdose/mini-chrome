@@ -1,8 +1,6 @@
 # 미니 크롬
 
-```
-Chromium + User Interface - Performance = Mini Chrome!
-```
+Chromium에 사용자 인터페이스(UI)를 추가한 구글 크롬 클론 코딩 프로젝트
 
 ## 상태 관리 (State Management)
 
@@ -33,33 +31,6 @@ Chromium + User Interface - Performance = Mini Chrome!
 
 - 특정 윈도우의 뷰 프로세스에서 메인 프로세스에 개발자 도구 열기, 탭 제거 등의 요청하고, 메인 프로세스는 헤더 프로세스 혹은 해당 뷰 프로세스로 응답
 
-## 디버그
-
-- [x] windowId 필요 : 2번째 창을 여는 경우 ipcRenderer 중복 등록 문제 발생
-
-- [x] 탭을 무한 생성하고 focus tab을 제거하는 경우, 다음 focus tab id로 자기 자신을 선택하는 버그 - 구조 뜯어고칠 때 수정 누락됨
-
-- [ ] 네트워크 불안정에 대한 예외처리 화면 추가
-
-- webContents.openDevTools()를 통해 개발자도구를 여는 경우
-  SyntaxError: Unexpected end of JSON input 경고문 출력
-
-- [x] favicon 로드 실패에 대한 예외처리 필요
-
-  - [x] 디폴트 탭 favicon을 대신 보여주기
-  - [x] 이에 따라 복수의 favicon이 생성될 수 있는 상황 디버깅: 1개의 favicon만 존재하도록 cleanse
-  - [x] favicon 로딩을 실패한 프로세스에서 omnibox에 url을 입력하는 경우, 앱 전체가 다운되는 문제
-
-- [ ] 모든 기능에 대한 기기 호환성 체크 필요
-
-- [x] 더블 클릭 방지 : loading 여부에 따라 잠시 동안 조작 불가능하도록
-
-- [x] 메인 프로세스에서는 당연히 focusTabIdx 대신 focusTabId를 관리
-
-- [x] 이미 focus된 탭 클릭하는 경우 토글하는 것으로 간주하지 말기. 무의미한 재렌더링으로 인한 성능 저하.
-
-- [x] cover up ugly border left of focus tab
-
 ## 구현할 기능 목록 (우테코 스타일)
 
 ### 윈도우
@@ -78,7 +49,9 @@ Chromium + User Interface - Performance = Mini Chrome!
 
   - [x] focus 탭 정보 업데이트 : 다른 창에서의 작업으로 즐겨찾기 정보가 변했을 수 있기 때문에 필요.
 
-- [ ] 페이지 뷰 내에서 새 창을 여는 경우 (target="\_blank" 등의 a 태그 클릭 등), 커스텀 윈도우에 헤더, 탭이 새로 생성되도록 설정
+- [x] 페이지 뷰 내에서 새 창을 여는 경우 (링크를 shift + 클릭, target="\_blank" 속성의 anchor 클릭 등), 디폴트 윈도우가 아닌 커스텀 윈도우를 생성하고 렌더링하도록
+
+  - 임시방편으로 페이지 뷰만이 아니라 모든 web contents에 설정. (리소스 낭비)
 
 ### 헤더
 
@@ -219,7 +192,7 @@ Chromium + User Interface - Performance = Mini Chrome!
     - [x] URI 디코딩을 통해 한국어 검색어 등 대응
   - [x] favicon은 별도로 생성
 
-#### 뷰 페이지
+#### 뷰 페이지 context menu
 
 - [ ] 화면 내에서 우클릭시 기본 도구
 
@@ -295,3 +268,30 @@ Chromium + User Interface - Performance = Mini Chrome!
        })
      })
      ```
+
+## 디버그
+
+- [x] windowId 필요 : 2번째 창을 여는 경우 ipcRenderer 중복 등록 문제 발생
+
+- [x] 탭을 무한 생성하고 focus tab을 제거하는 경우, 다음 focus tab id로 자기 자신을 선택하는 버그 - 구조 뜯어고칠 때 수정 누락됨
+
+- [ ] 네트워크 불안정에 대한 예외처리 화면 추가
+
+- webContents.openDevTools()를 통해 개발자도구를 여는 경우
+  SyntaxError: Unexpected end of JSON input 경고문 출력
+
+- [x] favicon 로드 실패에 대한 예외처리 필요
+
+  - [x] 디폴트 탭 favicon을 대신 보여주기
+  - [x] 이에 따라 복수의 favicon이 생성될 수 있는 상황 디버깅: 1개의 favicon만 존재하도록 cleanse
+  - [x] favicon 로딩을 실패한 프로세스에서 omnibox에 url을 입력하는 경우, 앱 전체가 다운되는 문제
+
+- [ ] 모든 기능에 대한 기기 호환성 체크 필요
+
+- [x] 더블 클릭 방지 : loading 여부에 따라 잠시 동안 조작 불가능하도록
+
+- [x] 메인 프로세스에서는 당연히 focusTabIdx 대신 focusTabId를 관리
+
+- [x] 이미 focus된 탭 클릭하는 경우 토글하는 것으로 간주하지 말기. 무의미한 재렌더링으로 인한 성능 저하.
+
+- [x] cover up ugly border left of focus tab

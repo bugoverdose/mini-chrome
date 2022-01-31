@@ -12,6 +12,13 @@ app.on("activate", () => {
   }
 });
 
+app.on("web-contents-created", (e, webContents) => {
+  webContents.setWindowOpenHandler(({ url }) => {
+    createWindow(url);
+    return { action: "deny" };
+  });
+});
+
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
 });

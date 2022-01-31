@@ -11,7 +11,7 @@ const { inputToValidUrl } = require("../utils/url");
 const { createNewTab } = require("./tab");
 const { database } = require("../data/database");
 
-const createWindow = () => {
+const createWindow = (url) => {
   let browserWindow = new BrowserWindow({
     width: INIT_WIDTH,
     height: INIT_HEIGHT,
@@ -22,7 +22,8 @@ const createWindow = () => {
 
   let window = new Window(browserWindow);
 
-  createNewTab(window);
+  createNewTab(window, url || null);
+
   state.windows.add(window);
 
   setTrafficLightControls(window, browserWindow);
