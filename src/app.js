@@ -12,9 +12,9 @@ app.on("activate", () => {
   }
 });
 
-app.on("browser-window-created", (e, window) => {
-  console.log("browser-window-created");
-});
+// app.on("browser-window-created", (e, window) => {
+//   console.log("browser-window-created");
+// });
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();

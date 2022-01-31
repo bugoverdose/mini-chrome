@@ -214,10 +214,12 @@ Chromium + User Interface - Performance = Mini Chrome!
 
 #### 단축키(윈도우 전체 혹은 현재 뷰에 설정)
 
-- [ ] 개발자 도구
+- [x] 개발자 도구 토글 : 현재 열린 탭의 View에 개발자 도구를 열고 닫기
 
-  - [x] 맥 환경에서 COMMAND+OPTION+I 실행시, 현재 열린 탭의 View 내부에 개발자 도구가 열리도록 설정
-  - [ ] 윈도우 환경에서 F12 실행시, 현재 열린 탭의 View의 개발자 도구가 열리도록 설정
+  - [x] 맥 : COMMAND+OPTION+I
+  - [x] 윈도우 : Ctrl+Shift+I
+  - [x] 공통 : F12
+
   - [x] header : 개발자 도구 열릴 수 없도록 방지
 
 - [ ] focus된 창의 focus된 탭 닫는 단축키 (COMMAND+W / CTRL+W)
@@ -247,6 +249,8 @@ Chromium + User Interface - Performance = Mini Chrome!
   3. 로드되는 파일 자체에 renderer로 이벤트리스너 추가: 가장 구체적인 방법.
 
   4. webcontents에 사용자 입력에 대한 이벤트리스너 등록
+
+     - 주의: fn 없이 F1~F12 등의 function key를 실행할 수 있도록 운영체제가 설정된 경우 function key 입력 인식 불가능. (Mac)
 
      ```
      // 모든 webcontents에 동일한 단축키 등록하는 예제
