@@ -1,5 +1,5 @@
 const { initApp } = require("./app");
-const { initMenu } = require("./menu");
+const { initMenu } = require("./logic/menu");
 
 initMenu();
 initApp();

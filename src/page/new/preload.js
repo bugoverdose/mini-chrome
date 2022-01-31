@@ -1,5 +1,6 @@
 const { contextBridge, ipcRenderer } = require("electron");
 const { DEFAULT_FAVICON } = require("../../constants");
+
 const tabId = process.argv.pop(); // from webPreferences.additionalArguments option
 
 contextBridge.exposeInMainWorld("request_main", {

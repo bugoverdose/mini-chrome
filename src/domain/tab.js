@@ -13,6 +13,7 @@ class Tab {
   constructor() {
     this.id = `${++state.tabId}`;
     this.browserView = setNewTabPageView(this.id);
+
     this.favicon = null;
     this.omnibox = "";
   }

@@ -1,7 +1,6 @@
 const { BrowserWindow } = require("electron");
 const { setViewSize } = require("../logic/view");
 const { setHeader, setHeaderSize } = require("../page");
-const state = require("../data/state");
 const { Tab } = require("./tab");
 
 class Window {
@@ -9,7 +8,7 @@ class Window {
     if (!browserWindow || !(browserWindow instanceof BrowserWindow)) {
       throw new Error("Window needs a BrowserWindow to be initialized.");
     }
-    this.id = `${++state.windowId}`;
+    this.id = `${browserWindow.id}`; // "문자열화하지 않는 경우, --shared-files로 등록되는 버그"
 
     setHeader(this.id, browserWindow);
 
