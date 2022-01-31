@@ -82,6 +82,10 @@ class Window {
     this.tabs = this.tabs.filter((tab) => tab.getId() !== tabId);
   }
 
+  getFocusTab() {
+    return this.getTabById(this.focusTabId);
+  }
+
   getFocusTabId() {
     return this.focusTabId;
   }

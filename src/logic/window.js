@@ -7,7 +7,6 @@ const {
 } = require("../constants");
 const { Window } = require("../domain");
 const state = require("../data/state");
-
 const { inputToValidUrl } = require("../utils/url");
 const { createNewTab } = require("./tab");
 const { database } = require("../data/database");
@@ -25,15 +24,16 @@ const createWindow = () => {
 
   createNewTab(window);
   state.windows.add(window);
-  state.focusedWindowId = window.getId();
 
   setTrafficLightControls(window, browserWindow);
   setTabEventHandlers(window);
   setViewUtilsControls(window);
   setOmniboxControls(window);
   setFavoriteControls(window);
-  setWindowFocusEventHandler(window, browserWindow);
+  setWindowFocusEventHandler(window);
   setWindowCloseEventHandler(window, browserWindow);
+
+  browserWindow.focus(); // 설정 완료된 이후에 초점 이동
 };
 
 const setTrafficLightControls = (window, browserWindow) => {
@@ -157,9 +157,18 @@ const setFavoriteControls = (window) => {
   });
 };
 
-const setWindowFocusEventHandler = (window, browserWindow) => {
+const setWindowFocusEventHandler = (window) => {
+  const windowId = window.getId();
+  const browserWindow = window.getBrowserWindow();
+  const headerView = window.getHeaderView();
+
+  // 다른 앱 혹은 다른 윈도우에서 해당 윈도우로 되돌아온 시점에 딱 한 번
   browserWindow.on("focus", () => {
-    state.windowId = window.getId();
+    const focusTab = window.getFocusTab();
+
+    if (focusTab.isNew()) headerView.webContents.focus(); // browser window로 간 focus를 browser view로 그대로 이동시키기 (서로 별개의 프로세스)
+
+    headerView.webContents.send(`updateTab:${windowId}`, focusTab.toString());
   });
 };
 

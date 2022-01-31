@@ -110,10 +110,12 @@ const findNextFocusTabId = (allTabs, curFocusTab) => {
 };
 
 // listen on requests from main process (window.listen_on)
-listen_on.renderAllTabs((_, { tabs, focusTabId }) => {
-  resetAllTabs(JSON.parse(tabs), focusTabId);
+listen_on.renderAllTabs(async (_, { tabs, focusTabId }) => {
+  await resetAllTabs(JSON.parse(tabs), focusTabId);
 
   setIsLoading(false);
+
+  focusOnOmniboxIfNewTab(); // 창이 생성된 시점에 omnibox로 초점 이동
 });
 
 listen_on.renderNewTab(async (_, { tab, focusTabId }) => {

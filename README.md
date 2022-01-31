@@ -56,8 +56,6 @@ Chromium + User Interface - Performance = Mini Chrome!
 
 - [x] 메인 프로세스에서는 당연히 focusTabIdx 대신 focusTabId를 관리
 
-- [ ] 처음 윈도우 생성 시점에 omnibox에 focus되지 않음
-
 - [x] 이미 focus된 탭 클릭하는 경우 토글하는 것으로 간주하지 말기. 무의미한 재렌더링으로 인한 성능 저하.
 
 - [x] cover up ugly border left of focus tab
@@ -67,6 +65,19 @@ Chromium + User Interface - Performance = Mini Chrome!
 ### 윈도우
 
 - [x] 앱 실행시, 맥에서 아이콘 클릭시 새 윈도우 생성
+
+- [x] 창이 생성되면 생성된 창에 focus되도록 명시
+
+  - [x] 앱 실행시, 생성된 창에 focus시키고, 새 탭인 경우 omnibox에 초점이 오도록 설정
+
+- [x] 창에 focus가 들어온 경우 창(browser window)으로 간 focus를 헤더(browser view)로 그대로 이동시키기 (개발자 입장에서는 포함 관계지만, 실질적으로 서로 별개의 프로세스)
+
+  - [x] 새 탭인 경우 화면의 어디를 클릭했던지와 무관하게, 무조건 omnibox로 초점이 오도록 설정
+
+  - 새 탭이 아니라면 마지막으로 있던 위치에 초점 가도록 내버려두기
+
+  - [x] focus 탭 정보 업데이트 : 다른 창에서의 작업으로 즐겨찾기 정보가 변했을 수 있기 때문에 필요.
+
 - [ ] 페이지 뷰 내에서 새 창을 여는 경우 (target="\_blank" 등의 a 태그 클릭 등), 커스텀 윈도우에 헤더, 탭이 새로 생성되도록 설정
 
 ### 헤더
@@ -212,6 +223,8 @@ Chromium + User Interface - Performance = Mini Chrome!
 
 - [ ] 화면 내에서 우클릭시 기본 도구
 
+  - [ ] 새 탭 열기
+  - [ ] 새 창 열기
   - [ ] 개발자 도구 열기 기능
   - [ ] 새로고침
   - [ ] 뒤로

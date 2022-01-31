@@ -32,7 +32,7 @@ class Tab {
   getTitle() {
     const url = this.browserView.webContents.getURL();
 
-    if (url === "" || url === NEW_PAGE_HTML_FILE_ROUTE) return "New Tab";
+    if (this.isNewByUrl(url)) return "New Tab";
 
     if (url.startsWith(FAILED_PAGE_HTML_FILE_ROUTE)) {
       return decodeFailedToLoadURL(url);
@@ -58,7 +58,7 @@ class Tab {
   getUrl() {
     const url = this.browserView.webContents.getURL();
 
-    if (url === NEW_PAGE_HTML_FILE_ROUTE) return "";
+    if (this.isNewByUrl(url)) return "";
 
     if (url.startsWith(FAILED_PAGE_HTML_FILE_ROUTE)) {
       return decodeFailedToLoadURL(url);
@@ -105,6 +105,15 @@ class Tab {
 
   stopLoad() {
     return this.browserView.webContents.stop();
+  }
+
+  isNew() {
+    const url = this.browserView.webContents.getURL();
+    return this.isNewByUrl(url);
+  }
+
+  isNewByUrl(url) {
+    return url === "" || url === NEW_PAGE_HTML_FILE_ROUTE;
   }
 
   toJSON() {
