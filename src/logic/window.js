@@ -35,6 +35,8 @@ const createWindow = (url) => {
   setWindowToggleMaximize(window, browserWindow);
   setWindowCloseEventHandler(window, browserWindow);
 
+  browserWindow.menuBarVisible = false; // 윈도우/Linux에서 디폴트로 설정되는 메뉴바 보이지 않도록 명시. 맥에서는 앱 외부에 설정되므로 그대로 존재.
+
   browserWindow.focus(); // 설정 완료된 이후에 초점 이동
 };
 
