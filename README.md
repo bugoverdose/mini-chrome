@@ -212,22 +212,28 @@ Chromium + User Interface - Performance = Mini Chrome!
   - [ ] 새 창에서 열기 기능
   - [ ] 링크 주소 복사 기능
 
-#### 단축키(윈도우 전체 혹은 현재 뷰에 설정)
+#### 단축키
 
-- [x] 개발자 도구 토글 : 현재 열린 탭의 View에 개발자 도구를 열고 닫기
+- [x] 개발자 도구 토글 : 현재 focus된 창에서 열린 탭의 View에 개발자 도구를 열고 닫기
 
   - [x] 맥 : COMMAND+OPTION+I
   - [x] 윈도우 : Ctrl+Shift+I
   - [x] 공통 : F12
 
   - [x] header : 개발자 도구 열릴 수 없도록 방지
+  - 새 탭과 연결 실패 화면도 그냥 개발자 도구 열 수 있도록 설정. 굳이 막을 이유도 없고, 뒤로/앞으로 가는 경우 열려있던 개발자도구를 닫는 등 별도의 작업이 필요함.
 
-- [ ] focus된 창의 focus된 탭 닫는 단축키 (COMMAND+W / CTRL+W)
+- [ ] 탭 닫기 : focus된 창의 focus된 탭을 닫고 다른 탭으로 focus를 이동시키는 단축키
 
-  - [ ] 앱 자체가 focus되지 않은 경우에도 동작.
-  - [ ] 디버깅: global shortcut는 운영체제 자체와 상호작용하므로 다른 앱들에서의 동일 단축키 사용이 불가능해지는 현상.
+  - [x] 맥 : COMMAND+W
+  - [x] 윈도우 : CTRL+W
+  - [x] 창의 마지막 탭이면 닫히도록 기존 api 그대로 사용
 
-- [x] TAB으로 focus된 화면 내의 조작 가능한 영역들 순회
+- 일단 event.preventDefault 설정하지 말고 디폴트 설정 그대로 사용
+
+  - [x] TAB으로 focus된 화면 내의 조작 가능한 영역들(anchor, input, etc) 순회
+
+  - [x] 선택된 a 태그를 엔터 입력으로 클릭
 
 ## 단축키: 구현 방법들과 각자의 특성
 

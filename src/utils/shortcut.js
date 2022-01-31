@@ -1,15 +1,46 @@
-const isToggleDevToolsCommand = (input, isMac) => {
-  return (
-    isDefaultDevToolCommand(input) ||
-    (isMac && isMacDevToolCommand(input)) ||
-    (!isMac && isWindowDevToolCommand(input))
-  );
+const closeFocusTab = (headerView, windowId) => {
+  headerView.webContents.send(`shortcut:closeTab:${windowId}`);
 };
 
 const toggleDevTools = (webContents) => {
   webContents.isDevToolsOpened()
     ? webContents.closeDevTools()
     : webContents.openDevTools();
+};
+
+const isCloseTabCommand = (input, isMac) => {
+  return (
+    (isMac && isMacCloseTabCommand(input)) ||
+    (!isMac && isWindowCloseTabCommand(input))
+  );
+};
+
+const isMacCloseTabCommand = (input) => {
+  return (
+    input.meta && // command
+    input.code === "KeyW" && // W
+    !input.alt &&
+    !input.ctrl &&
+    !input.shift
+  );
+};
+
+const isWindowCloseTabCommand = (input) => {
+  return (
+    input.ctrl && // CTRL
+    input.code === "KeyW" && // W
+    !input.meta &&
+    !input.alt &&
+    !input.shift
+  );
+};
+
+const isToggleDevToolsCommand = (input, isMac) => {
+  return (
+    isDefaultDevToolCommand(input) ||
+    (isMac && isMacDevToolCommand(input)) ||
+    (!isMac && isWindowDevToolCommand(input))
+  );
 };
 
 const isDefaultDevToolCommand = (input) => {
@@ -42,25 +73,9 @@ const isWindowDevToolCommand = (input) => {
   );
 };
 
-// const state = require("../data/state");
-
-// const getCurrentFocusedWindow = () => {
-//   const focusedWindowId = getCurrentFocusedWindowId();
-
-//   for (let value of state.windows) {
-//     if (value.id === focusedWindowId) {
-//       return value;
-//     }
-//   }
-//   return null;
-// };
-
-// const getCurrentFocusedWindowId = () => {
-//   return state.windowId;
-// };
-
-// module.exports = { getCurrentFocusedWindow };
 module.exports = {
+  isCloseTabCommand,
   isToggleDevToolsCommand,
+  closeFocusTab,
   toggleDevTools,
 };

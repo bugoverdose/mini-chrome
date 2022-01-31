@@ -1,5 +1,4 @@
 const ui = {
-  ...require("./shortcut"),
   ...require("./view"),
   ...require("./window"),
 };

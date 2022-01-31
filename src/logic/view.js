@@ -3,8 +3,10 @@ const { HEADER_HEIGHT } = require("../constants");
 const { database } = require("../data/database");
 const { loadNewTabPage, setFailedToLoadPage } = require("../page");
 const {
-  toggleDevTools,
   isToggleDevToolsCommand,
+  toggleDevTools,
+  isCloseTabCommand,
+  closeFocusTab,
 } = require("../utils/shortcut");
 
 const addNewPageViewOnWindow = async (window, newTab) => {
@@ -61,16 +63,24 @@ const configNewTabView = (tabId) => {
   });
 };
 
-const configShortcuts = (window, browserView, tabId) => {
+const configShortcuts = (window, browserView) => {
   const { webContents } = browserView;
+  const headerView = window.getHeaderView();
+  const windowId = window.getId();
   const isMac = process.platform === "darwin";
 
   webContents.on("before-input-event", (event, input) => {
-    event.preventDefault();
+    // 디폴트로 등록된 기능들은 일단은 그대로 사용.
+    console.log(input);
     if (input.isAutoRepeat) return; // 계속 누르고 있는 경우 첫번째만 실행되고 나머지는 무시
+    if (input.type === "keyUp") return; // 처음 누를 때만 인식하고 땔 때는 무시하도록
 
-    if (isToggleDevToolsCommand(input, isMac))
+    if (isCloseTabCommand(input, isMac)) {
+      return closeFocusTab(headerView, windowId);
+    }
+    if (isToggleDevToolsCommand(input, isMac)) {
       return toggleDevTools(webContents);
+    }
   });
 };
 
