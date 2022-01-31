@@ -1,14 +1,7 @@
 const { ipcMain } = require("electron");
-// const { createWindow } = require("./window");
 const { HEADER_HEIGHT } = require("../constants");
 const { database } = require("../data/database");
 const { loadNewTabPage, setFailedToLoadPage } = require("../page");
-const {
-  isToggleDevToolsCommand,
-  toggleDevTools,
-  isCloseTabCommand,
-  closeFocusTab,
-} = require("../utils/shortcut");
 
 const addNewPageViewOnWindow = async (window, newTab, url) => {
   const browserWindow = window.getBrowserWindow();
@@ -19,7 +12,6 @@ const addNewPageViewOnWindow = async (window, newTab, url) => {
   setViewSize(browserView, curWidth, curHeight);
   configNewView(window, browserView, newTab.id);
   configNewTabView(newTab.id);
-  configShortcuts(window, browserView, newTab.id);
 
   if (url && url !== null) {
     await newTab.getWebContents().loadURL(url);
@@ -66,26 +58,6 @@ const configNewTabView = (tabId) => {
     e.reply(`fav:responseLoadedAll:tab:${tabId}`, {
       data: JSON.stringify(favorites),
     });
-  });
-};
-
-const configShortcuts = (window, browserView) => {
-  const { webContents } = browserView;
-  const headerView = window.getHeaderView();
-  const windowId = window.getId();
-  const isMac = process.platform === "darwin";
-
-  webContents.on("before-input-event", (event, input) => {
-    // 디폴트로 등록된 기능들은 일단은 그대로 사용.
-    if (input.isAutoRepeat) return; // 계속 누르고 있는 경우 첫번째만 실행되고 나머지는 무시
-    if (input.type === "keyUp") return; // 처음 누를 때만 인식하고 땔 때는 무시하도록
-
-    if (isCloseTabCommand(input, isMac)) {
-      return closeFocusTab(headerView, windowId);
-    }
-    if (isToggleDevToolsCommand(input, isMac)) {
-      return toggleDevTools(webContents);
-    }
   });
 };
 
