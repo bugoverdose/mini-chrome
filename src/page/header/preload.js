@@ -24,6 +24,7 @@ contextBridge.exposeInMainWorld("custom_events", {
   red: () => ipcRenderer.invoke(`clicked:red:${windowId}`),
   yellow: () => ipcRenderer.invoke(`clicked:yellow:${windowId}`),
   green: () => ipcRenderer.invoke(`clicked:green:${windowId}`),
+  headerDoubleClick: () => ipcRenderer.invoke(`dbclicked:header:${windowId}`),
 
   initGoBack: (tabId) =>
     ipcRenderer.invoke(`clicked:goBack:${windowId}`, tabId),

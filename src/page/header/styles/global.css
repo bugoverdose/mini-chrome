@@ -16,3 +16,14 @@ object,
 .blur-mode {
   pointer-events: none;
 }
+
+#traffic-light-area,
+#tab-area {
+  pointer-events: none;
+}
+
+:not(.blur-mode)
+  :where(.tab, #tab-new, #tab-create-btn, .tab-container, #traffic-light-area-container
+    > div, ) {
+  pointer-events: auto;
+}

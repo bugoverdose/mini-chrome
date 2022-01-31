@@ -32,6 +32,7 @@ const createWindow = (url) => {
   setOmniboxControls(window);
   setFavoriteControls(window);
   setWindowFocusEventHandler(window);
+  setWindowToggleMaximize(window, browserWindow);
   setWindowCloseEventHandler(window, browserWindow);
 
   browserWindow.focus(); // 설정 완료된 이후에 초점 이동
@@ -179,6 +180,16 @@ const setWindowFocusEventHandler = (window) => {
     headerView.webContents.send(`toggleFocus:window:${windowId}`, {
       activate: false,
     });
+  });
+};
+
+const setWindowToggleMaximize = (window, browserWindow) => {
+  const windowId = window.getId();
+
+  ipcMain.handle(`dbclicked:header:${windowId}`, () => {
+    browserWindow.isMaximized()
+      ? browserWindow.unmaximize()
+      : browserWindow.maximize();
   });
 };
 
