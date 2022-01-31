@@ -16,11 +16,13 @@
   width: 33px;
 }
 
-.view-util-deactivate * {
+.view-util-deactivate *,
+.blur-mode .view-util * {
   color: var(--main-grey);
 }
 
-.view-util-deactivate {
+.view-util-deactivate,
+.blur-mode .view-util > div {
   pointer-events: none;
 }
 

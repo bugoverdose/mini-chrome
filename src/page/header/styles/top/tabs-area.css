@@ -94,6 +94,10 @@
   background-color: var(--main-black);
 }
 
+.blur-mode .tab-favicon {
+  background-color: var(--blur-gray);
+}
+
 .tab-favicon object {
   width: 15px;
   height: 15px;
@@ -129,6 +133,10 @@
   align-items: center;
 
   background-color: var(--main-black);
+}
+
+.blur-mode .tab-close {
+  background-color: var(--blur-gray);
 }
 
 .focused-tab .tab-favicon,

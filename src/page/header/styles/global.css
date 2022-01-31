@@ -12,6 +12,7 @@ body {
 
 svg,
 object,
-.loading {
+.loading,
+.blur-mode {
   pointer-events: none;
 }

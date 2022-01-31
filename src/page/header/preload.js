@@ -66,6 +66,9 @@ contextBridge.exposeInMainWorld("listen_on", {
 
   closeTabShortcutCommand: (cb) =>
     ipcRenderer.on(`shortcut:closeTab:${windowId}`, cb),
+
+  toggleWindowFocus: (cb) =>
+    ipcRenderer.on(`toggleFocus:window:${windowId}`, cb),
 });
 
 contextBridge.exposeInMainWorld("custom_utils", {

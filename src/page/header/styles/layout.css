@@ -16,6 +16,11 @@
   background-color: var(--main-black);
 }
 
+.blur-mode #top-container,
+.blur-mode #top-container #tab-new {
+  background-color: var(--blur-gray);
+}
+
 #bottom-container {
   display: grid;
   grid-template-rows: 1fr;

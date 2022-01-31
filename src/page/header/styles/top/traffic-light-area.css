@@ -54,3 +54,7 @@
 #green:active {
   background-color: var(--toggle-fullscreen-green-active);
 }
+
+.blur-mode #traffic-light-area-container > div {
+  background-color: var(--main-grey);
+}

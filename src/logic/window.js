@@ -169,7 +169,16 @@ const setWindowFocusEventHandler = (window) => {
 
     if (focusTab.isNew()) headerView.webContents.focus(); // browser window로 간 focus를 browser view로 그대로 이동시키기 (서로 별개의 프로세스)
 
+    headerView.webContents.send(`toggleFocus:window:${windowId}`, {
+      activate: true,
+    });
     headerView.webContents.send(`updateTab:${windowId}`, focusTab.toString());
+  });
+
+  browserWindow.on("blur", () => {
+    headerView.webContents.send(`toggleFocus:window:${windowId}`, {
+      activate: false,
+    });
   });
 };
 
