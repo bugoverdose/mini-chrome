@@ -71,7 +71,6 @@ const configShortcuts = (window, browserView) => {
 
   webContents.on("before-input-event", (event, input) => {
     // 디폴트로 등록된 기능들은 일단은 그대로 사용.
-    console.log(input);
     if (input.isAutoRepeat) return; // 계속 누르고 있는 경우 첫번째만 실행되고 나머지는 무시
     if (input.type === "keyUp") return; // 처음 누를 때만 인식하고 땔 때는 무시하도록
 
