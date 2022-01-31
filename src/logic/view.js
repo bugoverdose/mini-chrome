@@ -2,6 +2,7 @@ const { ipcMain } = require("electron");
 const { HEADER_HEIGHT } = require("../constants");
 const { database } = require("../data/database");
 const { loadNewTabPage, setFailedToLoadPage } = require("../page");
+const { isMacDevToolCommand, toggleDevTools } = require("../utils/shortcut");
 
 const addNewPageViewOnWindow = async (window, newTab) => {
   const browserWindow = window.getBrowserWindow();
@@ -12,9 +13,8 @@ const addNewPageViewOnWindow = async (window, newTab) => {
   setViewSize(browserView, curWidth, curHeight);
   configNewView(window, browserView, newTab.id);
   configNewTabView(newTab.id);
+  configShortcuts(window, browserView, newTab.id);
   await loadNewTabPage(browserView);
-
-  // browserView.webContents.openDevTools();
 
   return newTab;
 };
@@ -55,6 +55,20 @@ const configNewTabView = (tabId) => {
     e.reply(`fav:responseLoadedAll:tab:${tabId}`, {
       data: JSON.stringify(favorites),
     });
+  });
+};
+
+const configShortcuts = (window, browserView, tabId) => {
+  const { webContents } = browserView;
+  webContents.on("before-input-event", (event, input) => {
+    event.preventDefault();
+    if (input.isAutoRepeat) return; // 계속 누르고 있는 경우 첫번째만 실행되고 나머지는 무시
+
+    const isMac = process.platform === "darwin";
+
+    if (isMac) {
+      if (isMacDevToolCommand(input)) toggleDevTools(webContents);
+    }
   });
 };
 

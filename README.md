@@ -198,11 +198,6 @@ Chromium + User Interface - Performance = Mini Chrome!
     - [x] URI 디코딩을 통해 한국어 검색어 등 대응
   - [x] favicon은 별도로 생성
 
-#### 개발자 도구 범위 설정
-
-- [ ] header : 개발 완료 후 개발자 도구 열릴 수 없도록 방지
-- [ ] View : 개발자 도구 열릴 수 있도록 설정
-
 #### 페이지 내 도구
 
 - [ ] 화면 내에서 우클릭시 기본 기능
@@ -221,10 +216,11 @@ Chromium + User Interface - Performance = Mini Chrome!
 
 - [ ] 개발자 도구
 
-  - [ ] 맥 환경에서 COMMAND+OPTION+I 실행시, 현재 열린 탭의 View의 개발자 도구가 열리도록 설정
+  - [x] 맥 환경에서 COMMAND+OPTION+I 실행시, 현재 열린 탭의 View 내부에 개발자 도구가 열리도록 설정
   - [ ] 윈도우 환경에서 F12 실행시, 현재 열린 탭의 View의 개발자 도구가 열리도록 설정
+  - [x] header : 개발자 도구 열릴 수 없도록 방지
 
-- [x] focus된 창의 focus된 탭 닫는 단축키 (COMMAND+W / CTRL+W)
+- [ ] focus된 창의 focus된 탭 닫는 단축키 (COMMAND+W / CTRL+W)
 
   - [ ] 앱 자체가 focus되지 않은 경우에도 동작.
   - [ ] 디버깅: global shortcut는 운영체제 자체와 상호작용하므로 다른 앱들에서의 동일 단축키 사용이 불가능해지는 현상.
@@ -253,6 +249,7 @@ Chromium + User Interface - Performance = Mini Chrome!
   4. webcontents에 사용자 입력에 대한 이벤트리스너 등록
 
      ```
+     // 모든 webcontents에 동일한 단축키 등록하는 예제
      app.on('web-contents-created', function (event, wc) {
        wc.on('before-input-event', function (event, input) {
          if (input.key === 'x' && input.ctrl && !input.alt && !input.meta && !input.shift) {

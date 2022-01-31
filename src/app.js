@@ -1,10 +1,8 @@
-const { app, globalShortcut } = require("electron");
+const { app } = require("electron");
 const { windows } = require("./data/state");
-const { createWindow, registerShortCuts } = require("./logic");
+const { createWindow } = require("./logic");
 
 app.on("ready", () => {
-  registerShortCuts();
-
   createWindow();
 });
 
@@ -14,12 +12,10 @@ app.on("activate", () => {
   }
 });
 
-app.on("add-window", createWindow);
+app.on("browser-window-created", (e, window) => {
+  console.log("browser-window-created");
+});
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
-});
-
-app.on("will-quit", () => {
-  globalShortcut.unregisterAll();
 });
