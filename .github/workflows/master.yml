@@ -26,28 +26,30 @@ jobs:
       - run: echo $PWD
       - run: ls
 
-      - run: cd ./download
+      - name: Darwin x64
+        uses: montudor/action-zip@v1
+        with:
+          args: sh -c "cd out && zip -qq -r ../..download/Mini Chrome-darwin-x64.zip Mini Chrome-darwin-x64"
 
       - run: echo $PWD
       - run: ls
 
-      - name: Install zip
-        uses: montudor/action-zip@v1
-
-      - name: Darwin x64
-        run: zip -qq -r "Mini Chrome-darwin-x64.zip" "Mini Chrome-darwin-x64"
-
-      - run: ls
-
       - name: Darwin ARM 64
-        run: zip -qq -r "Mini Chrome-darwin-arm64.zip" "Mini Chrome-darwin-arm64"
+        uses: montudor/action-zip@v1
+        with:
+          args: sh -c "cd out && zip -qq -r ../..download/Mini Chrome-darwin-arm64.zip Mini Chrome-darwin-arm64"
 
       - name: MAS x64
-        run: zip -qq -r "Mini Chrome-mas-x64.zip" "Mini Chrome-mas-x64"
+        uses: montudor/action-zip@v1
+        with:
+          args: sh -c "cd out && zip -qq -r ../..download/Mini Chrome-mas-x64.zip Mini Chrome-mas-x64"
 
       - name: MAS ARM 64
-        run: zip -qq -r "Mini Chrome-mas-arm64.zip" "Mini Chrome-mas-arm64"
+        uses: montudor/action-zip@v1
+        with:
+          args: sh -c "cd out && zip -qq -r ../..download/Mini Chrome-mas-arm64.zip Mini Chrome-mas-arm64"
 
+      - run: echo $PWD
       - run: ls
 
       - name: Push to gh-pages branch
