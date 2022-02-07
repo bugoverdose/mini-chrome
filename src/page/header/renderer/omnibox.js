@@ -8,13 +8,13 @@ const {
 
 omnibox.addEventListener("keydown", async (e) => {
   const { target, key } = e;
-  if (key === "Enter") {
-    omnibox.blur();
-    setPageStopLoadingIcon2(refreshOrStopIcon2);
+  if (key !== "Enter") return;
 
-    const focusedTab = document.getElementsByClassName("focused-tab")[0];
-    await loadURL(target.value, focusedTab.id);
-  }
+  omnibox.blur();
+  setPageStopLoadingIcon2(refreshOrStopIcon2);
+
+  const focusedTab = document.getElementsByClassName("focused-tab")[0];
+  await loadURL(target.value, focusedTab.id);
 });
 
 const favoriteBtn = document.querySelector("#fav-toggle");

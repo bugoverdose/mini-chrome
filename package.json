@@ -12,7 +12,7 @@
   },
   "scripts": {
     "start": "electron .",
-    "build": "npx electron-packager . --out=out --platform=all --arch=all"
+    "build": "npx electron-packager . --out=out --platform=all --arch=all --overwrite"
   },
   "devDependencies": {
     "electron": "^16.0.7",
