@@ -12,7 +12,9 @@
   },
   "scripts": {
     "start": "electron .",
-    "build": "npx electron-packager . --out=out --platform=all --arch=all --overwrite"
+    "build_darwin": "npx electron-packager . --out=out --platform=darwin --arch=all --overwrite",
+    "build_mas": "npx electron-packager . --out=out --platform=mas --arch=all --overwrite",
+    "build": "npm run build_darwin && npm run build_mas"
   },
   "devDependencies": {
     "electron": "^16.0.7",
