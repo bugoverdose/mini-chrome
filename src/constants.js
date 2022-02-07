@@ -4,10 +4,6 @@ const constants = {
   MIN_WIDTH: 510,
   MIN_HEIGHT: 400,
   HEADER_HEIGHT: 79,
-  NEW_PAGE_HTML_FILE_ROUTE:
-    "file:///Users/jeong/mini-chrome/src/page/new/index.html",
-  FAILED_PAGE_HTML_FILE_ROUTE:
-    "file:///Users/jeong/mini-chrome/src/page/fail/index.html",
 
   NEW_TAB_FAVICON: "icons/new-tab-fav.svg",
   DEFAULT_FAVICON: "icons/default-fav.svg",

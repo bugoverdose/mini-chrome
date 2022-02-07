@@ -1,6 +1,7 @@
 {
   "name": "mini-chrome",
   "productName": "Mini Chrome",
+  "homepage": "https://bugoverdose.github.io/download-mini-chrome/",
   "version": "1.0.0",
   "description": "light-weight web browser with Chromium",
   "main": "src",
@@ -9,11 +10,6 @@
   "bugs": {
     "url": "https://github.com/bugoverdose/mini-chrome/issues"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bugoverdose/mini-chrome.git"
-  },
-  "homepage": "https://github.com/bugoverdose/mini-chrome#readme",
   "scripts": {
     "start": "electron .",
     "build": "npx electron-packager . --out=out --platform=all --arch=all"

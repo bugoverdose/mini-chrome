@@ -1,9 +1,4 @@
-const {
-  NEW_PAGE_HTML_FILE_ROUTE,
-  FAILED_PAGE_HTML_FILE_ROUTE,
-  NEW_TAB_FAVICON,
-  CONNECTION_FAIL_FAVICON,
-} = require("../constants");
+const { NEW_TAB_FAVICON, CONNECTION_FAIL_FAVICON } = require("../constants");
 const { decodeFailedToLoadURL } = require("../utils/url");
 const { setNewTabPageView } = require("../page");
 const state = require("../data/state");
@@ -34,10 +29,7 @@ class Tab {
     const url = this.browserView.webContents.getURL();
 
     if (this.isNewByUrl(url)) return "New Tab";
-
-    if (url.startsWith(FAILED_PAGE_HTML_FILE_ROUTE)) {
-      return decodeFailedToLoadURL(url);
-    }
+    if (url.startsWith("file:///")) return decodeFailedToLoadURL(url);
 
     return this.browserView.webContents.getTitle();
   }
@@ -60,10 +52,7 @@ class Tab {
     const url = this.browserView.webContents.getURL();
 
     if (this.isNewByUrl(url)) return "";
-
-    if (url.startsWith(FAILED_PAGE_HTML_FILE_ROUTE)) {
-      return decodeFailedToLoadURL(url);
-    }
+    if (url.startsWith("file:///")) return decodeFailedToLoadURL(url);
 
     return url;
   }
@@ -114,7 +103,11 @@ class Tab {
   }
 
   isNewByUrl(url) {
-    return url === "" || url === NEW_PAGE_HTML_FILE_ROUTE;
+    if (url === "") return true;
+    if (url.startsWith("file:///") && url.endsWith("src/page/new/index.html")) {
+      return true;
+    }
+    return false;
   }
 
   toJSON() {

@@ -1,14 +1,11 @@
-const { FAILED_PAGE_HTML_FILE_ROUTE } = require("../constants");
 const { topDomainList } = require("./tdl");
 
-const decodeFailedToLoadURL = (loadedFile) => {
-  return decodeURI(loadedFile)
-    .replace(`${FAILED_PAGE_HTML_FILE_ROUTE}`, "")
-    .replace(`?`, "")
+const decodeFailedToLoadURL = (loadedFile) =>
+  decodeURI(loadedFile)
+    .split("src/page/fail/index.html?")[1] // file:///~ 부분 제거
     .split("#")[0];
-  // 연결 실패한 직후에는 시도했던 검색어를 그대로 url로 지님.
-  // 다만, loadFile 후부터는 다음과 같은 구조를 지니게 됨. file:///Users/jeong/mini-chrome/src/page/fail/index.html?asd.asd.com#ERR_NAME_NOT_RESOLVED
-};
+// 연결 실패한 직후에는 시도했던 검색어를 그대로 url로 지님.
+// 다만, loadFile 후부터는 다음과 같은 구조를 지니게 됨. file:///Users/jeong/mini-chrome/src/page/fail/index.html?asd.asd.com#ERR_NAME_NOT_RESOLVED
 
 const inputToValidUrl = (inputValue) => {
   const input = inputValue.toLowerCase();
