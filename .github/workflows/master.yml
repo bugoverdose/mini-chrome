@@ -23,8 +23,6 @@ jobs:
       - name: Build
         run: npm run build
 
-      - run: cd out && ls -lh
-
       - run: mv out/Mini\ Chrome-darwin-x64 out/Mini-Chrome-darwin-x64
       - run: mv out/Mini\ Chrome-darwin-arm64 out/Mini-Chrome-darwin-arm64
       - run: mv out/Mini\ Chrome-mas-x64 out/Mini-Chrome-mas-x64
@@ -57,6 +55,8 @@ jobs:
           dest: "download/Mini-Chrome-mas-arm64.zip"
 
       - run: cd download && ls -lh
+
+      - run: git lfs install
 
       - name: Push to gh-pages branch
         uses: peaceiris/actions-gh-pages@v3
