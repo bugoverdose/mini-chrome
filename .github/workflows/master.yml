@@ -2,7 +2,7 @@ name: CI/CD after file compress
 
 on:
   push:
-    branches: [master]
+    branches: [master, test]
 
 jobs:
   deploy:
@@ -23,29 +23,33 @@ jobs:
       - name: Build
         run: npm run build
 
-      - run: cd ./out
+      - run: ls
 
       - name: Install zip
         uses: montudor/action-zip@v1
 
       - name: Darwin x64
         run: zip -qq -r "Mini Chrome-darwin-x64.zip" "Mini Chrome-darwin-x64"
-        working-directory: ../download-page/files
+        working-directory: /out
+
+      - run: ls
 
       - name: Darwin ARM 64
         run: zip -qq -r "Mini Chrome-darwin-arm64.zip" "Mini Chrome-darwin-arm64"
-        working-directory: ../download-page/files
+        working-directory: /out
 
       - name: MAS x64
         run: zip -qq -r "Mini Chrome-mas-x64.zip" "Mini Chrome-mas-x64"
-        working-directory: ../download-page/files
+        working-directory: /out
 
       - name: MAS ARM 64
         run: zip -qq -r "Mini Chrome-mas-arm64.zip" "Mini Chrome-mas-arm64"
-        working-directory: ../download-page/files
+        working-directory: /out
+
+      - run: ls
 
       - name: Push to gh-pages branch
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./download-page
+          publish_dir: ./download

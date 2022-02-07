@@ -1,0 +1,58 @@
+* {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+}
+
+body {
+  padding: 50px;
+  background-color: #313e46;
+  color: #e298ff;
+}
+
+h1 {
+  display: flex;
+  font-size: 40px;
+}
+
+p {
+  width: 100%;
+  color: white;
+  display: block;
+  white-space: initial;
+}
+
+a {
+  color: white;
+  padding-bottom: 5px;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul {
+  padding: 10px 10px 20px 10px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.text-wrapper {
+  width: 100%;
+  padding: 10px;
+}
+.text-wrapper > p {
+  width: 80%;
+  margin-bottom: 10px;
+}
+
+.header-wrapper {
+  margin-bottom: 20px;
+}
+.download-wrapper {
+  margin-bottom: 20px;
+}
+.download-links-wrapper {
+  padding-left: 10px;
+}

@@ -1,7 +1,7 @@
 {
   "name": "mini-chrome",
   "productName": "Mini Chrome",
-  "homepage": "https://bugoverdose.github.io/download-mini-chrome/",
+  "homepage": "https://bugoverdose.github.io/mini-chrome/",
   "version": "1.0.0",
   "description": "light-weight web browser with Chromium",
   "main": "src",
