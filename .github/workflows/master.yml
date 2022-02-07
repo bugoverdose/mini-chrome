@@ -23,6 +23,12 @@ jobs:
       - name: Build
         run: npm run build
 
+      - run: echo $PWD
+      - run: ls
+
+      - run: cd ./download
+
+      - run: echo $PWD
       - run: ls
 
       - name: Install zip
@@ -30,21 +36,17 @@ jobs:
 
       - name: Darwin x64
         run: zip -qq -r "Mini Chrome-darwin-x64.zip" "Mini Chrome-darwin-x64"
-        working-directory: /out
 
       - run: ls
 
       - name: Darwin ARM 64
         run: zip -qq -r "Mini Chrome-darwin-arm64.zip" "Mini Chrome-darwin-arm64"
-        working-directory: /out
 
       - name: MAS x64
         run: zip -qq -r "Mini Chrome-mas-x64.zip" "Mini Chrome-mas-x64"
-        working-directory: /out
 
       - name: MAS ARM 64
         run: zip -qq -r "Mini Chrome-mas-arm64.zip" "Mini Chrome-mas-arm64"
-        working-directory: /out
 
       - run: ls
 
