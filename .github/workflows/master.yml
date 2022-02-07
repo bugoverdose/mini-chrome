@@ -1,0 +1,43 @@
+name: CI/CD after file compress
+
+on:
+  push:
+    branches: [master, test]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout mini-chrome repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js on runner
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.13.2"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - run: cd ./out
+
+      - name: Install zip
+        uses: montudor/action-zip@v1
+
+      - name: Darwin x64
+        run: zip -qq -r "Mini Chrome-darwin-x64.zip" "Mini Chrome-darwin-x64"
+        working-directory: ../download-page/files
+
+      - name: MAS x64
+        run: zip -qq -r "Mini Chrome-mas-x64.zip" "Mini Chrome-mas-x64"
+        working-directory: ../download-page/files
+
+      - name: Push to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./download-page
