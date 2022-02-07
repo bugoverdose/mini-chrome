@@ -23,14 +23,14 @@ jobs:
       - name: Build
         run: npm run build
 
-      - run: cd download && ls -lh
+      - run: cd out && ls -lh
 
       - run: mv out/Mini\ Chrome-darwin-x64 out/Mini-Chrome-darwin-x64
       - run: mv out/Mini\ Chrome-darwin-arm64 out/Mini-Chrome-darwin-arm64
       - run: mv out/Mini\ Chrome-mas-x64 out/Mini-Chrome-mas-x64
       - run: mv out/Mini\ Chrome-mas-arm64 out/Mini-Chrome-mas-arm64
 
-      - run: cd download && ls -lh
+      - run: cd out && ls -lh
 
       - name: Darwin x64
         uses: vimtor/action-zip@v1
