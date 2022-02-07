@@ -25,29 +25,36 @@ jobs:
 
       - run: cd download && ls -lh
 
+      - run: cd out && mv Mini Chrome-darwin-x64 Mini-Chrome-darwin-x64
+      - run: cd out && mv Mini Chrome-darwin-arm64 Mini-Chrome-darwin-arm64
+      - run: cd out && mv Mini Chrome-mas-x64 Mini-Chrome-mas-x64
+      - run: cd out && mv Mini Chrome-mas-arm64 Mini-Chrome-mas-arm64
+
+      - run: cd download && ls -lh
+
       - name: Darwin x64
         uses: vimtor/action-zip@v1
         with:
-          files: out/Mini\ Chrome-darwin-x64/
-          dest: download/Mini\ Chrome-darwin-x64.zip
+          files: out/Mini-Chrome-darwin-x64/
+          dest: download/Mini-Chrome-darwin-x64.zip
 
       - name: Darwin ARM 64
         uses: vimtor/action-zip@v1
         with:
-          files: "out/Mini\ Chrome-darwin-arm64/"
-          dest: "download/Mini\ Chrome-darwin-arm64.zip"
+          files: "out/Mini-Chrome-darwin-arm64/"
+          dest: "download/Mini-Chrome-darwin-arm64.zip"
 
       - name: MAS x64
         uses: vimtor/action-zip@v1
         with:
-          files: "out/Mini\ Chrome-mas-x64/"
-          dest: "download/Mini\ Chrome-mas-x64.zip"
+          files: "out/Mini-Chrome-mas-x64/"
+          dest: "download/Mini-Chrome-mas-x64.zip"
 
       - name: MAS ARM 64
         uses: vimtor/action-zip@v1
         with:
-          files: "out/Mini\ Chrome-mas-arm64/"
-          dest: "download/Mini\ Chrome-mas-arm64.zip"
+          files: "out/Mini-Chrome-mas-arm64/"
+          dest: "download/Mini-Chrome-mas-arm64.zip"
 
       - run: cd download && ls -lh
 
