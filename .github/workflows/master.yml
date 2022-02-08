@@ -23,40 +23,23 @@ jobs:
       - name: Build
         run: npm run build
 
-      - run: mv out/Mini\ Chrome-darwin-x64 out/Mini-Chrome-darwin-x64
-      - run: mv out/Mini\ Chrome-darwin-arm64 out/Mini-Chrome-darwin-arm64
-      - run: mv out/Mini\ Chrome-mas-x64 out/Mini-Chrome-mas-x64
-      - run: mv out/Mini\ Chrome-mas-arm64 out/Mini-Chrome-mas-arm64
+      - name: Log raw application size
+        run: du -h -d=1 ./out/*
 
-      - run: cd out && ls -lh
+      - name: Compress Darwin x64
+        run: tar -czvf ./download/Mini-Chrome-darwin-x64.tar.gz './out/Mini Chrome-darwin-x64'
 
-      - name: Darwin x64
-        uses: vimtor/action-zip@v1
-        with:
-          files: out/Mini-Chrome-darwin-x64/
-          dest: download/Mini-Chrome-darwin-x64.zip
+      - name: Compress Darwin ARM 64
+        run: tar -czvf ./download/Mini-Chrome-darwin-arm64.tar.gz './out/Mini Chrome-darwin-arm64'
 
-      - name: Darwin ARM 64
-        uses: vimtor/action-zip@v1
-        with:
-          files: "out/Mini-Chrome-darwin-arm64/"
-          dest: "download/Mini-Chrome-darwin-arm64.zip"
+      - name: Compress MAS x64
+        run: tar -czvf ./download/Mini-Chrome-mas-x64.tar.gz './out/Mini Chrome-mas-x64'
 
-      - name: MAS x64
-        uses: vimtor/action-zip@v1
-        with:
-          files: "out/Mini-Chrome-mas-x64/"
-          dest: "download/Mini-Chrome-mas-x64.zip"
+      - name: Compress MAS ARM 64
+        run: tar -czvf ./download/Mini-Chrome-mas-arm64.tar.gz './out/Mini Chrome-mas-arm64'
 
-      - name: MAS ARM 64
-        uses: vimtor/action-zip@v1
-        with:
-          files: "out/Mini-Chrome-mas-arm64/"
-          dest: "download/Mini-Chrome-mas-arm64.zip"
-
-      - run: cd download && ls -lh
-
-      - run: git lfs install
+      - name: Log compressed file size
+        run: du -h ./download/*
 
       - name: Push to gh-pages branch
         uses: peaceiris/actions-gh-pages@v3
