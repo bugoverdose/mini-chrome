@@ -23,29 +23,26 @@ jobs:
       - name: Build
         run: npm run build
 
-      - run: cd ./out
+      - name: Log raw application size
+        run: du -h -d 1 ./out/*
 
-      - name: Install zip
-        uses: montudor/action-zip@v1
+      - name: Compress Darwin x64
+        run: cd out && tar -czvf ../download/Mini-Chrome-darwin-x64.tar.gz './Mini Chrome-darwin-x64'
 
-      - name: Darwin x64
-        run: zip -qq -r "Mini Chrome-darwin-x64.zip" "Mini Chrome-darwin-x64"
-        working-directory: ../download-page/files
+      - name: Compress Darwin ARM 64
+        run: cd out && tar -czvf ../download/Mini-Chrome-darwin-arm64.tar.gz './Mini Chrome-darwin-arm64'
 
-      - name: Darwin ARM 64
-        run: zip -qq -r "Mini Chrome-darwin-arm64.zip" "Mini Chrome-darwin-arm64"
-        working-directory: ../download-page/files
+      - name: Compress MAS x64
+        run: cd out && tar -czvf ../download/Mini-Chrome-mas-x64.tar.gz './Mini Chrome-mas-x64'
 
-      - name: MAS x64
-        run: zip -qq -r "Mini Chrome-mas-x64.zip" "Mini Chrome-mas-x64"
-        working-directory: ../download-page/files
+      - name: Compress MAS ARM 64
+        run: cd out && tar -czvf ../download/Mini-Chrome-mas-arm64.tar.gz './Mini Chrome-mas-arm64'
 
-      - name: MAS ARM 64
-        run: zip -qq -r "Mini Chrome-mas-arm64.zip" "Mini Chrome-mas-arm64"
-        working-directory: ../download-page/files
+      - name: Log compressed file size
+        run: du -h -d 1 ./download/*
 
       - name: Push to gh-pages branch
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./download-page
+          publish_dir: ./download

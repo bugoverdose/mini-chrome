@@ -1,7 +1,7 @@
 {
   "name": "mini-chrome",
   "productName": "Mini Chrome",
-  "homepage": "https://bugoverdose.github.io/download-mini-chrome/",
+  "homepage": "https://bugoverdose.github.io/mini-chrome/",
   "version": "1.0.0",
   "description": "light-weight web browser with Chromium",
   "main": "src",
@@ -14,10 +14,12 @@
     "start": "electron .",
     "build_darwin": "npx electron-packager . --out=out --platform=darwin --arch=all --overwrite",
     "build_mas": "npx electron-packager . --out=out --platform=mas --arch=all --overwrite",
-    "build": "npm run build_darwin && npm run build_mas"
+    "build": "npm run build_darwin && npm run build_mas",
+    "deploy": "gh-pages -d download"
   },
   "devDependencies": {
     "electron": "^16.0.7",
-    "electron-packager": "^15.4.0"
+    "electron-packager": "^15.4.0",
+    "gh-pages": "^3.2.3"
   }
 }
