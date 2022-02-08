@@ -24,7 +24,7 @@ jobs:
         run: npm run build
 
       - name: Log raw application size
-        run: du -h -d=1 ./out/*
+        run: du -h -d 1 ./out/*
 
       - name: Compress Darwin x64
         run: tar -czvf ./download/Mini-Chrome-darwin-x64.tar.gz './out/Mini Chrome-darwin-x64'
@@ -39,7 +39,7 @@ jobs:
         run: tar -czvf ./download/Mini-Chrome-mas-arm64.tar.gz './out/Mini Chrome-mas-arm64'
 
       - name: Log compressed file size
-        run: du -h ./download/*
+        run: du -h -d 1 ./download/*
 
       - name: Push to gh-pages branch
         uses: peaceiris/actions-gh-pages@v3
