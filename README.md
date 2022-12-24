@@ -2,6 +2,10 @@
 
 Chromium에 사용자 인터페이스(UI)를 추가한 구글 크롬 클론 코딩 프로젝트
 
+## 데모
+
+![데모](./mini-chrome-demo.gif)
+
 ## 상태 관리 (State Management)
 
 - 메인 프로세스에서 싱글톤 패턴으로 전역 상태 관리
